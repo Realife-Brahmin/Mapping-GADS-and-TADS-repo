@@ -1,5 +1,1 @@
-x = 3
-y = 6
-z = x*y
-print(z)
-print("Hello World!")
+print("Yeah, when I'm happy with the jupyter notebook results I'll also make a regular .py copy of it here.")

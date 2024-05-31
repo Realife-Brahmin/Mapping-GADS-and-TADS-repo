@@ -1,0 +1,79 @@
+!table
+!version 450
+!charset WindowsLatin1
+
+Definition Table
+  Type Native charset "WindowsLatin1"
+  Fields 10
+    Weather_Station_Name char (75) Index 1 ;
+    Station_Call_ID char (5) Index 2 ;
+    Ground_Height_ft float ;
+    Station_Height_ft float ;
+    Barometer_Height_ft float ;
+    State_Abbrev char (4) Index 3 ;
+    County char (75) Index 4 ;
+    Data_Frequency char (6) ;
+    Entity_ID integer Index 5 ;
+    Layer_ID integer ;
+begin_metadata
+"\MapInfo" = ""
+"\MapInfo\TableID" = "9fd95f24-cc56-4e9c-a53d-69b7f1796b79"
+"\DisplayName" = "ohare-weather-station"
+"\Industry" = "Weather"
+"\legend" = ""
+"\legend\title" = "Weather Stations"
+"\legend\subtitle" = "Data Frequency"
+"\legend\column" = "Data_Frequency"
+"\legend\label" = "Data_Frequency"
+"\ItemID" = ""
+"\ItemID\Station_Call_ID" = "9629"
+"\ItemID\Ground_Height_ft" = "16731"
+"\ItemID\Station_Height_ft" = "16732"
+"\ItemID\Barometer_Height_ft" = "16733"
+"\ItemID\State_Abbrev" = "1003"
+"\ItemID\County" = "1005"
+"\ItemID\Entity_ID" = "9568"
+"\ItemID\Data_Frequency" = "25038"
+"\ItemID\Weather_Station_Name" = "9626"
+"\Entities" = "28"
+"\EntityType" = ""
+"\EntityType\28" = "Entity_ID"
+"\EntityType\28\LabelCol" = "Weather_Station_Name"
+"\EntityType\28\Unique" = "F"
+"\label" = ""
+"\label\LabelVisibility" = ""
+"\label\LabelVisibility\Visible" = "False"
+"\label\LabelVisibility\AllowOverlap" = "False"
+"\label\LabelVisibility\PartialObjects" = "False"
+"\label\LabelVisibility\AllowDuplicates" = "True"
+"\label\FontStyle" = ""
+"\label\FontStyle\Family" = "Arial"
+"\label\FontStyle\Size" = "6"
+"\label\FontStyle\Stroke" = "0,0,0"
+"\label\FontStyle\Effect-opacity" = "0.25"
+"\label\FontStyle\Effect-stroke" = "255,255,255"
+"\label\FontStyle\opacity" = "0.25"
+"\label\FontStyle\Effect" = "Halo"
+"\label\FontStyle\Bold" = "False"
+"\label\FontStyle\Underline" = "False"
+"\label\FontStyle\Shadow" = "False"
+"\label\FontStyle\Italic" = "False"
+"\label\FontStyle\Allcaps" = "False"
+"\label\FontStyle\Expanded" = "False"
+"\label\LabelRelativeOrientation" = ""
+"\label\LabelOffset" = "4"
+"\label\LabelAlignment" = ""
+"\label\LabelAlignment\Horizonal" = "Right"
+"\label\LabelAlignment\Vertical" = "Center"
+"\label\LabelCallout" = "None"
+"\label\LabelPriority" = ""
+"\label\LabelPriority\AttributeName" = ""
+"\label\LabelPriority\Descending" = "False"
+"\label\PerLayerLabelPriority" = "200"
+"\label\LabelString" = ""
+"\label\LabelString\Expression" = "Weather_Station_Name"
+"\InfoTip" = ""
+"\InfoTip\BriefExpression" = "Weather_Station_Name"
+"\InfoTip\Expression" = "'Weather Stations' + char(13) + 'Name: ' + Weather_Station_Name + char(13) + 'Station Height: ' + Station_Height_ft + ' ft' + char(13) + 'Data Frequency: ' + Data_Frequency"
+"\InfoTip\InfoTipVisibility" = "True"
+end_metadata

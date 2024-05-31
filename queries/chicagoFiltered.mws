@@ -1,0 +1,2393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkSpace name="" version="MXP_WorkSpace_1_5" date="2024-05-20T14:12:36-06:00" xmlns:gml="http://www.opengis.net/gml" xmlns="http://www.mapinfo.com/mxp">
+  <ConnectionSet />
+  <DataSourceDefinitionSet>
+    <TABFileDataSourceDefinition id="id1" readOnly="false">
+      <DataSourceName>background</DataSourceName>
+      <ConnectionMember>
+        <ConnectionName>default layer location</ConnectionName>
+      </ConnectionMember>
+      <FileName>background.TAB</FileName>
+    </TABFileDataSourceDefinition>
+    <TABFileDataSourceDefinition id="id2" readOnly="false">
+      <DataSourceName>counties</DataSourceName>
+      <ConnectionMember>
+        <ConnectionName>default layer location</ConnectionName>
+      </ConnectionMember>
+      <FileName>counties.TAB</FileName>
+    </TABFileDataSourceDefinition>
+    <TABFileDataSourceDefinition id="id3" readOnly="false">
+      <DataSourceName>countries</DataSourceName>
+      <ConnectionMember>
+        <ConnectionName>default layer location</ConnectionName>
+      </ConnectionMember>
+      <FileName>countries.TAB</FileName>
+    </TABFileDataSourceDefinition>
+    <TABFileDataSourceDefinition id="id4" readOnly="false">
+      <DataSourceName>e_transln</DataSourceName>
+      <ConnectionMember>
+        <ConnectionName>Default Layer Location</ConnectionName>
+      </ConnectionMember>
+      <FileName>e_transln.tab</FileName>
+    </TABFileDataSourceDefinition>
+    <TABFileDataSourceDefinition id="id5" readOnly="false">
+      <DataSourceName>oceans_2</DataSourceName>
+      <ConnectionMember>
+        <ConnectionName>default layer location</ConnectionName>
+      </ConnectionMember>
+      <FileName>oceans_2.TAB</FileName>
+    </TABFileDataSourceDefinition>
+    <TABFileDataSourceDefinition id="id7" readOnly="false">
+      <DataSourceName>states</DataSourceName>
+      <ConnectionMember>
+        <ConnectionName>default layer location</ConnectionName>
+      </ConnectionMember>
+      <FileName>states.TAB</FileName>
+    </TABFileDataSourceDefinition>
+    <TABFileDataSourceDefinition id="id8" readOnly="false">
+      <DataSourceName>wthr_stat</DataSourceName>
+      <ConnectionMember>
+        <ConnectionName>Default Layer Location</ConnectionName>
+      </ConnectionMember>
+      <FileName>wthr_stat.tab</FileName>
+    </TABFileDataSourceDefinition>
+    <TABFileDataSourceDefinition id="id9" readOnly="false">
+      <DataSourceName>_results_Electric_Transmissi</DataSourceName>
+      <FileName>chicagoFiltered_Layers\_results_Electric_Transmissi.tab</FileName>
+    </TABFileDataSourceDefinition>
+    <TABFileDataSourceDefinition id="id10" readOnly="false">
+      <DataSourceName>_results_Weather_Stations</DataSourceName>
+      <FileName>chicagoFiltered_Layers\_results_Weather_Stations.tab</FileName>
+    </TABFileDataSourceDefinition>
+  </DataSourceDefinitionSet>
+  <MapDefinitionSet defaultMapDefinition="a74fae7b-6ac7-4f65-9006-2654a0b306b3">
+    <MapDefinition id="id11" name="chicagoFiltered" alias="a74fae7b-6ac7-4f65-9006-2654a0b306b3" uniqueId="d7b39d64-1f66-4f34-bb1f-d541dc589e78">
+      <DisplayConditions>
+        <MapSize uom="mapinfo:imagesize pixel">
+          <ImageWidth>3207</ImageWidth>
+          <ImageHeight>1295</ImageHeight>
+        </MapSize>
+        <ZoomAndCenter>
+          <MapZoom uom="mapinfo:length mi">511.265977</MapZoom>
+          <gml:Point srsName="mapinfo:coordsys 1,104">
+            <gml:coordinates>-89.531773213754235,41.263092810397396</gml:coordinates>
+          </gml:Point>
+        </ZoomAndCenter>
+        <DisplayCoordSys>
+          <SRSName>mapinfo:coordsys 1,104</SRSName>
+        </DisplayCoordSys>
+        <ResizeMethod>preserveZoom</ResizeMethod>
+        <RasterConditions dither="halfTone" rasterReprojectionResampling="nearestNeighbor" rasterReprojection="none" trueColor="true" optimizeRasterLayers="screen" optimizeVectorLayers="screen" />
+        <RenderingOptions enableOpacity="true" enableAntiAlias="false" />
+      </DisplayConditions>
+      <LayerList>
+        <LabelLayer id="id12" name="DefaultLabels" alias="Layer1" volatile="unknown">
+          <Visibility visible="true">
+            <VisibleRange enabled="false">
+              <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 0</ZoomRange>
+            </VisibleRange>
+          </Visibility>
+          <LabelSourceList>
+            <LabelSource maxLabels="2147483647" name="states" alias="states">
+              <DataSourceRef ref="id7" />
+              <BaseLabelProperties>
+                <LabelProperties>
+                  <LabelVisibility visible="false" allowOverlap="false" allowDuplicates="all" allowOutOfView="false">
+                    <VisibleRange enabled="false">
+                      <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 100000</ZoomRange>
+                    </VisibleRange>
+                  </LabelVisibility>
+                  <LabelText justification="center">
+                    <BaseLabelStyle>
+                      <FontStyle family="Georgia" font-style="normal" effect="white" effect-opacity="0.502" effect-type="halo" font-weight="bold" text-decoration="none" text-case="upper" shadow="false" expand="true" size="9" size-unit="mapinfo:length pt" stroke="rgb(120,120,120)" stroke-opacity="0.6" />
+                    </BaseLabelStyle>
+                    <StringTokenList>
+                      <StringToken>
+                        <StringValueExpression>
+                          <AttributeName>Name</AttributeName>
+                        </StringValueExpression>
+                      </StringToken>
+                    </StringTokenList>
+                    <LabelCharacterLimit spacing="1">2147483647</LabelCharacterLimit>
+                  </LabelText>
+                  <LabelCallout visible="false" end="none">
+                    <LineStyle stroke="black" stroke-opacity="1" width="1" width-unit="mapinfo:imagesize pixel">
+                      <Pen>mapinfo:pen 2</Pen>
+                    </LineStyle>
+                  </LabelCallout>
+                  <LabelReferencePosition recalculate="outOfView">
+                    <LineLabelPositionInterval>0</LineLabelPositionInterval>
+                  </LabelReferencePosition>
+                  <LabelLayout>
+                    <Alignment>
+                      <HorizontalAlignment>center</HorizontalAlignment>
+                      <VerticalAlignment>center</VerticalAlignment>
+                    </Alignment>
+                    <Offset uom="mapinfo:imagesize pixel">
+                      <XOffset>0</XOffset>
+                      <YOffset>0</YOffset>
+                    </Offset>
+                    <LabelAngle uom="degrees" origin="referencePoint">0</LabelAngle>
+                  </LabelLayout>
+                  <LabelBaseSize useScale="false">
+                    <MapScale>0</MapScale>
+                  </LabelBaseSize>
+                  <LabelPriority>
+                    <MajorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression></MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MajorPriority>
+                    <MinorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression></MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MinorPriority>
+                  </LabelPriority>
+                </LabelProperties>
+              </BaseLabelProperties>
+              <LabelThemeList />
+            </LabelSource>
+            <LabelSource maxLabels="2147483647" name="counties" alias="counties">
+              <DataSourceRef ref="id2" />
+              <BaseLabelProperties>
+                <LabelProperties>
+                  <LabelVisibility visible="false" allowOverlap="false" allowDuplicates="all" allowOutOfView="false">
+                    <VisibleRange enabled="false">
+                      <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 100000</ZoomRange>
+                    </VisibleRange>
+                  </LabelVisibility>
+                  <LabelText justification="center">
+                    <BaseLabelStyle>
+                      <FontStyle family="Arial" font-style="normal" effect="white" effect-opacity="0.502" effect-type="halo" font-weight="bold" text-decoration="none" text-case="upper" shadow="false" expand="false" size="6" size-unit="mapinfo:length pt" stroke="black" stroke-opacity="0.251" />
+                    </BaseLabelStyle>
+                    <StringTokenList>
+                      <StringToken>
+                        <StringValueExpression>
+                          <AttributeName>County_Name</AttributeName>
+                        </StringValueExpression>
+                      </StringToken>
+                    </StringTokenList>
+                    <LabelCharacterLimit spacing="1">2147483647</LabelCharacterLimit>
+                  </LabelText>
+                  <LabelCallout visible="false" end="none">
+                    <LineStyle stroke="black" stroke-opacity="1" width="1" width-unit="mapinfo:imagesize pixel">
+                      <Pen>mapinfo:pen 2</Pen>
+                    </LineStyle>
+                  </LabelCallout>
+                  <LabelReferencePosition recalculate="outOfView">
+                    <LineLabelPositionInterval>0</LineLabelPositionInterval>
+                  </LabelReferencePosition>
+                  <LabelLayout>
+                    <Alignment>
+                      <HorizontalAlignment>center</HorizontalAlignment>
+                      <VerticalAlignment>center</VerticalAlignment>
+                    </Alignment>
+                    <Offset uom="mapinfo:imagesize pixel">
+                      <XOffset>0</XOffset>
+                      <YOffset>0</YOffset>
+                    </Offset>
+                    <LabelAngle uom="degrees" origin="referencePoint">0</LabelAngle>
+                  </LabelLayout>
+                  <LabelBaseSize useScale="false">
+                    <MapScale>0</MapScale>
+                  </LabelBaseSize>
+                  <LabelPriority>
+                    <MajorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression></MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MajorPriority>
+                    <MinorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression></MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MinorPriority>
+                  </LabelPriority>
+                </LabelProperties>
+              </BaseLabelProperties>
+              <LabelThemeList />
+            </LabelSource>
+            <LabelSource maxLabels="2147483647" name="countries" alias="countries">
+              <DataSourceRef ref="id3" />
+              <BaseLabelProperties>
+                <LabelProperties>
+                  <LabelVisibility visible="false" allowOverlap="false" allowDuplicates="all" allowOutOfView="false">
+                    <VisibleRange enabled="false">
+                      <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 100000</ZoomRange>
+                    </VisibleRange>
+                  </LabelVisibility>
+                  <LabelText justification="center">
+                    <BaseLabelStyle>
+                      <FontStyle family="Georgia" font-style="italic" effect="white" effect-opacity="0.502" effect-type="halo" font-weight="bold" text-decoration="none" text-case="upper" shadow="false" expand="true" size="10" size-unit="mapinfo:length pt" stroke="rgb(120,120,120)" stroke-opacity="0.753" />
+                    </BaseLabelStyle>
+                    <StringTokenList>
+                      <StringToken>
+                        <StringValueExpression>
+                          <AttributeName>Name</AttributeName>
+                        </StringValueExpression>
+                      </StringToken>
+                    </StringTokenList>
+                    <LabelCharacterLimit spacing="1">2147483647</LabelCharacterLimit>
+                  </LabelText>
+                  <LabelCallout visible="false" end="none">
+                    <LineStyle stroke="black" stroke-opacity="1" width="1" width-unit="mapinfo:imagesize pixel">
+                      <Pen>mapinfo:pen 2</Pen>
+                    </LineStyle>
+                  </LabelCallout>
+                  <LabelReferencePosition recalculate="outOfView">
+                    <LineLabelPositionInterval>0</LineLabelPositionInterval>
+                  </LabelReferencePosition>
+                  <LabelLayout>
+                    <Alignment>
+                      <HorizontalAlignment>center</HorizontalAlignment>
+                      <VerticalAlignment>center</VerticalAlignment>
+                    </Alignment>
+                    <Offset uom="mapinfo:imagesize pixel">
+                      <XOffset>0</XOffset>
+                      <YOffset>0</YOffset>
+                    </Offset>
+                    <LabelAngle uom="degrees" origin="referencePoint">0</LabelAngle>
+                  </LabelLayout>
+                  <LabelBaseSize useScale="false">
+                    <MapScale>0</MapScale>
+                  </LabelBaseSize>
+                  <LabelPriority>
+                    <MajorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression></MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MajorPriority>
+                    <MinorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression></MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MinorPriority>
+                  </LabelPriority>
+                </LabelProperties>
+              </BaseLabelProperties>
+              <LabelThemeList />
+            </LabelSource>
+            <LabelSource maxLabels="2147483647" name="oceans_2" alias="oceans_2">
+              <DataSourceRef ref="id5" />
+              <BaseLabelProperties>
+                <LabelProperties>
+                  <LabelVisibility visible="false" allowOverlap="false" allowDuplicates="all" allowOutOfView="false">
+                    <VisibleRange enabled="false">
+                      <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 100000</ZoomRange>
+                    </VisibleRange>
+                  </LabelVisibility>
+                  <LabelText justification="center">
+                    <BaseLabelStyle>
+                      <FontStyle family="Georgia" font-style="italic" effect="white" effect-opacity="0.502" effect-type="halo" font-weight="normal" text-decoration="none" text-case="default" shadow="false" expand="true" size="10" size-unit="mapinfo:length pt" stroke="black" stroke-opacity="0.502" />
+                    </BaseLabelStyle>
+                    <StringTokenList>
+                      <StringToken>
+                        <StringValueExpression>
+                          <AttributeName>Name</AttributeName>
+                        </StringValueExpression>
+                      </StringToken>
+                    </StringTokenList>
+                    <LabelCharacterLimit spacing="1">2147483647</LabelCharacterLimit>
+                  </LabelText>
+                  <LabelCallout visible="false" end="none">
+                    <LineStyle stroke="black" stroke-opacity="1" width="1" width-unit="mapinfo:imagesize pixel">
+                      <Pen>mapinfo:pen 2</Pen>
+                    </LineStyle>
+                  </LabelCallout>
+                  <LabelReferencePosition recalculate="outOfView">
+                    <LineLabelPositionInterval>0</LineLabelPositionInterval>
+                  </LabelReferencePosition>
+                  <LabelLayout>
+                    <Alignment>
+                      <HorizontalAlignment>center</HorizontalAlignment>
+                      <VerticalAlignment>center</VerticalAlignment>
+                    </Alignment>
+                    <Offset uom="mapinfo:imagesize pixel">
+                      <XOffset>0</XOffset>
+                      <YOffset>0</YOffset>
+                    </Offset>
+                    <LabelAngle uom="degrees" origin="referencePoint">0</LabelAngle>
+                  </LabelLayout>
+                  <LabelBaseSize useScale="false">
+                    <MapScale>0</MapScale>
+                  </LabelBaseSize>
+                  <LabelPriority>
+                    <MajorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression>50</MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MajorPriority>
+                    <MinorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression></MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MinorPriority>
+                  </LabelPriority>
+                </LabelProperties>
+              </BaseLabelProperties>
+              <LabelThemeList />
+            </LabelSource>
+            <LabelSource maxLabels="2147483647" name="background" alias="background">
+              <DataSourceRef ref="id1" />
+              <BaseLabelProperties>
+                <LabelProperties>
+                  <LabelVisibility visible="false" allowOverlap="false" allowDuplicates="all" allowOutOfView="false">
+                    <VisibleRange enabled="false">
+                      <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 100000</ZoomRange>
+                    </VisibleRange>
+                  </LabelVisibility>
+                  <LabelText justification="center">
+                    <BaseLabelStyle>
+                      <FontStyle family="Georgia" font-style="italic" effect="white" effect-opacity="0.502" effect-type="halo" font-weight="normal" text-decoration="none" text-case="default" shadow="false" expand="true" size="10" size-unit="mapinfo:length pt" stroke="black" stroke-opacity="0.502" />
+                    </BaseLabelStyle>
+                    <StringTokenList>
+                      <StringToken>
+                        <StringValueExpression>
+                          <AttributeName>Name</AttributeName>
+                        </StringValueExpression>
+                      </StringToken>
+                    </StringTokenList>
+                    <LabelCharacterLimit spacing="1">2147483647</LabelCharacterLimit>
+                  </LabelText>
+                  <LabelCallout visible="false" end="none">
+                    <LineStyle stroke="black" stroke-opacity="1" width="1" width-unit="mapinfo:imagesize pixel">
+                      <Pen>mapinfo:pen 2</Pen>
+                    </LineStyle>
+                  </LabelCallout>
+                  <LabelReferencePosition recalculate="outOfView">
+                    <LineLabelPositionInterval>0</LineLabelPositionInterval>
+                  </LabelReferencePosition>
+                  <LabelLayout>
+                    <Alignment>
+                      <HorizontalAlignment>center</HorizontalAlignment>
+                      <VerticalAlignment>center</VerticalAlignment>
+                    </Alignment>
+                    <Offset uom="mapinfo:imagesize pixel">
+                      <XOffset>0</XOffset>
+                      <YOffset>0</YOffset>
+                    </Offset>
+                    <LabelAngle uom="degrees" origin="referencePoint">0</LabelAngle>
+                  </LabelLayout>
+                  <LabelBaseSize useScale="false">
+                    <MapScale>0</MapScale>
+                  </LabelBaseSize>
+                  <LabelPriority>
+                    <MajorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression>50</MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MajorPriority>
+                    <MinorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression></MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MinorPriority>
+                  </LabelPriority>
+                </LabelProperties>
+              </BaseLabelProperties>
+              <LabelThemeList />
+            </LabelSource>
+            <LabelSource maxLabels="2147483647" name="e_transln" alias="e_transln">
+              <Visibility visible="false">
+                <VisibleRange enabled="false">
+                  <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 100000</ZoomRange>
+                </VisibleRange>
+              </Visibility>
+              <DataSourceRef ref="id4" />
+              <BaseLabelProperties>
+                <LabelProperties>
+                  <LabelVisibility visible="false" allowOverlap="false" allowDuplicates="all" allowOutOfView="true">
+                    <VisibleRange enabled="false">
+                      <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 100000</ZoomRange>
+                    </VisibleRange>
+                  </LabelVisibility>
+                  <LabelText justification="center">
+                    <BaseLabelStyle>
+                      <FontStyle family="Arial" font-style="normal" effect="white" effect-opacity="0.902" effect-type="halo" font-weight="normal" text-decoration="none" text-case="default" shadow="false" expand="false" size="7" size-unit="mapinfo:length pt" stroke="black" stroke-opacity="0.902" />
+                    </BaseLabelStyle>
+                    <StringTokenList>
+                      <StringToken>
+                        <StringValueExpression>
+                          <MapinfoStringExpression>Company_Name + ' ' + Voltage_kV + ' kV'</MapinfoStringExpression>
+                        </StringValueExpression>
+                      </StringToken>
+                    </StringTokenList>
+                    <LabelCharacterLimit spacing="1">2147483647</LabelCharacterLimit>
+                  </LabelText>
+                  <LabelCallout visible="false" end="none">
+                    <LineStyle stroke="black" stroke-opacity="1" width="1" width-unit="mapinfo:imagesize pixel">
+                      <Pen>mapinfo:pen 2</Pen>
+                    </LineStyle>
+                  </LabelCallout>
+                  <LabelReferencePosition recalculate="outOfView">
+                    <LineLabelPositionInterval>0</LineLabelPositionInterval>
+                  </LabelReferencePosition>
+                  <LabelLayout>
+                    <Alignment>
+                      <HorizontalAlignment>center</HorizontalAlignment>
+                      <VerticalAlignment>bottom</VerticalAlignment>
+                    </Alignment>
+                    <Offset uom="mapinfo:imagesize pixel">
+                      <XOffset>0</XOffset>
+                      <YOffset>-2</YOffset>
+                    </Offset>
+                    <LabelRelativeOrientation>followPath</LabelRelativeOrientation>
+                  </LabelLayout>
+                  <LabelBaseSize useScale="false">
+                    <MapScale>0</MapScale>
+                  </LabelBaseSize>
+                  <LabelPriority>
+                    <MajorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression>250</MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MajorPriority>
+                    <MinorPriority>
+                      <NumericValueExpression>
+                        <AttributeName>Voltage_kV</AttributeName>
+                      </NumericValueExpression>
+                    </MinorPriority>
+                  </LabelPriority>
+                </LabelProperties>
+              </BaseLabelProperties>
+              <LabelThemeList />
+            </LabelSource>
+            <LabelSource maxLabels="2147483647" name="wthr_stat" alias="wthr_stat">
+              <Visibility visible="false">
+                <VisibleRange enabled="false">
+                  <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 100000</ZoomRange>
+                </VisibleRange>
+              </Visibility>
+              <DataSourceRef ref="id8" />
+              <BaseLabelProperties>
+                <LabelProperties>
+                  <LabelVisibility visible="false" allowOverlap="false" allowDuplicates="all" allowOutOfView="false">
+                    <VisibleRange enabled="false">
+                      <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 100000</ZoomRange>
+                    </VisibleRange>
+                  </LabelVisibility>
+                  <LabelText justification="left">
+                    <BaseLabelStyle>
+                      <FontStyle family="Arial" font-style="normal" effect="white" effect-opacity="0.749" effect-type="halo" font-weight="normal" text-decoration="none" text-case="default" shadow="false" expand="false" size="6" size-unit="mapinfo:length pt" stroke="black" stroke-opacity="0.749" />
+                    </BaseLabelStyle>
+                    <StringTokenList>
+                      <StringToken>
+                        <StringValueExpression>
+                          <AttributeName>Weather_Station_Name</AttributeName>
+                        </StringValueExpression>
+                      </StringToken>
+                    </StringTokenList>
+                    <LabelCharacterLimit spacing="1">2147483647</LabelCharacterLimit>
+                  </LabelText>
+                  <LabelCallout visible="false" end="none">
+                    <LineStyle stroke="black" stroke-opacity="1" width="1" width-unit="mapinfo:imagesize pixel">
+                      <Pen>mapinfo:pen 2</Pen>
+                    </LineStyle>
+                  </LabelCallout>
+                  <LabelReferencePosition recalculate="outOfView">
+                    <LineLabelPositionInterval>0</LineLabelPositionInterval>
+                  </LabelReferencePosition>
+                  <LabelLayout>
+                    <Alignment>
+                      <HorizontalAlignment>left</HorizontalAlignment>
+                      <VerticalAlignment>center</VerticalAlignment>
+                    </Alignment>
+                    <Offset uom="mapinfo:imagesize pixel">
+                      <XOffset>4</XOffset>
+                      <YOffset>0</YOffset>
+                    </Offset>
+                    <LabelAngle uom="degrees" origin="referencePoint">0</LabelAngle>
+                  </LabelLayout>
+                  <LabelBaseSize useScale="false">
+                    <MapScale>0</MapScale>
+                  </LabelBaseSize>
+                  <LabelPriority>
+                    <MajorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression>200</MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MajorPriority>
+                    <MinorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression></MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MinorPriority>
+                  </LabelPriority>
+                </LabelProperties>
+              </BaseLabelProperties>
+              <LabelThemeList />
+            </LabelSource>
+            <LabelSource maxLabels="2147483647" name="_results_Weather_Stations" alias="_results_Weather_Stations">
+              <DataSourceRef ref="id10" />
+              <BaseLabelProperties>
+                <LabelProperties>
+                  <LabelVisibility visible="false" allowOverlap="false" allowDuplicates="all" allowOutOfView="false">
+                    <VisibleRange enabled="false">
+                      <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 100000</ZoomRange>
+                    </VisibleRange>
+                  </LabelVisibility>
+                  <LabelText justification="left">
+                    <BaseLabelStyle>
+                      <FontStyle family="Arial" font-style="normal" effect="white" effect-opacity="0.749" effect-type="halo" font-weight="normal" text-decoration="none" text-case="default" shadow="false" expand="false" size="6" size-unit="mapinfo:length pt" stroke="black" stroke-opacity="0.749" />
+                    </BaseLabelStyle>
+                    <StringTokenList>
+                      <StringToken>
+                        <StringValueExpression>
+                          <AttributeName>Weather_Station_Name</AttributeName>
+                        </StringValueExpression>
+                      </StringToken>
+                    </StringTokenList>
+                    <LabelCharacterLimit spacing="1">2147483647</LabelCharacterLimit>
+                  </LabelText>
+                  <LabelCallout visible="false" end="none">
+                    <LineStyle stroke="black" stroke-opacity="1" width="1" width-unit="mapinfo:imagesize pixel">
+                      <Pen>mapinfo:pen 2</Pen>
+                    </LineStyle>
+                  </LabelCallout>
+                  <LabelReferencePosition recalculate="outOfView">
+                    <LineLabelPositionInterval>0</LineLabelPositionInterval>
+                  </LabelReferencePosition>
+                  <LabelLayout>
+                    <Alignment>
+                      <HorizontalAlignment>left</HorizontalAlignment>
+                      <VerticalAlignment>center</VerticalAlignment>
+                    </Alignment>
+                    <Offset uom="mapinfo:imagesize pixel">
+                      <XOffset>4</XOffset>
+                      <YOffset>0</YOffset>
+                    </Offset>
+                    <LabelAngle uom="degrees" origin="referencePoint">0</LabelAngle>
+                  </LabelLayout>
+                  <LabelBaseSize useScale="false">
+                    <MapScale>0</MapScale>
+                  </LabelBaseSize>
+                  <LabelPriority>
+                    <MajorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression>200</MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MajorPriority>
+                    <MinorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression></MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MinorPriority>
+                  </LabelPriority>
+                </LabelProperties>
+              </BaseLabelProperties>
+              <LabelThemeList />
+            </LabelSource>
+            <LabelSource maxLabels="2147483647" name="_results_Electric_Transmissi" alias="_results_Electric_Transmissi">
+              <DataSourceRef ref="id9" />
+              <BaseLabelProperties>
+                <LabelProperties>
+                  <LabelVisibility visible="false" allowOverlap="false" allowDuplicates="all" allowOutOfView="true">
+                    <VisibleRange enabled="false">
+                      <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 100000</ZoomRange>
+                    </VisibleRange>
+                  </LabelVisibility>
+                  <LabelText justification="center">
+                    <BaseLabelStyle>
+                      <FontStyle family="Arial" font-style="normal" effect="white" effect-opacity="0.902" effect-type="halo" font-weight="normal" text-decoration="none" text-case="default" shadow="false" expand="false" size="7" size-unit="mapinfo:length pt" stroke="black" stroke-opacity="0.902" />
+                    </BaseLabelStyle>
+                    <StringTokenList>
+                      <StringToken>
+                        <StringValueExpression>
+                          <MapinfoStringExpression>Company_Name + ' ' + Voltage_kV + ' kV'</MapinfoStringExpression>
+                        </StringValueExpression>
+                      </StringToken>
+                    </StringTokenList>
+                    <LabelCharacterLimit spacing="1">2147483647</LabelCharacterLimit>
+                  </LabelText>
+                  <LabelCallout visible="false" end="none">
+                    <LineStyle stroke="black" stroke-opacity="1" width="1" width-unit="mapinfo:imagesize pixel">
+                      <Pen>mapinfo:pen 2</Pen>
+                    </LineStyle>
+                  </LabelCallout>
+                  <LabelReferencePosition recalculate="outOfView">
+                    <LineLabelPositionInterval>0</LineLabelPositionInterval>
+                  </LabelReferencePosition>
+                  <LabelLayout>
+                    <Alignment>
+                      <HorizontalAlignment>center</HorizontalAlignment>
+                      <VerticalAlignment>bottom</VerticalAlignment>
+                    </Alignment>
+                    <Offset uom="mapinfo:imagesize pixel">
+                      <XOffset>0</XOffset>
+                      <YOffset>-2</YOffset>
+                    </Offset>
+                    <LabelRelativeOrientation>followPath</LabelRelativeOrientation>
+                  </LabelLayout>
+                  <LabelBaseSize useScale="false">
+                    <MapScale>0</MapScale>
+                  </LabelBaseSize>
+                  <LabelPriority>
+                    <MajorPriority>
+                      <NumericValueExpression>
+                        <MapinfoNumericExpression>250</MapinfoNumericExpression>
+                      </NumericValueExpression>
+                    </MajorPriority>
+                    <MinorPriority>
+                      <NumericValueExpression>
+                        <AttributeName>Voltage_kV</AttributeName>
+                      </NumericValueExpression>
+                    </MinorPriority>
+                  </LabelPriority>
+                </LabelProperties>
+              </BaseLabelProperties>
+              <LabelThemeList />
+            </LabelSource>
+          </LabelSourceList>
+        </LabelLayer>
+        <FeatureLayer id="id13" name="_results_Weather_Stations" alias="_results_Weather_Stations" volatile="unknown">
+          <Visibility visible="true">
+            <VisibleRange enabled="false">
+              <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 0</ZoomRange>
+            </VisibleRange>
+          </Visibility>
+          <DataSourceRef ref="id10" />
+        </FeatureLayer>
+        <FeatureLayer id="id14" name="Weather Stations" alias="wthr_stat" volatile="unknown">
+          <Visibility visible="false">
+            <VisibleRange enabled="false">
+              <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 0</ZoomRange>
+            </VisibleRange>
+          </Visibility>
+          <DataSourceRef ref="id8" />
+        </FeatureLayer>
+        <FeatureLayer id="id15" name="_results_Electric_Transmissi" alias="_results_Electric_Transmissi" volatile="unknown">
+          <Visibility visible="true">
+            <VisibleRange enabled="false">
+              <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 0</ZoomRange>
+            </VisibleRange>
+          </Visibility>
+          <DataSourceRef ref="id9" />
+        </FeatureLayer>
+        <FeatureLayer id="id16" name="Electric Transmission Lines" alias="e_transln" volatile="unknown">
+          <Visibility visible="false">
+            <VisibleRange enabled="false">
+              <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 0</ZoomRange>
+            </VisibleRange>
+          </Visibility>
+          <DataSourceRef ref="id4" />
+        </FeatureLayer>
+        <FeatureLayer id="id17" name="States and Provinces" alias="states" volatile="unknown">
+          <Visibility visible="true">
+            <VisibleRange enabled="true">
+              <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 10000</ZoomRange>
+            </VisibleRange>
+          </Visibility>
+          <DataSourceRef ref="id7" />
+        </FeatureLayer>
+        <FeatureLayer id="id18" name="Counties" alias="counties" volatile="unknown">
+          <Visibility visible="true">
+            <VisibleRange enabled="true">
+              <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="true">0 500</ZoomRange>
+            </VisibleRange>
+          </Visibility>
+          <DataSourceRef ref="id2" />
+        </FeatureLayer>
+        <FeatureLayer id="id19" name="Countries" alias="countries" volatile="unknown">
+          <Visibility visible="true">
+            <VisibleRange enabled="false">
+              <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 0</ZoomRange>
+            </VisibleRange>
+          </Visibility>
+          <DataSourceRef ref="id3" />
+        </FeatureLayer>
+        <FeatureLayer id="id20" name="Oceans London Fog" alias="oceans_2" volatile="unknown">
+          <Visibility visible="true">
+            <VisibleRange enabled="false">
+              <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 0</ZoomRange>
+            </VisibleRange>
+          </Visibility>
+          <DataSourceRef ref="id5" />
+        </FeatureLayer>
+        <FeatureLayer id="id21" name="Background" alias="background" volatile="unknown">
+          <Visibility visible="true">
+            <VisibleRange enabled="false">
+              <ZoomRange uom="mapinfo:length mi" minInclusive="true" maxInclusive="false">0 0</ZoomRange>
+            </VisibleRange>
+          </Visibility>
+          <DataSourceRef ref="id1" />
+        </FeatureLayer>
+      </LayerList>
+      <MapLegendSet>
+        <MapLegend id="id22" name="EnergyMapLegend" alias="EnergyMapLegend" autoLayout="true">
+          <MapLegendFrame>
+            <AreaStyle>
+              <LineStyle stroke="gray" stroke-opacity="1" width="2" width-unit="mapinfo:imagesize pixel">
+                <Pen>mapinfo:pen 2</Pen>
+              </LineStyle>
+              <Interior fill-opacity="1" fill="(#id23)">
+                <Defs>
+                  <Pattern id="id23">
+                    <Bitmap>
+                      <ColorAdjustmentSet>
+                        <ColorAdjustment color-1="nonWhite" color-2="white" opacity="1" />
+                      </ColorAdjustmentSet>
+                    </Bitmap>
+                  </Pattern>
+                </Defs>
+              </Interior>
+            </AreaStyle>
+          </MapLegendFrame>
+          <LegendList />
+          <LegendLayout>
+            <LegendFrameSpacing uom="mapinfo:imagesize pixel">
+              <VerticalSpacing>0</VerticalSpacing>
+              <HorizontalSpacing>0</HorizontalSpacing>
+            </LegendFrameSpacing>
+            <LegendFrameAlignment>
+              <VerticalAlignment>default</VerticalAlignment>
+            </LegendFrameAlignment>
+          </LegendLayout>
+        </MapLegend>
+      </MapLegendSet>
+    </MapDefinition>
+  </MapDefinitionSet>
+  <MapinfoApplicationData>
+    <MapXtremeWindows>
+      <MapToolsSet>
+        <MapTools ref="id11">
+          <BaseMapToolProperties>
+            <MapToolProperties>
+              <InfotipProperties>
+                <MapToolFilter name="MapInfo.Tools.MapToolsDefault.InfoTipLayers">
+                  <MapToolInitialFilter>
+                    <MapLayerTypeFilter types="drillDown grid vector raster seamless wms" />
+                  </MapToolInitialFilter>
+                  <LayerInclude refs="id13 id14 id15 id16 id18 id20 id21" />
+                  <LayerExclude refs="id12 id17 id19" />
+                  <MapToolFinalFilter>
+                    <MapLayerVisibilityFilter useVisible="true" useNotVisible="false" />
+                  </MapToolFinalFilter>
+                </MapToolFilter>
+                <InfotipExpressionSet>
+                  <InfotipExpression ref="id18">
+                    <StringValueExpression>
+                      <MapinfoStringExpression>County_Name</MapinfoStringExpression>
+                    </StringValueExpression>
+                  </InfotipExpression>
+                  <InfotipExpression ref="id16">
+                    <StringValueExpression>
+                      <MapinfoStringExpression>'Electric Transmission Lines' + char(13) + 'Owner: ' + Company_Name + Char(13) + 'Status: ' +  Proposed + char(13) + 'Voltage: ' + Voltage_kv + ' kV' + char(13) +  'From: ' + From_Sub + char(13) + 'To: ' + To_Sub + char(13) + 'Notes: ' + Notes</MapinfoStringExpression>
+                    </StringValueExpression>
+                  </InfotipExpression>
+                  <InfotipExpression ref="id15">
+                    <StringValueExpression>
+                      <MapinfoStringExpression>'Electric Transmission Lines' + char(13) + 'Owner: ' + Company_Name + Char(13) + 'Status: ' +  Proposed + char(13) + 'Voltage: ' + Voltage_kv + ' kV' + char(13) +  'From: ' + From_Sub + char(13) + 'To: ' + To_Sub + char(13) + 'Notes: ' + Notes</MapinfoStringExpression>
+                    </StringValueExpression>
+                  </InfotipExpression>
+                  <InfotipExpression ref="id20">
+                    <StringValueExpression>
+                      <MapinfoStringExpression>Name</MapinfoStringExpression>
+                    </StringValueExpression>
+                  </InfotipExpression>
+                  <InfotipExpression ref="id14">
+                    <StringValueExpression>
+                      <MapinfoStringExpression>'Weather Stations' + char(13) + 'Name: ' + Weather_Station_Name + char(13) + 'Station Height: ' + Station_Height_ft + ' ft' + char(13) + 'Data Frequency: ' + Data_Frequency</MapinfoStringExpression>
+                    </StringValueExpression>
+                  </InfotipExpression>
+                  <InfotipExpression ref="id13">
+                    <StringValueExpression>
+                      <MapinfoStringExpression>'Weather Stations' + char(13) + 'Name: ' + Weather_Station_Name + char(13) + 'Station Height: ' + Station_Height_ft + ' ft' + char(13) + 'Data Frequency: ' + Data_Frequency</MapinfoStringExpression>
+                    </StringValueExpression>
+                  </InfotipExpression>
+                  <InfotipExpression ref="id21">
+                    <StringValueExpression>
+                      <MapinfoStringExpression>Name</MapinfoStringExpression>
+                    </StringValueExpression>
+                  </InfotipExpression>
+                </InfotipExpressionSet>
+              </InfotipProperties>
+              <SnapToNodeProperties>
+                <MapToolFilter name="MapInfo.Tools.MapToolsDefault.SnapLayers">
+                  <MapToolInitialFilter>
+                    <MapLayerTypeFilter types="vector" />
+                  </MapToolInitialFilter>
+                  <LayerInclude refs="id13 id14 id15 id16 id17 id18 id19 id20 id21" />
+                  <LayerExclude refs="id12" />
+                  <MapToolFinalFilter>
+                    <MapLayerVisibilityFilter useVisible="true" useNotVisible="false" />
+                  </MapToolFinalFilter>
+                </MapToolFilter>
+              </SnapToNodeProperties>
+            </MapToolProperties>
+          </BaseMapToolProperties>
+          <BaseInsertionToolProperties>
+            <InsertionToolProperties>
+              <MapToolFilter name="MapInfo.Tools.MapToolsDefault.InsertionLayers">
+                <MapToolInitialFilter>
+                  <MapLayerVisibilityFilter useVisible="false" useNotVisible="false" />
+                </MapToolInitialFilter>
+                <LayerExclude refs="id12 id13 id14 id15 id16 id17 id18 id19 id20 id21" />
+                <MapToolFinalFilter>
+                  <MapLayerVisibilityFilter useVisible="true" useNotVisible="false" />
+                </MapToolFinalFilter>
+              </MapToolFilter>
+            </InsertionToolProperties>
+          </BaseInsertionToolProperties>
+          <BaseSelectionToolProperties>
+            <SelectionToolProperties>
+              <SelectionProperties>
+                <MapToolFilter name="MapInfo.Tools.MapToolsDefault.SelectLayers">
+                  <MapToolInitialFilter>
+                    <MapLayerTypeFilter types="vector" />
+                  </MapToolInitialFilter>
+                  <LayerInclude refs="id12 id17" />
+                  <LayerExclude refs="id13 id14 id15 id16 id18 id19 id20 id21" />
+                  <MapToolFinalFilter>
+                    <MapLayerVisibilityFilter useVisible="true" useNotVisible="false" />
+                  </MapToolFinalFilter>
+                </MapToolFilter>
+              </SelectionProperties>
+              <EditingProperties>
+                <MapToolFilter name="MapInfo.Tools.MapToolsDefault.EditLayers">
+                  <MapToolInitialFilter>
+                    <MapLayerVisibilityFilter useVisible="false" useNotVisible="false" />
+                  </MapToolInitialFilter>
+                  <LayerExclude refs="id12 id13 id14 id15 id16 id17 id18 id19 id20 id21" />
+                  <MapToolFinalFilter>
+                    <MapLayerVisibilityFilter useVisible="true" useNotVisible="false" />
+                  </MapToolFinalFilter>
+                </MapToolFilter>
+              </EditingProperties>
+            </SelectionToolProperties>
+          </BaseSelectionToolProperties>
+        </MapTools>
+      </MapToolsSet>
+    </MapXtremeWindows>
+  </MapinfoApplicationData>
+  <UserData>
+    <GroupContainer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
+      <myGroups>
+        <Group>
+          <RootOrder>1</RootOrder>
+          <GroupName>Electric Infrastructure</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>e_units</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>e_plants</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>e_substn</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>e_transln</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>flowgates</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>e_transpaths</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ac_dc_ac_ties</LayerAlias>
+              <GroupOrder>6</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>FAA_wind</LayerAlias>
+              <GroupOrder>7</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>wind_farms</LayerAlias>
+              <GroupOrder>8</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>e_wind_turbines</LayerAlias>
+              <GroupOrder>9</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>2</RootOrder>
+          <GroupName>Natural Gas Infrastructure</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>ng_stgfac</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ng_flows</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ng_recdel</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ng_lng</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ng_processing</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>platforms</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ng_pipe</LayerAlias>
+              <GroupOrder>6</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>gen_pipe</LayerAlias>
+              <GroupOrder>7</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>NG_Storage_Regions</LayerAlias>
+              <GroupOrder>8</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>hg_pipe</LayerAlias>
+              <GroupOrder>9</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>hg_proc_fac</LayerAlias>
+              <GroupOrder>10</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>3</RootOrder>
+          <GroupName>Coal Infrastructure</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>mines</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>coal_docks</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>mineral_mines</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>upi</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>railroads</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>maj_railroads</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>SPLC</LayerAlias>
+              <GroupOrder>6</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>nav_water</LayerAlias>
+              <GroupOrder>7</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>4</RootOrder>
+          <GroupName>Oil Infrastructure</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>oil_refineries</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>strategic_petro_reserves</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>maj_oil_pipe</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>Crude_Oil_Rail_Terminals</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>CO2_pipe</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>Petroleum_Ports</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>5</RootOrder>
+          <GroupName>ISO Market Indicators</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>lmp_points</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>iso_interfaces</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>iso_zones</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>load_regions</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ancillary_regions</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>Capacity_Market_Regions</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>iso_gen_zones</LayerAlias>
+              <GroupOrder>6</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>6</RootOrder>
+          <GroupName>Market Indicators</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>NYMEX_Points</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>enfx_pp</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>eqr_hubs</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ng_imp_exp_pts</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ng_hubs</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ice</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>VS_Gas_Indices</LayerAlias>
+              <GroupOrder>6</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>NGI_Hubs</LayerAlias>
+              <GroupOrder>7</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>7</RootOrder>
+          <GroupName>Advisors Topology</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>trnsact_zones_pts</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>trnsact_zones</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>trnsact_grp</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>trnsact_pth</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>trnsact_grp_reg</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>assmnt_areas</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>IRA</LayerAlias>
+              <GroupOrder>6</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>8</RootOrder>
+          <GroupName>Utility Service Territories</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>e_serv</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>e_hold</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ng_ldc</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ng_hold</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>9</RootOrder>
+          <GroupName>Electric Operational Regions</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>ctl_area</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>BA_Interchange_Paths</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>BA_Interchange_Points</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>pln_area</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>RTO</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>iso</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>nerc_reg</LayerAlias>
+              <GroupOrder>6</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>rel_coor</LayerAlias>
+              <GroupOrder>7</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>emm_regions</LayerAlias>
+              <GroupOrder>8</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>NERC_Assmnt</LayerAlias>
+              <GroupOrder>9</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>10</RootOrder>
+          <GroupName>Energy Regulations</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>rps_states</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>rrc_dist</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>msha_districts</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>11</RootOrder>
+          <GroupName>Fossil Fuel Regions</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>ng_basins</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>oil_and_gas_fields</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ng_shaleplays</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ng_tightgasplays</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>coal_reg</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>coal_bsn</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>coal_area</LayerAlias>
+              <GroupOrder>6</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>coal_fld</LayerAlias>
+              <GroupOrder>7</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>gulf_blocks</LayerAlias>
+              <GroupOrder>8</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>gulf_areas</LayerAlias>
+              <GroupOrder>9</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>gulf_districts</LayerAlias>
+              <GroupOrder>10</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>12</RootOrder>
+          <GroupName>Geopolitical Regions</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>counties</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>congress</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>states</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>state_lands</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>countries</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>fed_lands</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>Cls_1_lnds</LayerAlias>
+              <GroupOrder>6</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>timezones</LayerAlias>
+              <GroupOrder>7</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>13</RootOrder>
+          <GroupName>Demographic Data</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>cities</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>maj_cities</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>urb_area</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>zip</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ZCTA</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>tracts</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>census_div</LayerAlias>
+              <GroupOrder>6</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>Census_reg</LayerAlias>
+              <GroupOrder>7</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>msa</LayerAlias>
+              <GroupOrder>8</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>14</RootOrder>
+          <GroupName>Hydrologic Features</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>gage_sts</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>wwtp</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>snotel</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>wtshd_subbasins</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>wtshd_basins</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>wtshd_regions</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>forecast_bsn</LayerAlias>
+              <GroupOrder>6</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>rivers</LayerAlias>
+              <GroupOrder>7</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>maj_rivers</LayerAlias>
+              <GroupOrder>8</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>lakes</LayerAlias>
+              <GroupOrder>9</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>aquifer</LayerAlias>
+              <GroupOrder>10</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>oceans</LayerAlias>
+              <GroupOrder>11</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>oceans_2</LayerAlias>
+              <GroupOrder>12</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>15</RootOrder>
+          <GroupName>Climate Data</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>wthr_stat</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>stormtracks</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>clim_bdry</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>tornado_paths</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>solar_DNI</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>solar_GHI</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>solar_latilt</LayerAlias>
+              <GroupOrder>6</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>graticule</LayerAlias>
+              <GroupOrder>7</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>methane_emissions</LayerAlias>
+              <GroupOrder>8</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>16</RootOrder>
+          <GroupName>Reference Data</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>allcompanies</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>airports</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>Indust_fac</LayerAlias>
+              <GroupOrder>2</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>maj_road</LayerAlias>
+              <GroupOrder>3</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>alt_fuels</LayerAlias>
+              <GroupOrder>4</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>ethanol_plants</LayerAlias>
+              <GroupOrder>5</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>background</LayerAlias>
+              <GroupOrder>6</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>data_cntrs</LayerAlias>
+              <GroupOrder>7</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>rtl_cntrs</LayerAlias>
+              <GroupOrder>8</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+        <Group>
+          <RootOrder>0</RootOrder>
+          <GroupName>IM Query Results</GroupName>
+          <Layers>
+            <ContainedLayer>
+              <LayerAlias>_results_Weather_Stations</LayerAlias>
+              <GroupOrder>0</GroupOrder>
+            </ContainedLayer>
+            <ContainedLayer>
+              <LayerAlias>_results_Electric_Transmissi</LayerAlias>
+              <GroupOrder>1</GroupOrder>
+            </ContainedLayer>
+          </Layers>
+        </Group>
+      </myGroups>
+    </GroupContainer>
+    <LegendContainer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
+      <myLegends>
+        <ContainedLegend>
+          <Order>0</Order>
+          <LegendName>states</LegendName>
+          <LegendObject>
+            <CompactLegend>false</CompactLegend>
+            <ShowFrame>true</ShowFrame>
+            <ShowCount>false</ShowCount>
+            <ShowEmptyRanges>false</ShowEmptyRanges>
+            <Order>0</Order>
+            <Visible>true</Visible>
+            <LayerAlias>states</LayerAlias>
+            <ModifierAlias />
+            <BackGroundColor />
+            <Title />
+            <SubTitle />
+            <TitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </TitleFont>
+            <TitleFontForeColor>-16777216</TitleFontForeColor>
+            <TitleFontBackColor>-1</TitleFontBackColor>
+            <SubTitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </SubTitleFont>
+            <SubTitleFontForeColor>-16777216</SubTitleFontForeColor>
+            <SubTitleFontBackColor>-1</SubTitleFontBackColor>
+            <RowFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </RowFont>
+            <RowFontForeColor>-16777216</RowFontForeColor>
+            <RowFontBackColor>-1</RowFontBackColor>
+            <EVLegendFrameRows>
+              <LegendFrameRow>
+                <Manual>false</Manual>
+                <Text>States and Provinces</Text>
+                <Visible>true</Visible>
+                <LineStyle>
+                  <Attributes>SimpleLineAll</Attributes>
+                  <Width />
+                  <Color />
+                  <Pattern>2</Pattern>
+                  <Interleaved>false</Interleaved>
+                </LineStyle>
+                <InteriorStyle>
+                  <Attributes>SimpleInteriorAll</Attributes>
+                  <Pattern>1</Pattern>
+                  <ForeColor />
+                  <BackColor />
+                  <Transparent>false</Transparent>
+                </InteriorStyle>
+              </LegendFrameRow>
+            </EVLegendFrameRows>
+          </LegendObject>
+        </ContainedLegend>
+        <ContainedLegend>
+          <Order>0</Order>
+          <LegendName>counties</LegendName>
+          <LegendObject>
+            <CompactLegend>false</CompactLegend>
+            <ShowFrame>true</ShowFrame>
+            <ShowCount>false</ShowCount>
+            <ShowEmptyRanges>false</ShowEmptyRanges>
+            <Order>-1</Order>
+            <Visible>true</Visible>
+            <LayerAlias>counties</LayerAlias>
+            <ModifierAlias />
+            <BackGroundColor />
+            <Title />
+            <SubTitle />
+            <TitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </TitleFont>
+            <TitleFontForeColor>0</TitleFontForeColor>
+            <TitleFontBackColor>0</TitleFontBackColor>
+            <SubTitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </SubTitleFont>
+            <SubTitleFontForeColor>0</SubTitleFontForeColor>
+            <SubTitleFontBackColor>0</SubTitleFontBackColor>
+            <RowFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </RowFont>
+            <RowFontForeColor>0</RowFontForeColor>
+            <RowFontBackColor>0</RowFontBackColor>
+            <EVLegendFrameRows />
+          </LegendObject>
+        </ContainedLegend>
+        <ContainedLegend>
+          <Order>0</Order>
+          <LegendName>countries</LegendName>
+          <LegendObject>
+            <CompactLegend>false</CompactLegend>
+            <ShowFrame>true</ShowFrame>
+            <ShowCount>false</ShowCount>
+            <ShowEmptyRanges>false</ShowEmptyRanges>
+            <Order>1</Order>
+            <Visible>true</Visible>
+            <LayerAlias>countries</LayerAlias>
+            <ModifierAlias />
+            <BackGroundColor />
+            <Title />
+            <SubTitle />
+            <TitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </TitleFont>
+            <TitleFontForeColor>-16777216</TitleFontForeColor>
+            <TitleFontBackColor>-1</TitleFontBackColor>
+            <SubTitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </SubTitleFont>
+            <SubTitleFontForeColor>-16777216</SubTitleFontForeColor>
+            <SubTitleFontBackColor>-1</SubTitleFontBackColor>
+            <RowFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </RowFont>
+            <RowFontForeColor>-16777216</RowFontForeColor>
+            <RowFontBackColor>-1</RowFontBackColor>
+            <EVLegendFrameRows>
+              <LegendFrameRow>
+                <Manual>false</Manual>
+                <Text>Countries</Text>
+                <Visible>true</Visible>
+                <LineStyle>
+                  <Attributes>SimpleLineAll</Attributes>
+                  <Width />
+                  <Color />
+                  <Pattern>2</Pattern>
+                  <Interleaved>false</Interleaved>
+                </LineStyle>
+                <InteriorStyle>
+                  <Attributes>SimpleInteriorAll</Attributes>
+                  <Pattern>1</Pattern>
+                  <ForeColor />
+                  <BackColor />
+                  <Transparent>false</Transparent>
+                </InteriorStyle>
+              </LegendFrameRow>
+            </EVLegendFrameRows>
+          </LegendObject>
+        </ContainedLegend>
+        <ContainedLegend>
+          <Order>0</Order>
+          <LegendName>oceans_2</LegendName>
+          <LegendObject>
+            <CompactLegend>false</CompactLegend>
+            <ShowFrame>true</ShowFrame>
+            <ShowCount>false</ShowCount>
+            <ShowEmptyRanges>false</ShowEmptyRanges>
+            <Order>2</Order>
+            <Visible>true</Visible>
+            <LayerAlias>oceans_2</LayerAlias>
+            <ModifierAlias />
+            <BackGroundColor />
+            <Title />
+            <SubTitle />
+            <TitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </TitleFont>
+            <TitleFontForeColor>-16777216</TitleFontForeColor>
+            <TitleFontBackColor>-1</TitleFontBackColor>
+            <SubTitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </SubTitleFont>
+            <SubTitleFontForeColor>-16777216</SubTitleFontForeColor>
+            <SubTitleFontBackColor>-1</SubTitleFontBackColor>
+            <RowFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </RowFont>
+            <RowFontForeColor>-16777216</RowFontForeColor>
+            <RowFontBackColor>-1</RowFontBackColor>
+            <EVLegendFrameRows>
+              <LegendFrameRow>
+                <Manual>false</Manual>
+                <Text>Oceans London Fog</Text>
+                <Visible>true</Visible>
+                <LineStyle>
+                  <Attributes>SimpleLineAll</Attributes>
+                  <Width />
+                  <Color />
+                  <Pattern>1</Pattern>
+                  <Interleaved>false</Interleaved>
+                </LineStyle>
+                <InteriorStyle>
+                  <Attributes>SimpleInteriorAll</Attributes>
+                  <Pattern>2</Pattern>
+                  <ForeColor />
+                  <BackColor />
+                  <Transparent>false</Transparent>
+                </InteriorStyle>
+              </LegendFrameRow>
+            </EVLegendFrameRows>
+          </LegendObject>
+        </ContainedLegend>
+        <ContainedLegend>
+          <Order>0</Order>
+          <LegendName>background</LegendName>
+          <LegendObject>
+            <CompactLegend>false</CompactLegend>
+            <ShowFrame>true</ShowFrame>
+            <ShowCount>false</ShowCount>
+            <ShowEmptyRanges>false</ShowEmptyRanges>
+            <Order>3</Order>
+            <Visible>true</Visible>
+            <LayerAlias>background</LayerAlias>
+            <ModifierAlias />
+            <BackGroundColor />
+            <Title />
+            <SubTitle />
+            <TitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </TitleFont>
+            <TitleFontForeColor>-16777216</TitleFontForeColor>
+            <TitleFontBackColor>-1</TitleFontBackColor>
+            <SubTitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </SubTitleFont>
+            <SubTitleFontForeColor>-16777216</SubTitleFontForeColor>
+            <SubTitleFontBackColor>-1</SubTitleFontBackColor>
+            <RowFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </RowFont>
+            <RowFontForeColor>-16777216</RowFontForeColor>
+            <RowFontBackColor>-1</RowFontBackColor>
+            <EVLegendFrameRows>
+              <LegendFrameRow>
+                <Manual>false</Manual>
+                <Text>Background</Text>
+                <Visible>true</Visible>
+                <LineStyle>
+                  <Attributes>SimpleLineAll</Attributes>
+                  <Width />
+                  <Color />
+                  <Pattern>1</Pattern>
+                  <Interleaved>false</Interleaved>
+                </LineStyle>
+                <InteriorStyle>
+                  <Attributes>SimpleInteriorAll</Attributes>
+                  <Pattern>2</Pattern>
+                  <ForeColor />
+                  <BackColor />
+                  <Transparent>false</Transparent>
+                </InteriorStyle>
+              </LegendFrameRow>
+            </EVLegendFrameRows>
+          </LegendObject>
+        </ContainedLegend>
+        <ContainedLegend>
+          <Order>0</Order>
+          <LegendName>e_transln</LegendName>
+          <LegendObject>
+            <CompactLegend>false</CompactLegend>
+            <ShowFrame>true</ShowFrame>
+            <ShowCount>false</ShowCount>
+            <ShowEmptyRanges>false</ShowEmptyRanges>
+            <Order>-1</Order>
+            <Visible>true</Visible>
+            <LayerAlias>e_transln</LayerAlias>
+            <ModifierAlias />
+            <BackGroundColor />
+            <Title>Electric Transmission Lines</Title>
+            <SubTitle>Voltage Class kV</SubTitle>
+            <TitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </TitleFont>
+            <TitleFontForeColor>-16777216</TitleFontForeColor>
+            <TitleFontBackColor>-1</TitleFontBackColor>
+            <SubTitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </SubTitleFont>
+            <SubTitleFontForeColor>-16777216</SubTitleFontForeColor>
+            <SubTitleFontBackColor>-1</SubTitleFontBackColor>
+            <RowFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </RowFont>
+            <RowFontForeColor>-16777216</RowFontForeColor>
+            <RowFontBackColor>-1</RowFontBackColor>
+            <EVLegendFrameRows />
+          </LegendObject>
+        </ContainedLegend>
+        <ContainedLegend>
+          <Order>0</Order>
+          <LegendName>wthr_stat</LegendName>
+          <LegendObject>
+            <CompactLegend>false</CompactLegend>
+            <ShowFrame>true</ShowFrame>
+            <ShowCount>false</ShowCount>
+            <ShowEmptyRanges>false</ShowEmptyRanges>
+            <Order>-1</Order>
+            <Visible>true</Visible>
+            <LayerAlias>wthr_stat</LayerAlias>
+            <ModifierAlias />
+            <BackGroundColor />
+            <Title>Weather Stations</Title>
+            <SubTitle>Data Frequency</SubTitle>
+            <TitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </TitleFont>
+            <TitleFontForeColor>-16777216</TitleFontForeColor>
+            <TitleFontBackColor>-1</TitleFontBackColor>
+            <SubTitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </SubTitleFont>
+            <SubTitleFontForeColor>-16777216</SubTitleFontForeColor>
+            <SubTitleFontBackColor>-1</SubTitleFontBackColor>
+            <RowFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </RowFont>
+            <RowFontForeColor>-16777216</RowFontForeColor>
+            <RowFontBackColor>-1</RowFontBackColor>
+            <EVLegendFrameRows />
+          </LegendObject>
+        </ContainedLegend>
+        <ContainedLegend>
+          <Order>0</Order>
+          <LegendName>_results_Weather_Stations</LegendName>
+          <LegendObject>
+            <CompactLegend>false</CompactLegend>
+            <ShowFrame>true</ShowFrame>
+            <ShowCount>false</ShowCount>
+            <ShowEmptyRanges>false</ShowEmptyRanges>
+            <Order>5</Order>
+            <Visible>true</Visible>
+            <LayerAlias>_results_Weather_Stations</LayerAlias>
+            <ModifierAlias />
+            <BackGroundColor />
+            <Title>_results_Weather_Stations</Title>
+            <SubTitle>Data Frequency</SubTitle>
+            <TitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </TitleFont>
+            <TitleFontForeColor>-16777216</TitleFontForeColor>
+            <TitleFontBackColor>-1</TitleFontBackColor>
+            <SubTitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </SubTitleFont>
+            <SubTitleFontForeColor>-16777216</SubTitleFontForeColor>
+            <SubTitleFontBackColor>-1</SubTitleFontBackColor>
+            <RowFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </RowFont>
+            <RowFontForeColor>-16777216</RowFontForeColor>
+            <RowFontBackColor>-1</RowFontBackColor>
+            <EVLegendFrameRows>
+              <LegendFrameRow>
+                <Manual>false</Manual>
+                <Text>Hourly</Text>
+                <Visible>true</Visible>
+                <VectorPointStyle>
+                  <Color />
+                  <PointSize>12</PointSize>
+                  <Attributes>SimpleVectorAll</Attributes>
+                  <Code>46</Code>
+                </VectorPointStyle>
+              </LegendFrameRow>
+            </EVLegendFrameRows>
+          </LegendObject>
+        </ContainedLegend>
+        <ContainedLegend>
+          <Order>0</Order>
+          <LegendName>_results_Electric_Transmissi</LegendName>
+          <LegendObject>
+            <CompactLegend>false</CompactLegend>
+            <ShowFrame>true</ShowFrame>
+            <ShowCount>false</ShowCount>
+            <ShowEmptyRanges>false</ShowEmptyRanges>
+            <Order>4</Order>
+            <Visible>true</Visible>
+            <LayerAlias>_results_Electric_Transmissi</LayerAlias>
+            <ModifierAlias />
+            <BackGroundColor />
+            <Title />
+            <SubTitle />
+            <TitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </TitleFont>
+            <TitleFontForeColor>-16777216</TitleFontForeColor>
+            <TitleFontBackColor>-1</TitleFontBackColor>
+            <SubTitleFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </SubTitleFont>
+            <SubTitleFontForeColor>0</SubTitleFontForeColor>
+            <SubTitleFontBackColor>0</SubTitleFontBackColor>
+            <RowFont>
+              <FontFaceStyle>Normal</FontFaceStyle>
+              <FontWeight>Normal</FontWeight>
+              <TextEffect>None</TextEffect>
+              <TextDecoration>None</TextDecoration>
+              <TextCase>Default</TextCase>
+              <Shadow>false</Shadow>
+              <DblSpace>false</DblSpace>
+              <Size>8</Size>
+              <ForeColor />
+              <BackColor />
+              <Name>Arial</Name>
+              <Attributes>All</Attributes>
+            </RowFont>
+            <RowFontForeColor>-16777216</RowFontForeColor>
+            <RowFontBackColor>-1</RowFontBackColor>
+            <EVLegendFrameRows />
+          </LegendObject>
+        </ContainedLegend>
+      </myLegends>
+    </LegendContainer>
+    <SpatialQueryContainer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
+      <myQueries>
+        <SpatialQuery>
+          <ApplyPrefilterToLookups>false</ApplyPrefilterToLookups>
+          <LayerAlias>wthr_stat</LayerAlias>
+          <SearchCondition>
+            <SpatialSQLFilter xsi:type="SpatialSQLTextFilter">
+              <Element />
+              <LayerName>Weather Stations</LayerName>
+              <NotOperator>false</NotOperator>
+              <Expression>Weather Station Name</Expression>
+              <myOperator>
+                <Operator>In</Operator>
+              </myOperator>
+              <LayerAlias>wthr_stat</LayerAlias>
+              <SelectedItems>
+                <TextValueItem>
+                  <Value>Chicago/Ohare</Value>
+                </TextValueItem>
+              </SelectedItems>
+              <ColumnName>Weather_Station_Name</ColumnName>
+            </SpatialSQLFilter>
+          </SearchCondition>
+          <NewLayerName>_results_Weather_Stations</NewLayerName>
+          <NewLayerAlias>_results_Weather_Stations</NewLayerAlias>
+        </SpatialQuery>
+        <SpatialQuery>
+          <ApplyPrefilterToLookups>false</ApplyPrefilterToLookups>
+          <LayerAlias>e_transln</LayerAlias>
+          <SearchCondition>
+            <SpatialSQLFilter xsi:type="SpatialSQLNumericFilter">
+              <Element />
+              <LayerName>Electric Transmission Lines</LayerName>
+              <NotOperator>false</NotOperator>
+              <Expression>Voltage kV</Expression>
+              <myOperator>
+                <Operator>GreaterThan</Operator>
+              </myOperator>
+              <LayerAlias>e_transln</LayerAlias>
+              <ColAlias>Voltage_kV</ColAlias>
+              <MinValue>101</MinValue>
+              <MaxValue>0</MaxValue>
+            </SpatialSQLFilter>
+            <SpatialSQLFilter xsi:type="SpatialSQLGeoFilter">
+              <Element />
+              <LayerName>Electric Transmission Lines</LayerName>
+              <NotOperator>false</NotOperator>
+              <Expression>Geographic Path</Expression>
+              <myOperator>
+                <Operator>Equal</Operator>
+              </myOperator>
+              <layerAlias>e_transln</layerAlias>
+              <geoLayerAlias>_results_Weather_Stations</geoLayerAlias>
+              <GeoLayerName>_results_Weather_Stations</GeoLayerName>
+              <xDistance>50</xDistance>
+              <DistanceUnits>Mile</DistanceUnits>
+              <units>miles</units>
+              <GeoFilter>withindistance</GeoFilter>
+              <GeoLayerFilters />
+            </SpatialSQLFilter>
+          </SearchCondition>
+          <NewLayerName>_results_Electric_Transmissi</NewLayerName>
+          <NewLayerAlias>_results_Electric_Transmissi</NewLayerAlias>
+        </SpatialQuery>
+      </myQueries>
+    </SpatialQueryContainer>
+    <MapProduct xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
+      <MapProductID>5</MapProductID>
+    </MapProduct>
+    <MapSampleImage xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
+      <SampleImage>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</SampleImage>
+    </MapSampleImage>
+    <LegendFonts xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
+      <TitleFont>
+        <FontFaceStyle>Normal</FontFaceStyle>
+        <FontWeight>Normal</FontWeight>
+        <TextEffect>None</TextEffect>
+        <TextDecoration>None</TextDecoration>
+        <TextCase>Default</TextCase>
+        <Shadow>false</Shadow>
+        <DblSpace>false</DblSpace>
+        <Size>8</Size>
+        <ForeColor>-16777216</ForeColor>
+        <BackColor>-1</BackColor>
+        <Name>Arial</Name>
+        <Attributes>All</Attributes>
+      </TitleFont>
+      <SubTitleFont>
+        <FontFaceStyle>Normal</FontFaceStyle>
+        <FontWeight>Normal</FontWeight>
+        <TextEffect>None</TextEffect>
+        <TextDecoration>None</TextDecoration>
+        <TextCase>Default</TextCase>
+        <Shadow>false</Shadow>
+        <DblSpace>false</DblSpace>
+        <Size>8</Size>
+        <ForeColor>-16777216</ForeColor>
+        <BackColor>-1</BackColor>
+        <Name>Arial</Name>
+        <Attributes>All</Attributes>
+      </SubTitleFont>
+      <RowFont>
+        <FontFaceStyle>Normal</FontFaceStyle>
+        <FontWeight>Normal</FontWeight>
+        <TextEffect>None</TextEffect>
+        <TextDecoration>None</TextDecoration>
+        <TextCase>Default</TextCase>
+        <Shadow>false</Shadow>
+        <DblSpace>false</DblSpace>
+        <Size>8</Size>
+        <ForeColor>-16777216</ForeColor>
+        <BackColor>-1</BackColor>
+        <Name>Arial</Name>
+        <Attributes>All</Attributes>
+      </RowFont>
+    </LegendFonts>
+    <WorkspaceEmbeddedLegend xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
+      <EmbeddedLegend>false</EmbeddedLegend>
+      <Location>
+        <X>0</X>
+        <Y>0</Y>
+      </Location>
+    </WorkspaceEmbeddedLegend>
+    <WorkspaceSizingContainer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
+      <WindowSize>
+        <Width>3440</Width>
+        <Height>1369</Height>
+      </WindowSize>
+      <SizeSet>true</SizeSet>
+    </WorkspaceSizingContainer>
+    <BingLayerSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
+      <IsRoadVisible>false</IsRoadVisible>
+      <IsAerialVisible>false</IsAerialVisible>
+      <IsHybridVisible>false</IsHybridVisible>
+    </BingLayerSettings>
+    <TimeConfigurations xmlns="">
+      <SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+        <SOAP-ENV:Body>
+          <a1:TimeConfigurations id="ref-1" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/EnergyVelocity.Products.Spatial.Desktop.TimeMachine.Settings.Time/EnergyVelocity.Products.SpatialMainDesktop%2C%20Version%3D1.0.8894.25382%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Dnull">
+            <_loopAnimation>false</_loopAnimation>
+            <_enableMapTranslucency>true</_enableMapTranslucency>
+            <_frameDelay>0</_frameDelay>
+            <_frameSetStrategy xsi:type="a1:FrameSetStrategies" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/EnergyVelocity.Products.Spatial.Desktop.TimeMachine.Settings.Time/EnergyVelocity.Products.SpatialMainDesktop%2C%20Version%3D1.0.8894.25382%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Dnull">UnionAll</_frameSetStrategy>
+            <_layerConfigurationsArray href="#ref-3" />
+          </a1:TimeConfigurations>
+          <SOAP-ENC:Array id="ref-3" SOAP-ENC:arrayType="a1:LayerConfiguration[0]" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/EnergyVelocity.Products.Spatial.Desktop.TimeMachine.Settings.Time/EnergyVelocity.Products.SpatialMainDesktop%2C%20Version%3D1.0.8894.25382%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Dnull" />
+        </SOAP-ENV:Body>
+      </SOAP-ENV:Envelope>
+    </TimeConfigurations>
+    <ExportedAnimationConfiguration xmlns="">
+      <SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+        <SOAP-ENV:Body>
+          <a1:ExportedAnimationConfiguration id="ref-1" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/EnergyVelocity.Products.Spatial.Desktop.TimeMachine.Settings.Export/EnergyVelocity.Products.SpatialMainDesktop%2C%20Version%3D1.0.8894.25382%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Dnull">
+            <_resolution xsi:type="a2:Size" xmlns:a2="http://schemas.microsoft.com/clr/nsassem/System.Drawing/System.Drawing%2C%20Version%3D4.0.0.0%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Db03f5f7f11d50a3a">
+              <width>0</width>
+              <height>0</height>
+            </_resolution>
+            <_frameRate href="#ref-4" />
+            <_browseExportedAnimationDirectory>true</_browseExportedAnimationDirectory>
+            <_includeTimestamps>true</_includeTimestamps>
+            <_timestampAlignment>1024</_timestampAlignment>
+            <_timestampFontName id="ref-5">Tahoma</_timestampFontName>
+            <_timestampFontSize>12</_timestampFontSize>
+            <_timestampFontStyle>1</_timestampFontStyle>
+            <_timestampColorName id="ref-6">DarkBlue</_timestampColorName>
+            <_watermarkAlignment>256</_watermarkAlignment>
+            <_watermarkColor>0</_watermarkColor>
+          </a1:ExportedAnimationConfiguration>
+          <a1:ExportedAnimationConfiguration_x002B_FrameRateConfiguration id="ref-4" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/EnergyVelocity.Products.Spatial.Desktop.TimeMachine.Settings.Export/EnergyVelocity.Products.SpatialMainDesktop%2C%20Version%3D1.0.8894.25382%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Dnull">
+            <_numerator>2</_numerator>
+            <_denominator>1</_denominator>
+          </a1:ExportedAnimationConfiguration_x002B_FrameRateConfiguration>
+        </SOAP-ENV:Body>
+      </SOAP-ENV:Envelope>
+    </ExportedAnimationConfiguration>
+    <TimeMachineConfiguration xmlns="">
+      <SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+        <SOAP-ENV:Body>
+          <a1:TimeMachineConfiguration id="ref-1" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/EnergyVelocity.Products.Spatial.Desktop.TimeMachine.Settings.TimeMachine/EnergyVelocity.Products.SpatialMainDesktop%2C%20Version%3D1.0.8894.25382%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Dnull">
+            <_isUserVisible>false</_isUserVisible>
+            <_mapOffset xsi:type="a2:Point" xmlns:a2="http://schemas.microsoft.com/clr/nsassem/System.Drawing/System.Drawing%2C%20Version%3D4.0.0.0%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Db03f5f7f11d50a3a">
+              <x>8</x>
+              <y>8</y>
+            </_mapOffset>
+            <_useTransparency>true</_useTransparency>
+          </a1:TimeMachineConfiguration>
+        </SOAP-ENV:Body>
+      </SOAP-ENV:Envelope>
+    </TimeMachineConfiguration>
+    <ImageAdornmentContainer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
+      <imageAdornments />
+    </ImageAdornmentContainer>
+  </UserData>
+</WorkSpace>

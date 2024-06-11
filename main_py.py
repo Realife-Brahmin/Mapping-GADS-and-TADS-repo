@@ -1,8 +1,8 @@
 # %%
-import pandas as pd
 import os
 import sys
 import IPython
+import pandas as pd
 
 # %%
 try:
@@ -31,9 +31,12 @@ print(f"Size of Match_file csv before any filtering: {sizeMatched0[0]}, {sizeMat
 
 # %%
 tadsFileAddr = os.path.join(rawDataFolder, "TADS 2024 AC Inventory.csv")
-dfTads = pd.read_csv(tadsFileAddr)
-sizeTads0 = dfTads.shape
+dfTads0 = pd.read_csv(tadsFileAddr)
+sizeTads0 = dfTads0.shape
 print(f"Size of TADS db before filtering: {sizeTads0[0]}, {sizeTads0[1]}")
+companyNamesTads0 = set(dfTads0.CompanyName)
+numCompaniesTads0 = len(companyNamesTads0)
+print(f"There are {numCompaniesTads0} unique companies owning tlines in the entire TADS database.")
 # display(dftads)
 
 # %%
@@ -47,7 +50,7 @@ print(f"Size of velocity suite db before any filtering: {sizeVelo0[0]}, {sizeVel
 
 # %%
 # Filter rows with 'Undetermined Company`
-dfVelo = dfVelo0[ dfVelo0['Company Name'] != 'Undetermined Company' ] 
+# dfVelo = dfVelo0[ dfVelo0['Company Name'] != 'Undetermined Company' ] 
 # Filter tlines with less than 100kV voltage
 dfVelo = dfVelo[ dfVelo['Voltage kV'] >= 100 ]
 # Filter tlines not currently in service
@@ -61,6 +64,29 @@ print(f"Their names are:")
 print(companyNamesVelo)
 # dfVelo
 
+print(f"Now let's see how many tlines are owned by these {numCompaniesVelo} "       "companies in the entire TADS database:")
+
+print(f"But first I'll need to rename some companies in vs db to match with the exact strings of the TADS db.")
+
+companyNamesVelo2Tads = companyNamesVelo.copy()  # Create a copy to avoid modifying the original
+
+# Replace the element using the 'discard' method (more efficient for sets)
+companyNamesVelo2Tads.discard("Commonwealth Edison Co")
+companyNamesVelo2Tads.add("Commonwealth Edison Company")
+companyNamesVelo2Tads.discard("AmerenIP")
+companyNamesVelo2Tads.add("Ameren Services Company")
+companyNamesVelo2Tads.discard("American Transmission Co LLC")
+companyNamesVelo2Tads.add("American Transmission Company")
+companyNamesVelo2Tads.discard("Northern Indiana Public Service Co LLC")
+companyNamesVelo2Tads.add("Northern Indiana Public Service Company [BA")
+companyNamesVelo2Tads.discard("Northern Municipal Power Agency")
+companyNamesVelo2Tads.add("Northern Indiana Public Service Company [BA")
+print(companyNamesVelo2Tads)
+
+# dfTads = dfTads0.query('CompanyName == companyNamesVelo')
+dfTads = dfTads0[dfTads0['CompanyName'].isin(companyNamesVelo2Tads)]
+sizeTads = dfTads.shape
+print(f"Size of TADS db after filtering: {sizeTads[0]}, {sizeTads[1]}")
 
 # %%
 dfVeloMatched = dfVelo[dfVelo['Rec_ID'].isin(dfMatched['Rec_ID'])]

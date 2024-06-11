@@ -37,6 +37,7 @@ print(f"Size of TADS db before filtering: {sizeTads0[0]}, {sizeTads0[1]}")
 # display(dftads)
 
 # %%
+location = "chicago-ohare"
 veloFileAddr = os.path.join(rawDataFolder, "tlines-near-chicago-ohare-raw.xlsx") # tlines which are <= 50miles from `Chicago/Ohare` weather station
 print(veloFileAddr)
 dfVelo0 = pd.read_excel(veloFileAddr, engine='openpyxl')
@@ -52,7 +53,12 @@ dfVelo = dfVelo[ dfVelo['Voltage kV'] >= 100 ]
 # Filter tlines not currently in service
 dfVelo = dfVelo[ dfVelo['Proposed'] == 'In Service']
 sizeVelo = dfVelo.shape
-print(f"Size of velocity suite db before any filtering: {sizeVelo[0]}, {sizeVelo[1]}")
+print(f"Size of velocity suite db after filtering for Company Names, Voltage [kV] and 'Proposed': {sizeVelo[0]}, {sizeVelo[1]}")
+companyNamesVelo = set(dfVelo['Company Name'])
+numCompaniesVelo = len(companyNamesVelo)
+print(f"There are {numCompaniesVelo} named companies owning the tlines near {location}")
+print(f"Their names are:")
+print(companyNamesVelo)
 # dfVelo
 
 
@@ -62,8 +68,8 @@ dfVeloMatched
 veloMatchedAddr = os.path.join(processedDataFolder, "dfVeloMatched.xlsx")
 veloMatchedAddr
 dfVeloMatched.to_excel("dfVeloMatched.xlsx")
-sizeVelo = dfVelo.shape
-print(f"Size of velocity suite db before any filtering: {sizeVelo[0]}, {sizeVelo[1]}")
+# sizeVelo = dfVelo.shape
+# print(f"Size of velocity suite db before any filtering: {sizeVelo[0]}, {sizeVelo[1]}")
 # dfVeloMatched
 
 # %%

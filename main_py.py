@@ -52,6 +52,7 @@ print(f"Size of velocity suite db before any filtering: {sizeVelo0[0]}, {sizeVel
 # Filter rows with 'Undetermined Company`
 # dfVelo = dfVelo0[ dfVelo0['Company Name'] != 'Undetermined Company' ] 
 # Filter tlines with less than 100kV voltage
+dfVelo = dfVelo0.copy()
 dfVelo = dfVelo[ dfVelo['Voltage kV'] >= 100 ]
 # Filter tlines not currently in service
 dfVelo = dfVelo[ dfVelo['Proposed'] == 'In Service']
@@ -81,6 +82,8 @@ companyNamesVelo2Tads.discard("Northern Indiana Public Service Co LLC")
 companyNamesVelo2Tads.add("Northern Indiana Public Service Company [BA")
 companyNamesVelo2Tads.discard("Northern Municipal Power Agency")
 companyNamesVelo2Tads.add("Northern Indiana Public Service Company [BA")
+companyNamesVelo2Tads.discard("Undetermined Company")
+companyNamesVelo2Tads.add("Commonwealth Edison Company")
 print(companyNamesVelo2Tads)
 
 # dfTads = dfTads0.query('CompanyName == companyNamesVelo')

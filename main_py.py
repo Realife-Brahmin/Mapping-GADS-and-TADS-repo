@@ -87,15 +87,15 @@ companyNamesVelo2Tads.add("Commonwealth Edison Company")
 print(companyNamesVelo2Tads)
 
 # dfTads = dfTads0.query('CompanyName == companyNamesVelo')
-dfTads = dfTads0[dfTads0['CompanyName'].isin(companyNamesVelo2Tads)]
+dfTads = dfTads0.copy()
+dfTads = dfTads[dfTads['CompanyName'].isin(companyNamesVelo2Tads)]
 sizeTads = dfTads.shape
 print(f"Size of TADS db after filtering: {sizeTads[0]}, {sizeTads[1]}")
 
 # %%
 dfVeloMatched = dfVelo[dfVelo['Rec_ID'].isin(dfMatched['Rec_ID'])]
-dfVeloMatched
+# dfVeloMatched
 veloMatchedAddr = os.path.join(processedDataFolder, "dfVeloMatched.xlsx")
-veloMatchedAddr
 dfVeloMatched.to_excel("dfVeloMatched.xlsx")
 # sizeVelo = dfVelo.shape
 # print(f"Size of velocity suite db before any filtering: {sizeVelo[0]}, {sizeVelo[1]}")

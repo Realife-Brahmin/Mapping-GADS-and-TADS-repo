@@ -67,7 +67,7 @@ print(companyNamesVelo)
 
 print(f"Now let's see how many tlines are owned by these {numCompaniesVelo} "       "companies in the entire TADS database:")
 
-print(f"But first I'll need to rename some companies in vs db to match with the exact strings of the TADS db.")
+print(""f"But first I'll need to rename some companies in vs db to match with the exact strings of the TADS db.")
 
 companyNamesVelo2Tads = companyNamesVelo.copy()  # Create a copy to avoid modifying the original
 
@@ -89,6 +89,13 @@ print(companyNamesVelo2Tads)
 # dfTads = dfTads0.query('CompanyName == companyNamesVelo')
 dfTads = dfTads0.copy()
 dfTads = dfTads[dfTads['CompanyName'].isin(companyNamesVelo2Tads)]
+voltageClassesTads0 = set(dfTads['VoltageClassCodeName'])
+print(voltageClassesTads0)
+voltageClassesAllowedTads = voltageClassesTads0.copy()
+voltageClassesAllowedTads.discard("0-99 kV")
+
+dfTads = dfTads[dfTads['VoltageClassCodeName'].isin(voltageClassesAllowedTads)]
+
 sizeTads = dfTads.shape
 print(f"Size of TADS db after filtering: {sizeTads[0]}, {sizeTads[1]}")
 

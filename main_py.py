@@ -9,10 +9,12 @@ try:
     fileAddr = __vsc_ipynb_file__ # type: ignore # vscode only, Pylance seems to have an issue with this macro, so ignoring the warning
     wd = os.path.dirname(fileAddr)
     print("We seem to be working in a JuPyteR Notebook")
-except:
+except ImportError:
     wd = os.getcwd()
     print("We seem to be working in a regular .py file")
     
+
+# pylint: disable=f-string-without-interpolation line-too-long pointless-statement invalid-name
 
 rawDataFolder = os.path.join(wd, "rawData")
 processedDataFolder = os.path.join(wd, "processedData/")

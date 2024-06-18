@@ -67,6 +67,7 @@ print(f"Their names are:")
 print(companyNamesVelo)
 # dfVelo
 
+# %%
 print(f"Now let's see how many tlines are owned by these {numCompaniesVelo} "       "companies in the entire TADS database:")
 
 print(""f"But first I'll need to rename some companies in vs db to match with the exact strings of the TADS db.")
@@ -88,7 +89,7 @@ companyNamesVelo2Tads.discard("Undetermined Company")
 companyNamesVelo2Tads.add("Commonwealth Edison Company")
 print(companyNamesVelo2Tads)
 
-# dfTads = dfTads0.query('CompanyName == companyNamesVelo')
+# %%
 dfTads = dfTads0.copy()
 dfTads = dfTads[dfTads['CompanyName'].isin(companyNamesVelo2Tads)]
 voltageClassesTads0 = set(dfTads['VoltageClassCodeName'])
@@ -151,3 +152,40 @@ dfVeloMatched.to_excel("dfVeloMatched.xlsx")
 # print("Intersection of matchV1T2 and matchV2T1:")
 # print(intersection_V1T2_V2T1)
 
+# %%
+# Function to find and display matches with verbosity
+def find_and_display_matches(df1, df2, max_matches=5):
+    matches = []
+    count = 0
+
+    for idx1, row1 in df1.iterrows():
+        match_found = False
+        for idx2, row2 in df2.iterrows():
+            if (row1['From Sub'] == row2['FromBus'] and row1['To Sub'] == row2['ToBus']) or \
+               (row1['From Sub'] == row2['ToBus'] and row1['To Sub'] == row2['FromBus']):
+                matches.append((idx1, idx2))
+                count += 1
+                if row1['From Sub'] == row2['FromBus'] and row1['To Sub'] == row2['ToBus']:
+                    print(f"Match {count}:")
+                    print(f"dfVelo row {idx1} 'From Sub': {row1['From Sub']}, 'To Sub': {row1['To Sub']}")
+                    print(f"dfTads row {idx2} 'FromBus': {row2['FromBus']}, 'ToBus': {row2['ToBus']}\n")
+                elif row1['From Sub'] == row2['ToBus'] and row1['To Sub'] == row2['FromBus']:
+                    print(f"Match {count}:")
+                    print(f"dfVelo row {idx1} 'From Sub': {row1['From Sub']}, 'To Sub': {row1['To Sub']}")
+                    print(f"dfTads row {idx2} 'FromBus': {row2['ToBus']}, 'ToBus': {row2['FromBus']}\n")
+                match_found = True
+                if count >= max_matches:
+                    return matches
+                break
+        if match_found:
+            continue
+    return matches
+
+# Set the maximum number of matches to display
+max_matches = 500
+
+# Finding exact matches with verbose output
+print("Finding exact matches with verbose output:\n")
+exact_matches = find_and_display_matches(dfVelo,  dfTads, max_matches)
+# %%
+# VS: "Voltage Class kV" is among "100-161", "345", "735 and Above", 

@@ -111,6 +111,43 @@ dfVeloMatched.to_excel("dfVeloMatched.xlsx")
 # dfVeloMatched
 
 # %%
+# def find_partial_matches(df1, col1, df2, col2):
+#     return df1[df1[col1].str.contains('|'.join(df2[col2].dropna()), na=False)]
+
+# # Finding partial matches
+# matchV1T1 = find_partial_matches(dfVelo, 'From Sub', dfTads, 'FromBus')
+# matchV1T2 = find_partial_matches(dfVelo, 'From Sub', dfTads, 'ToBus')
+# matchV2T1 = find_partial_matches(dfVelo, 'To Sub', dfTads, 'FromBus')
+# matchV2T2 = find_partial_matches(dfVelo, 'To Sub', dfTads, 'ToBus')
+
+# # Display results
+# print("Matching rows from 'From Sub' to 'FromBus':")
+# print(matchV1T1)
+
+# print("\nMatching rows from 'From Sub' to 'ToBus':")
+# print(matchV1T2)
+
+# print("\nMatching rows from 'To Sub' to 'FromBus':")
+# print(matchV2T1)
+
+# print("\nMatching rows from 'To Sub' to 'ToBus':")
+# print(matchV2T2)
 
 
+
+# # %%
+# # Assuming matchV1T1, matchV2T1, matchV1T2, and matchV2T2 are DataFrames with an index
+
+# intersection_V1T1_V2T2 = matchV1T1[matchV1T1.index.isin(matchV2T2.index)]
+
+# # Print the intersection DataFrame
+# print("Intersection of matchV1T1 and matchV2T2:")
+# print(intersection_V1T1_V2T2)
+
+# # %%
+# intersection_V1T2_V2T1 = matchV1T2[matchV1T2.index.isin(matchV2T1.index)]
+
+# # Print the intersection DataFrame
+# print("Intersection of matchV1T2 and matchV2T1:")
+# print(intersection_V1T2_V2T1)
 

@@ -6,13 +6,13 @@ import pandas as pd
 
 # %%
 try:
-    fileAddr = __vsc_ipynb_file__ # type: ignore # vscode only, Pylance seems to have an issue with this macro, so ignoring the warning
-    wd = os.path.dirname(fileAddr)
-    print("We seem to be working in a JuPyteR Notebook")
+	fileAddr = __vsc_ipynb_file__ # type: ignore # vscode only, Pylance seems to have an issue with this macro, so ignoring the warning
+	wd = os.path.dirname(fileAddr)
+	print("We seem to be working in a JuPyteR Notebook")
 except ImportError:
-    wd = os.getcwd()
-    print("We seem to be working in a regular .py file")
-    
+	wd = os.getcwd()
+	print("We seem to be working in a regular .py file")
+
 
 # pylint: disable=f-string-without-interpolation line-too-long pointless-statement invalid-name
 
@@ -52,7 +52,7 @@ print(f"Size of velocity suite db before any filtering: {sizeVelo0[0]}, {sizeVel
 
 # %%
 # Filter rows with 'Undetermined Company`
-# dfVelo = dfVelo0[ dfVelo0['Company Name'] != 'Undetermined Company' ] 
+# dfVelo = dfVelo0[ dfVelo0['Company Name'] != 'Undetermined Company' ]
 # Filter tlines with less than 100kV voltage
 dfVelo = dfVelo0.copy()
 dfVelo = dfVelo[ dfVelo['Voltage kV'] >= 100 ]
@@ -135,7 +135,6 @@ dfVeloMatched.to_excel("dfVeloMatched.xlsx")
 # print(matchV2T2)
 
 
-
 # # %%
 # # Assuming matchV1T1, matchV2T1, matchV1T2, and matchV2T2 are DataFrames with an index
 
@@ -154,38 +153,92 @@ dfVeloMatched.to_excel("dfVeloMatched.xlsx")
 
 # %%
 # Function to find and display matches with verbosity
-def find_and_display_matches(df1, df2, max_matches=5):
-    matches = []
-    count = 0
+# def find_and_display_matches(df1, df2, max_matches=5):
+#     matches = []
+#     count = 0
 
-    for idx1, row1 in df1.iterrows():
-        match_found = False
-        for idx2, row2 in df2.iterrows():
-            if (row1['From Sub'] == row2['FromBus'] and row1['To Sub'] == row2['ToBus']) or \
-               (row1['From Sub'] == row2['ToBus'] and row1['To Sub'] == row2['FromBus']):
-                matches.append((idx1, idx2))
-                count += 1
-                if row1['From Sub'] == row2['FromBus'] and row1['To Sub'] == row2['ToBus']:
-                    print(f"Match {count}:")
-                    print(f"dfVelo row {idx1} 'From Sub': {row1['From Sub']}, 'To Sub': {row1['To Sub']}")
-                    print(f"dfTads row {idx2} 'FromBus': {row2['FromBus']}, 'ToBus': {row2['ToBus']}\n")
-                elif row1['From Sub'] == row2['ToBus'] and row1['To Sub'] == row2['FromBus']:
-                    print(f"Match {count}:")
-                    print(f"dfVelo row {idx1} 'From Sub': {row1['From Sub']}, 'To Sub': {row1['To Sub']}")
-                    print(f"dfTads row {idx2} 'FromBus': {row2['ToBus']}, 'ToBus': {row2['FromBus']}\n")
-                match_found = True
-                if count >= max_matches:
-                    return matches
-                break
-        if match_found:
-            continue
+#     for idx1, row1 in df1.iterrows():
+#         match_found = False
+#         for idx2, row2 in df2.iterrows():
+#             if (row1['From Sub'] == row2['FromBus'] and row1['To Sub'] == row2['ToBus']) or \
+#                (row1['From Sub'] == row2['ToBus'] and row1['To Sub'] == row2['FromBus']):
+#                 matches.append((idx1, idx2))
+#                 count += 1
+#                 if row1['From Sub'] == row2['FromBus'] and row1['To Sub'] == row2['ToBus']:
+#                     print(f"Match {count}:")
+#                     print(f"dfVelo row {idx1} 'From Sub': {row1['From Sub']}, 'To Sub': {row1['To Sub']}")
+#                     print(f"dfTads row {idx2} 'FromBus': {row2['FromBus']}, 'ToBus': {row2['ToBus']}\n")
+#                 elif row1['From Sub'] == row2['ToBus'] and row1['To Sub'] == row2['FromBus']:
+#                     print(f"Match {count}:")
+#                     print(f"dfVelo row {idx1} 'From Sub': {row1['From Sub']}, 'To Sub': {row1['To Sub']}")
+#                     print(f"dfTads row {idx2} 'FromBus': {row2['ToBus']}, 'ToBus': {row2['FromBus']}\n")
+#                 match_found = True
+#                 if count >= max_matches:
+#                     return matches
+#                 break
+#         if match_found:
+#             continue
+#     return matches
+
+
+# %% The matching function
+def find_and_display_matches(
+    df1, df2, max_matches=5, output_file="matches.txt", output_dir="./processedData"
+):
+    matches = []
+
+    # Create output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)  # Create directory if needed
+
+    with open(os.path.join(output_dir, output_file), "w") as f:
+        for idx1, row1 in df1.iterrows():
+            match_found = False
+
+            for idx2, row2 in df2.iterrows():
+                if (
+                    row1["From Sub"] == row2["FromBus"]
+                    and row1["To Sub"] == row2["ToBus"]
+                ) or (
+                    row1["From Sub"] == row2["ToBus"]
+                    and row1["To Sub"] == row2["FromBus"]
+                ):
+                    matches.append((idx1, idx2))
+                    match_found = True  # Set match found once a match is identified
+
+                    # Check for retirement date and print/write
+                    if not pd.isna(row2["RetirementDate"]):
+                        retirement_date = row2["RetirementDate"]
+                        print(f"dfTads row {idx2}: Retired on {retirement_date}")
+                        f.write(f"dfTads row {idx2}: Retired on {retirement_date}\n")
+
+                    # Print/write details for all matches (up to max_matches)
+                    if match_found and len(matches) <= max_matches:
+                        print(f"Match {len(matches)}:")
+                        print(
+                            f"dfVelo row {idx1} 'From Sub': {row1['From Sub']}, 'To Sub': {row1['To Sub']}"
+                        )
+                        print(
+                            f"dfTads row {idx2} 'FromBus': {row2['FromBus']}, 'ToBus': {row2['ToBus']}\n"
+                        )
+
+                        f.write(f"Match {len(matches)}:\n")
+                        f.write(
+                            f"dfVelo row {idx1} 'From Sub': {row1['From Sub']}, 'To Sub': {row1['To Sub']}\n"
+                        )
+                        f.write(
+                            f"dfTads row {idx2} 'FromBus': {row2['FromBus']}, 'ToBus': {row2['ToBus']}\n\n"
+                        )
+
     return matches
 
+
+# %% Calling the matching function
 # Set the maximum number of matches to display
-max_matches = 500
+max_matches = 5000
 
 # Finding exact matches with verbose output
 print("Finding exact matches with verbose output:\n")
 exact_matches = find_and_display_matches(dfVelo,  dfTads, max_matches)
 # %%
-# VS: "Voltage Class kV" is among "100-161", "345", "735 and Above", 
+# VS: "Voltage Class kV" is among "100-161", "345", "735 and Above",
+# %%

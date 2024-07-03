@@ -175,64 +175,60 @@ def findMatchingLinesRepeated(
 
 # %% Calling the matching function
 # Set the maximum number of matches to display
-max_matches = 50
+max_matches = 5000
 
 
 # Finding exact matches with verbose output
 print("Finding exact matches with verbose output:\n")
 exact_matches = findMatchingLinesRepeated(dfVelo,  dfTads, max_matches=max_matches)
 # %%
-def extract_latest_entries(filename, output_filename="matches-latest.txt"):
-    """
-    Extracts the entry with the latest year number from a text file
-    and writes it to a new file.
+def process_matches(input_file, output_file):
+    import re
+    from collections import defaultdict
 
-    Args:
-        filename (str): The path to the text file.
-        output_filename (str, optional): The filename for the output file.
-                            Defaults to "matches-latest.txt".
-    """
+    # Regular expression to extract match data including the optional "Retired on" line
+    match_pattern = re.compile(
+        r"Match (?P<match_num>\d+):\ndfVelo row (?P<dfVelo_row>\d+) 'From Sub': (?P<from_sub>.+), 'To Sub': (?P<to_sub>.+)\ndfTads row (?P<dfTads_row>\d+) 'FromBus': (?P<from_bus>.+), 'ToBus': (?P<to_bus>.+)\ndfTads row \d+: Reporting Year Number: (?P<year>\d+)(?:\n(?P<retired>dfTads row \d+: Retired on .+))?"
+    )
 
-    latest_year = None
-    latest_entry = None
-    current_entry = {}
+    matches = defaultdict(list)
 
-    with open(filename, "r", encoding="utf-8") as f:
-        for line in f.readlines():
-            if line.startswith("Match"):
-                # Reset for a new match
-                current_entry = {}
-                latest_year = None
+    # Read the input file and parse matches
+    with open(input_file, "r") as infile:
+        content = infile.read()
 
-            elif line.startswith("dfVelo"):
-                # Extract details from dfVelo row
-                _, row_info = line.split(":", 1)
-                current_entry["dfVelo"] = row_info.strip()
+    for match in match_pattern.finditer(content):
+        from_bus = match.group("from_bus")
+        to_bus = match.group("to_bus")
+        year = int(match.group("year"))
+        match_text = match.group(0)
+        retired_line = match.group("retired")
+        if retired_line:
+            match_text += f"\n{retired_line}"
+        matches[(from_bus, to_bus)].append((year, match_text))
 
-            elif line.startswith("dfTads"):
-                # Extract details from dfTads row
-                _, row_info = line.split(":", 1)
-                current_entry["dfTads"] = row_info.strip()
+    # Filter to keep only the latest year for each distinct (from_bus, to_bus) pair
+    latest_matches = []
+    for bus_pair, year_matches in matches.items():
+        latest_match = max(year_matches, key=lambda x: x[0])[1]
+        latest_matches.append(latest_match)
 
-            elif line.startswith("Reported Year Number"):
-                # Extract ReportedYearNbr
-                _, year_str = line.split(":", 1)
-                year = int(year_str.strip())
+    # Sort matches based on the new numbering
+    latest_matches.sort()
 
-                if latest_year is None or year > latest_year:
-                    latest_year = year
-                    latest_entry = current_entry.copy()  # Create a copy
-
-    # Write the latest entry (if found) to the output file
-    if latest_entry:
-        with open(
-            os.path.join("./processedData", output_filename), "w", encoding="utf-8"
-        ) as f:
-            for key, value in latest_entry.items():
-                f.write(f"{key}: {value}\n")
+    # Write the latest matches to the output file with renumbered matches
+    with open(output_file, "w") as outfile:
+        for i, match in enumerate(latest_matches, start=1):
+            renumbered_match = re.sub(r"Match \d+:", f"Match {i}:", match)
+            outfile.write(renumbered_match + "\n")
 
 
+# Call the function with the input and output file paths
+process_matches("processedData/matches.txt", "processedData/matches-latest.txt")
+
+# %%
 # Example usage
-extract_latest_entries("processedData/matches.txt")
-
+# extract_latest_entries("processedData/matches.txt")
+# Function definition is here, but not called
+# extract_latest_reported_data()
 # %%

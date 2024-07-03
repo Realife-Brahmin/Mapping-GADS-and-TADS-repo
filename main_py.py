@@ -27,7 +27,8 @@ colNamesMatch
 matchedIndices = dfMatch['Rec_ID'].notna()
 num = sum(matchedIndices)
 dfMatched = dfMatch[matchedIndices]
-dfMatched.to_excel("dfMatched.xlsx")
+dfMatchedAddr = os.path.join(processedDataFolder, "dfMatched.xlsx")
+dfMatched.to_excel(dfMatchedAddr)
 sizeMatched0 = dfMatched.shape
 print(f"Size of Match_file csv before any filtering: {sizeMatched0[0]}, {sizeMatched0[1]}")
 
@@ -106,7 +107,7 @@ print(f"Size of TADS db after filtering: {sizeTads[0]}, {sizeTads[1]}")
 dfVeloMatched = dfVelo[dfVelo['Rec_ID'].isin(dfMatched['Rec_ID'])]
 # dfVeloMatched
 veloMatchedAddr = os.path.join(processedDataFolder, "dfVeloMatched.xlsx")
-dfVeloMatched.to_excel("dfVeloMatched.xlsx")
+dfVeloMatched.to_excel(veloMatchedAddr)
 # sizeVelo = dfVelo.shape
 # print(f"Size of velocity suite db before any filtering: {sizeVelo[0]}, {sizeVelo[1]}")
 # dfVeloMatched

@@ -1,23 +1,20 @@
 # %%
 import os
-# import sys
-# import IPython
 import pandas as pd
 from src.helperFunctions import find_tline_by_buses # Forward Declaration
 
+# pylint: disable=f-string-without-interpolation line-too-long pointless-statement invalid-name
+
 # %%
 try:
-    # type: ignore # vscode only, Pylance seems to have an issue with this macro, so ignoring the warning
-    # pylint: ignore=undefined-variable
-    fileAddr = __vsc_ipynb_file__ 
+    # pylint: disable=undefined-variable
+    fileAddr = __vsc_ipynb_file__
     wd = os.path.dirname(fileAddr)
     print("We seem to be working in a JuPyteR Notebook")
 except ImportError:
     wd = os.getcwd()
     print("We seem to be working in a regular .py file")
 
-
-# pylint: disable=f-string-without-interpolation line-too-long pointless-statement invalid-name
 
 rawDataFolder = os.path.join(wd, "rawData")
 processedDataFolder = os.path.join(wd, "processedData/")
@@ -115,8 +112,12 @@ dfVeloMatched.to_excel("dfVeloMatched.xlsx")
 # dfVeloMatched
 
 # %% The matching function
-def find_and_display_matches(
-    df1, df2, max_matches=5, output_file="matches.txt", output_dir="./processedData"
+def findMatchingLinesRepeated(
+    df1,
+    df2,
+    max_matches=5,
+    output_file="matches.txt", 
+    output_dir="./processedData"
 ):
     matches = []
 
@@ -145,10 +146,10 @@ def find_and_display_matches(
                             f"dfVelo row {idx1} 'From Sub': {row1['From Sub']}, 'To Sub': {row1['To Sub']}"
                         )
                         print(
-                            f"dfTads row {idx2} 'FromBus': {row2['FromBus']}, 'ToBus': {row2['ToBus']}\n"
+                            f"dfTads row {idx2} 'FromBus': {row2['FromBus']}, 'ToBus': {row2['ToBus']}"
                         )
 
-                        f.write(f"Match {len(matches)}:\n")
+                        f.write(f"\nMatch {len(matches)}:\n")
                         f.write(
                             f"dfVelo row {idx1} 'From Sub': {row1['From Sub']}, 'To Sub': {row1['To Sub']}\n"
                         )
@@ -156,22 +157,81 @@ def find_and_display_matches(
                             f"dfTads row {idx2} 'FromBus': {row2['FromBus']}, 'ToBus': {row2['ToBus']}\n"
                         )
 
-                        # Check for retirement date and print/write
-                    if not pd.isna(row2["RetirementDate"]):
-                        retirement_date = row2["RetirementDate"]
-                        print(f"dfTads row {idx2}: Retired on {retirement_date}")
-                        f.write(f"dfTads row {idx2}: Retired on {retirement_date}\n")
+                        # Include ReportedYearNbr if it exists
+                        if 'ReportingYearNbr' in row2:
+                            reporting_year_nbr = row2['ReportingYearNbr']
+                            print(f"dfTads row {idx2}: Reporting Year Number: {reporting_year_nbr}")
+                            f.write(f"dfTads row {idx2}: Reporting Year Number: {reporting_year_nbr}\n")
+                        
+                            # Check for retirement date and print/write
+                        if not pd.isna(row2["RetirementDate"]):
+                            retirement_date = row2["RetirementDate"]
+                            print(f"dfTads row {idx2}: Retired on {retirement_date}")
+                            f.write(f"dfTads row {idx2}: Retired on {retirement_date}\n")
 
     return matches
 
 
 # %% Calling the matching function
 # Set the maximum number of matches to display
-max_matches = 5000
+max_matches = 50
+
 
 # Finding exact matches with verbose output
 print("Finding exact matches with verbose output:\n")
-exact_matches = find_and_display_matches(dfVelo,  dfTads, max_matches=max_matches)
+exact_matches = findMatchingLinesRepeated(dfVelo,  dfTads, max_matches=max_matches)
 # %%
-# VS: "Voltage Class kV" is among "100-161", "345", "735 and Above",
+def extract_latest_entries(filename, output_filename="matches-latest.txt"):
+    """
+    Extracts the entry with the latest year number from a text file
+    and writes it to a new file.
+
+    Args:
+        filename (str): The path to the text file.
+        output_filename (str, optional): The filename for the output file.
+                            Defaults to "matches-latest.txt".
+    """
+
+    latest_year = None
+    latest_entry = None
+    current_entry = {}
+
+    with open(filename, "r", encoding="utf-8") as f:
+        for line in f.readlines():
+            if line.startswith("Match"):
+                # Reset for a new match
+                current_entry = {}
+                latest_year = None
+
+            elif line.startswith("dfVelo"):
+                # Extract details from dfVelo row
+                _, row_info = line.split(":", 1)
+                current_entry["dfVelo"] = row_info.strip()
+
+            elif line.startswith("dfTads"):
+                # Extract details from dfTads row
+                _, row_info = line.split(":", 1)
+                current_entry["dfTads"] = row_info.strip()
+
+            elif line.startswith("Reported Year Number"):
+                # Extract ReportedYearNbr
+                _, year_str = line.split(":", 1)
+                year = int(year_str.strip())
+
+                if latest_year is None or year > latest_year:
+                    latest_year = year
+                    latest_entry = current_entry.copy()  # Create a copy
+
+    # Write the latest entry (if found) to the output file
+    if latest_entry:
+        with open(
+            os.path.join("./processedData", output_filename), "w", encoding="utf-8"
+        ) as f:
+            for key, value in latest_entry.items():
+                f.write(f"{key}: {value}\n")
+
+
+# Example usage
+extract_latest_entries("processedData/matches.txt")
+
 # %%

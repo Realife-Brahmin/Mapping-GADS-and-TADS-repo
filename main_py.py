@@ -184,9 +184,7 @@ max_matches = 5000
 print("Finding exact matches with verbose output:\n")
 exact_matches = findMatchingLinesRepeated(dfVelo,  dfTads, max_matches=max_matches)
 # %%
-def process_matches(input_file, output_file):
-    import re
-    from collections import defaultdict
+def getLatestReportedEntries(input_file, output_file):
 
     # Regular expression to extract match data including the optional "Retired on" line
     match_pattern = re.compile(
@@ -225,12 +223,9 @@ def process_matches(input_file, output_file):
             outfile.write(renumbered_match + "\n")
 
 
-# Call the function with the input and output file paths
-process_matches("processedData/matches.txt", "processedData/matches-latest.txt")
-
 # %%
-# Example usage
-# extract_latest_entries("processedData/matches.txt")
-# Function definition is here, but not called
-# extract_latest_reported_data()
+# Call the function with the input and output file paths
+getLatestReportedEntries(
+    "processedData/matches.txt", "processedData/matches-latest.txt"
+)
 # %%

@@ -26,3 +26,16 @@
 #         if match_found:
 #             continue
 #     return matches
+
+# %%
+# matchFileAddr = os.path.join(rawDataFolder, "Match_file.csv")
+# dfMatch = pd.read_csv(matchFileAddr)
+# colNamesMatch = dfMatch.columns.tolist()
+# colNamesMatch
+# matchedIndices = dfMatch['Rec_ID'].notna()
+# num = sum(matchedIndices)
+# dfMatched = dfMatch[matchedIndices]
+# dfMatchedAddr = os.path.join(processedDataFolder, "dfMatched.xlsx")
+# dfMatched.to_excel(dfMatchedAddr)
+# sizeMatched0 = dfMatched.shape
+# print(f"Size of Match_file csv before any filtering: {sizeMatched0[0]}, {sizeMatched0[1]}")

@@ -6,7 +6,9 @@ import pandas as pd
 
 from src.housekeeping import (
     filter_tlines_by_latest_reported_year,  # Forward Declaration
+    get_latest_entries, # Forward Declaration
     sort_and_shift_columns, # Forward Declaration
+    sort_and_shift_columns_dfVelo, # Forward Declaration
 )
 
 # %%
@@ -49,6 +51,7 @@ dfVelo = dfVelo0.copy()
 dfVelo = dfVelo[ dfVelo['Voltage kV'] >= 100 ]
 # Filter tlines not currently in service
 dfVelo = dfVelo[ dfVelo['Proposed'] == 'In Service']
+
 sizeVelo = dfVelo.shape
 print(f"Size of velocity suite db after filtering for Company Names, Voltage [kV] and 'Proposed': {sizeVelo[0]}, {sizeVelo[1]}")
 companyNamesVelo = set(dfVelo['Company Name'])
@@ -80,6 +83,11 @@ companyNamesVelo2Tads.discard("Undetermined Company")
 companyNamesVelo2Tads.add("Commonwealth Edison Company")
 print(companyNamesVelo2Tads)
 
+dfVeloSorted = sort_and_shift_columns_dfVelo(dfVelo)
+
+veloSortedAddr = os.path.join(processedDataFolder, "dfVelo-Chicago-Ohare-Sorted.xlsx")
+dfVeloSorted.to_excel(veloSortedAddr)
+
 # %%
 dfTads = dfTads0.copy()
 dfTads = dfTads[dfTads['CompanyName'].isin(companyNamesVelo2Tads)]
@@ -99,7 +107,8 @@ tadsSortedAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Sorted.
 
 dfTadsSorted.to_excel(tadsSortedAddr, index=False)
 
-dfTadsLatest = filter_tlines_by_latest_reported_year(dfTadsSorted)
+# dfTadsLatest = filter_tlines_by_latest_reported_year(dfTadsSorted)
+dfTadsLatest = get_latest_entries(dfTadsSorted)
 
 sizeTadsLatest = dfTadsLatest.shape
 

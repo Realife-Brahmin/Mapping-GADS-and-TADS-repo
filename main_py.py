@@ -1,8 +1,9 @@
 # %%
 import os
-import pandas as pd
-import re
 from collections import defaultdict
+import re
+
+import pandas as pd
 from src.helperFunctions import find_tline_by_buses # Forward Declaration
 
 # pylint: disable=f-string-without-interpolation line-too-long pointless-statement invalid-name
@@ -104,6 +105,11 @@ dfTads = dfTads[dfTads['VoltageClassCodeName'].isin(voltageClassesAllowedTads)]
 
 sizeTads = dfTads.shape
 print(f"Size of TADS db after filtering: {sizeTads[0]}, {sizeTads[1]}")
+
+dfTads = dfTads.sort_values(by=["FromBus", "ToBus", "ReportingYearNbr"])
+
+tadsFilteredAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare.xlsx")
+dfTads.to_excel(tadsFilteredAddr)
 
 # %%
 dfVeloMatched = dfVelo[dfVelo['Rec_ID'].isin(dfMatched['Rec_ID'])]

@@ -4,10 +4,11 @@ from collections import defaultdict
 import re
 
 import pandas as pd
-from src.housekeeping import filter_tlines_by_latest_reported_year
 
-
-# pylint: disable=f-string-without-interpolation line-too-long pointless-statement invalid-name
+from src.housekeeping import (
+    filter_tlines_by_latest_reported_year,  # Forward Declaration
+    group_dfTads_by_frombus,  # Forward Declaration
+)
 
 # %%
 try:

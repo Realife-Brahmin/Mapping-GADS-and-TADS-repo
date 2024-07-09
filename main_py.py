@@ -112,6 +112,18 @@ dfTads = dfTads.sort_values(by=["FromBus", "ToBus", "ReportingYearNbr"])
 tadsFilteredAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare.xlsx")
 dfTads.to_excel(tadsFilteredAddr)
 
+# %% Now let's filter the rows by latest reported year (pick the last one)
+
+dfTadsLatest = filter_tlines_by_latest_reported_year(dfTads)
+
+sizeTadsLatest = dfTadsLatest.shape
+
+print(f"Size of TADS db after filtering for only latest reported year: {sizeTadsLatest[0]}, {sizeTadsLatest[1]}")
+
+tadsLatestAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Latest.xlsx")
+
+dfTadsLatest.to_excel(tadsLatestAddr)
+
 # %%
 dfVeloMatched = dfVelo[dfVelo['Rec_ID'].isin(dfMatched['Rec_ID'])]
 # dfVeloMatched

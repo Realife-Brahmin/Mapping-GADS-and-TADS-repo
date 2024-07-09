@@ -2,7 +2,6 @@
 import os
 from collections import defaultdict
 import re
-
 import pandas as pd
 
 from src.housekeeping import (
@@ -94,11 +93,22 @@ dfTads = dfTads[dfTads['VoltageClassCodeName'].isin(voltageClassesAllowedTads)]
 sizeTads = dfTads.shape
 print(f"Size of TADS db after filtering: {sizeTads[0]}, {sizeTads[1]}")
 
-dfTads = dfTads.sort_values(by=["FromBus", "ToBus", "ReportingYearNbr"])
+dfTadsGrouped = group_dfTads_by_frombus(dfTads)
+# dfTads = dfTads.sort_values(by=["FromBus", "ToBus", "ReportingYearNbr"])
+# dfTads = filter_tlines_by_latest_reported_year
+# dfTads = group_dfTads_by_frombus(dfTads)
 
-tadsFilteredAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare.xlsx")
-dfTads.to_excel(tadsFilteredAddr)
+# tadsFilteredAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare.xlsx")
 
+# dfTads.to_excel(tadsFilteredAddr)
+# %%
+# grouped_and_filtered_df = group_dfTads_by_frombus(dfTads)
+
+# Now you can export the filtered DataFrame to a single Excel file
+tadsGroupedAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Grouped.xlsx")
+
+dfTadsGrouped.to_excel(tadsGroupedAddr, index=False)  # Avoid index column
+print(f"Exported filtered dfTads to: {tadsGroupedAddr}")
 # %% Now let's filter the rows by latest reported year (pick the last one)
 
 dfTadsLatest = filter_tlines_by_latest_reported_year(dfTads)
@@ -112,10 +122,10 @@ tadsLatestAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Latest.
 dfTadsLatest.to_excel(tadsLatestAddr)
 
 # %%
-dfVeloMatched = dfVelo[dfVelo['Rec_ID'].isin(dfMatched['Rec_ID'])]
-# dfVeloMatched
-veloMatchedAddr = os.path.join(processedDataFolder, "dfVeloMatched.xlsx")
-dfVeloMatched.to_excel(veloMatchedAddr)
+# dfVeloMatched = dfVelo[dfVelo['Rec_ID'].isin(dfMatched['Rec_ID'])]
+# # dfVeloMatched
+# veloMatchedAddr = os.path.join(processedDataFolder, "dfVeloMatched.xlsx")
+# dfVeloMatched.to_excel(veloMatchedAddr)
 # sizeVelo = dfVelo.shape
 # print(f"Size of velocity suite db before any filtering: {sizeVelo[0]}, {sizeVelo[1]}")
 # dfVeloMatched
@@ -188,7 +198,7 @@ max_matches = 5000
 
 # Finding exact matches with verbose output
 print("Finding exact matches with verbose output:\n")
-exact_matches = findMatchingLinesRepeated(dfVelo,  dfTads, max_matches=max_matches)
+exact_matches = findMatchingLinesRepeated(dfVelo,  dfTadsLatest, max_matches=max_matches)
 # %%
 def getLatestReportedEntries(input_file, output_file):
 

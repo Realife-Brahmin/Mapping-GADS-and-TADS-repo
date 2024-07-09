@@ -15,7 +15,7 @@ def filter_tlines_by_latest_reported_year(df):
 
     # Sort the DataFrame by 'FromBus', 'ToBus', and 'ReportingYearNbr' (descending order)
     sorted_df = df.sort_values(
-        by=["FromBus", "ToBus", "ReportingYearNbr"], ascending=[True, True, False]
+        by=["FromBus", "ToBus", "ReportingYearNbr"], ascending=[True, True, True]
     )
 
     # Get the groupby object based on 'FromBus' and 'ToBus' columns
@@ -29,23 +29,38 @@ def filter_tlines_by_latest_reported_year(df):
 
 def group_dfTads_by_frombus(df):
     """
-    Sorts and groups dfTads by 'FromBus', keeping the three columns on the left in the resulting DataFrame and Excel file.
+    Sorts and groups dfTads by 'FromBus', keeping the three columns on the left in the resulting DataFrame.
 
     Args:
         df: A pandas DataFrame containing columns 'FromBus', 'ToBus', and 'ReportingYearNbr'.
 
     Returns:
-        A new pandas DataFrame sorted by 'FromBus', 'ToBus', and 'ReportingYearNbr' and grouped by 'FromBus'.
+        A new pandas DataFrame sorted by 'FromBus', 'ToBus', and 'ReportingYearNbr' with the latest year for each unique combination.
     """
 
-    # Sort by 'FromBus', 'ToBus', 'ReportingYearNbr' (ascending order)
-    sorted_df = df.sort_values(by=["FromBus", "ToBus", "ReportingYearNbr"])
+    # Sort by 'FromBus', 'ToBus', 'ReportingYearNbr' (descending order)
+    sorted_df = df.sort_values(
+        by=["FromBus", "ToBus", "ReportingYearNbr"], ascending=[True, True, False]
+    )
 
-    # Group by 'FromBus'
-    grouped_df = sorted_df.groupby("FromBus")
+    # Apply filter function to get the latest year for each group (alternative approach)
+    def get_latest_row(group):
+        # Use a list to select specific columns
+        return group[["ToBus", "ReportingYearNbr"]].iloc[
+            -1:
+        ]  # Select the last row (latest year)
 
-    # Return the grouped DataFrame
-    return grouped_df
+    # Get the latest row (using get function with apply)
+    latest_df = sorted_df.groupby("FromBus").apply(get_latest_row)
+
+    # Set column names explicitly using a list
+    latest_df.columns = ["ToBus", "ReportingYearNbr"]
+
+    # Sort DataFrame by 'FromBus' (optional)
+    latest_df = latest_df.sort_values(by="FromBus")
+
+    # Return the filtered and potentially sorted DataFrame
+    return latest_df
 
 
 # Rest of your code using grouped_dfTads

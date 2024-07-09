@@ -6,7 +6,7 @@ import pandas as pd
 
 from src.housekeeping import (
     filter_tlines_by_latest_reported_year,  # Forward Declaration
-    group_dfTads_by_frombus,  # Forward Declaration
+    sort_and_shift_columns, # Forward Declaration
 )
 
 # %%
@@ -93,25 +93,13 @@ dfTads = dfTads[dfTads['VoltageClassCodeName'].isin(voltageClassesAllowedTads)]
 sizeTads = dfTads.shape
 print(f"Size of TADS db after filtering: {sizeTads[0]}, {sizeTads[1]}")
 
-dfTadsGrouped = group_dfTads_by_frombus(dfTads)
-# dfTads = dfTads.sort_values(by=["FromBus", "ToBus", "ReportingYearNbr"])
-# dfTads = filter_tlines_by_latest_reported_year
-# dfTads = group_dfTads_by_frombus(dfTads)
+dfTadsSorted = sort_and_shift_columns(dfTads)
 
-# tadsFilteredAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare.xlsx")
+tadsSortedAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Sorted.xlsx")
 
-# dfTads.to_excel(tadsFilteredAddr)
-# %%
-# grouped_and_filtered_df = group_dfTads_by_frombus(dfTads)
+dfTadsSorted.to_excel(tadsSortedAddr, index=False)
 
-# Now you can export the filtered DataFrame to a single Excel file
-tadsGroupedAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Grouped.xlsx")
-
-dfTadsGrouped.to_excel(tadsGroupedAddr, index=False)  # Avoid index column
-print(f"Exported filtered dfTads to: {tadsGroupedAddr}")
-# %% Now let's filter the rows by latest reported year (pick the last one)
-
-dfTadsLatest = filter_tlines_by_latest_reported_year(dfTads)
+dfTadsLatest = filter_tlines_by_latest_reported_year(dfTadsSorted)
 
 sizeTadsLatest = dfTadsLatest.shape
 

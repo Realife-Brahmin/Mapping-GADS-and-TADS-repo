@@ -26,43 +26,32 @@ def filter_tlines_by_latest_reported_year(df):
 
     return filtered_df
 
-
-def group_dfTads_by_frombus(df):
+def sort_and_shift_columns(df):
     """
-    Sorts and groups dfTads by 'FromBus', keeping the three columns on the left in the resulting DataFrame.
+    Sorts a DataFrame by 'FromBus', 'ToBus', 'ReportingYearNbr' and rearranges those columns to be first.
 
     Args:
         df: A pandas DataFrame containing columns 'FromBus', 'ToBus', and 'ReportingYearNbr'.
 
     Returns:
-        A new pandas DataFrame sorted by 'FromBus', 'ToBus', and 'ReportingYearNbr' with the latest year for each unique combination.
+        A new pandas DataFrame with all columns sorted by 'FromBus', 'ToBus', 'ReportingYearNbr'
+        with those three columns positioned at the beginning.
     """
 
-    # Sort by 'FromBus', 'ToBus', 'ReportingYearNbr' (descending order)
+    # Sort by 'FromBus', 'ToBus', 'ReportingYearNbr' (descending order for ReportingYearNbr)
     sorted_df = df.sort_values(
         by=["FromBus", "ToBus", "ReportingYearNbr"], ascending=[True, True, False]
     )
 
-    # Apply filter function to get the latest year for each group (alternative approach)
-    def get_latest_row(group):
-        # Use a list to select specific columns
-        return group[["ToBus", "ReportingYearNbr"]].iloc[
-            -1:
-        ]  # Select the last row (latest year)
+    # Define desired column order (efficient approach)
+    desired_column_order = ["FromBus", "ToBus", "ReportingYearNbr"] + [
+        col
+        for col in sorted_df.columns
+        if col not in ["FromBus", "ToBus", "ReportingYearNbr"]
+    ]
 
-    # Get the latest row (using get function with apply)
-    latest_df = sorted_df.groupby("FromBus").apply(get_latest_row)
+    # Reorder columns using `.loc` indexing
+    shifted_df = sorted_df.loc[:, desired_column_order]
 
-    # Set column names explicitly using a list
-    latest_df.columns = ["ToBus", "ReportingYearNbr"]
-
-    # Sort DataFrame by 'FromBus' (optional)
-    latest_df = latest_df.sort_values(by="FromBus")
-
-    # Return the filtered and potentially sorted DataFrame
-    return latest_df
-
-
-# Rest of your code using grouped_dfTads
-
+    return shifted_df
 # %%

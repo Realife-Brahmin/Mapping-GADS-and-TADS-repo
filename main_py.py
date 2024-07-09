@@ -4,7 +4,8 @@ from collections import defaultdict
 import re
 
 import pandas as pd
-from src.helperFunctions import find_tline_by_buses # Forward Declaration
+from src.housekeeping import filter_tlines_by_latest_reported_year
+
 
 # pylint: disable=f-string-without-interpolation line-too-long pointless-statement invalid-name
 

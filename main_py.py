@@ -7,13 +7,14 @@ import pandas as pd
 from src.housekeeping import (
     filter_tlines_by_latest_reported_year,  # Forward Declaration
     get_latest_entries, # Forward Declaration
+    get_matched_entries, # Forward Declaration
     sort_and_shift_columns, # Forward Declaration
     sort_and_shift_columns_dfVelo, # Forward Declaration
 )
 
 # %%
 try:
-    # pylint: disable=undefined-variable
+    # pylint: disable=undefined-variable line-too-long invalid-name
     fileAddr = __vsc_ipynb_file__
     wd = os.path.dirname(fileAddr)
     print("We seem to be working in a JuPyteR Notebook")
@@ -118,3 +119,6 @@ tadsLatestAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Latest.
 
 dfTadsLatest.to_excel(tadsLatestAddr)
 # %%
+dfMatch = get_matched_entries(dfVeloSorted, dfTadsLatest)
+matchAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Matched.xlsx")
+dfMatch.to_excel(matchAddr)

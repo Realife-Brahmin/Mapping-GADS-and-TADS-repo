@@ -121,14 +121,40 @@ def sort_and_shift_columns_dfVelo(df):
 # %%
 
 
+# def get_matched_entries(dfVeloSorted, dfTadsLatest):
+#     matched_indices = []
+
+#     # Iterate through both DataFrames
+#     for i in range(len(dfVeloSorted)):
+#         from_sub, to_sub = str(dfVeloSorted.iloc[i]["From Sub"]), str(
+#             dfVeloSorted.iloc[i]["To Sub"]
+#         )
+#         for j in range(len(dfTadsLatest)):
+#             from_bus, to_bus = str(dfTadsLatest.iloc[j]["FromBus"]), str(
+#                 dfTadsLatest.iloc[j]["ToBus"]
+#             )
+
+#             if (from_sub == from_bus and to_sub == to_bus) or (
+#                 from_sub == to_bus and to_sub == from_bus
+#             ):
+#                 matched_indices.append(j)
+
+#     dfTadsMatched = dfTadsLatest.iloc[matched_indices].copy()
+
+#     return dfTadsMatched
+
+import pandas as pd
+
+
 def get_matched_entries(dfVeloSorted, dfTadsLatest):
-    matched_indices = []
+    matched_rows = []
 
     # Iterate through both DataFrames
     for i in range(len(dfVeloSorted)):
         from_sub, to_sub = str(dfVeloSorted.iloc[i]["From Sub"]), str(
             dfVeloSorted.iloc[i]["To Sub"]
         )
+        rec_id = dfVeloSorted.iloc[i]["Rec_ID"]
         for j in range(len(dfTadsLatest)):
             from_bus, to_bus = str(dfTadsLatest.iloc[j]["FromBus"]), str(
                 dfTadsLatest.iloc[j]["ToBus"]
@@ -137,9 +163,11 @@ def get_matched_entries(dfVeloSorted, dfTadsLatest):
             if (from_sub == from_bus and to_sub == to_bus) or (
                 from_sub == to_bus and to_sub == from_bus
             ):
-                matched_indices.append(j)
+                matched_row = dfTadsLatest.iloc[j].copy()
+                matched_row["Rec_ID"] = rec_id
+                matched_rows.append(matched_row)
 
-    dfTadsMatched = dfTadsLatest.iloc[matched_indices].copy()
+    dfTadsMatched = pd.DataFrame(matched_rows)
 
     return dfTadsMatched
 

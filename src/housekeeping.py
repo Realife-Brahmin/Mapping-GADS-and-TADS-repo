@@ -153,7 +153,7 @@ def sort_and_shift_columns(df):
 
 
     return shifted_df
-# %%
+
 def sort_and_shift_columns_dfVelo(df):
     """
     Sorts a DataFrame by 'From Sub', 'To Sub' and rearranges those columns to be first.
@@ -181,35 +181,6 @@ def sort_and_shift_columns_dfVelo(df):
 
     return shifted_df
 
-
-# %%
-
-
-# def get_matched_entries(dfVeloSorted, dfTadsLatest):
-#     matched_indices = []
-
-#     # Iterate through both DataFrames
-#     for i in range(len(dfVeloSorted)):
-#         from_sub, to_sub = str(dfVeloSorted.iloc[i]["From Sub"]), str(
-#             dfVeloSorted.iloc[i]["To Sub"]
-#         )
-#         for j in range(len(dfTadsLatest)):
-#             from_bus, to_bus = str(dfTadsLatest.iloc[j]["FromBus"]), str(
-#                 dfTadsLatest.iloc[j]["ToBus"]
-#             )
-
-#             if (from_sub == from_bus and to_sub == to_bus) or (
-#                 from_sub == to_bus and to_sub == from_bus
-#             ):
-#                 matched_indices.append(j)
-
-#     dfTadsMatched = dfTadsLatest.iloc[matched_indices].copy()
-
-#     return dfTadsMatched
-
-import pandas as pd
-
-
 def get_matched_entries(dfVeloSorted, dfTadsLatest):
     matched_rows = []
 
@@ -234,6 +205,4 @@ def get_matched_entries(dfVeloSorted, dfTadsLatest):
     dfTadsMatched = pd.DataFrame(matched_rows)
 
     return dfTadsMatched
-
-
 # %%

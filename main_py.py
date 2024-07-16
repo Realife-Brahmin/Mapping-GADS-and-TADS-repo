@@ -127,5 +127,5 @@ dfMatch.to_excel(matchAddr)
 # %%
 dfMatchReduced = get_reduced_df(dfMatch)
 matchReducedAddr = os.path.join(processedDataFolder, "chicago-ohare-lines.xlsx")
-dfMatchReduced.to_excel(matchReducedAddr)
+dfMatchReduced.to_excel(matchReducedAddr, index=False)
 # %%

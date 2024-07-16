@@ -53,11 +53,15 @@ def get_reduced_df(dfMatch):
     # Create a copy of the DataFrame to avoid modifying the original
     df_reduced_copy = df_reduced.copy()
 
-    # Create a dynamic combo option string
+    df_reduced_copy["CircuitTypeCode_FirstWord"] = df_reduced_copy["CircuitTypeCode"].str.split().str[0]
+
+    # Create a dynamic combo option string using the first word
     df_reduced_copy["combo"] = df_reduced_copy.apply(
-        lambda row: f"{row['CircuitTypeCode']} - {row['FromBus']} - {row['ToBus']} - {row['ElementIdentifierName']}",
+        lambda row: f"{row['CircuitTypeCode_FirstWord']} {row['FromBus']}-{row['ToBus']}-{row['ElementIdentifierName']}",
         axis=1,
     )
+
+    df_reduced_copy.pop("CircuitTypeCode_FirstWord") # no longer needed
 
     # Make 'combo' the first column
     col = df_reduced_copy.pop("combo")  # Remove 'combo' column and store it

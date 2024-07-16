@@ -2,17 +2,18 @@
 import pandas as pd
 import os
 
+
 def get_reduced_df(dfMatch):
     """
     This function takes a pandas DataFrame (dfMatch) and returns a new DataFrame containing specific columns
-    with a dynamic 'combo' column as the first column.
+    with a dynamic 'combo' column as the first column, with FromBus always preceding ToBus and sorted.
 
     Args:
         dfMatch: The input pandas DataFrame.
 
     Returns:
-        A new pandas DataFrame containing the following columns:
-            - 'combo' (filled with a string combining CircuitTypeCode, FromBus, ToBus, and ElementIdentifierName) - This column becomes the first column in the output.
+        A new DataFrame containing the following columns:
+            - 'combo' (filled with a string combining CircuitTypeCode, FromBus-ToBus, and ElementIdentifierName) - This column becomes the first column in the output.
             - 'ElementIdentifierName'
             - 'CompanyName'
             - ... (other desired columns) - Include any other columns you want in the output DataFrame.
@@ -53,23 +54,34 @@ def get_reduced_df(dfMatch):
     # Create a copy of the DataFrame to avoid modifying the original
     df_reduced_copy = df_reduced.copy()
 
-    df_reduced_copy["CircuitTypeCode_FirstWord"] = df_reduced_copy["CircuitTypeCode"].str.split().str[0]
+    # Extract the first word from CircuitTypeCode
+    df_reduced_copy["CircuitTypeCode_FirstWord"] = (
+        df_reduced_copy["CircuitTypeCode"].str.split().str[0]
+    )
 
-    # Create a dynamic combo option string using the first word
+    # Temporary column to store the sorted Bus combination
+    df_reduced_copy["SortedBus"] = df_reduced_copy[["FromBus", "ToBus"]].apply(
+        lambda x: "-".join(sorted(x)), axis=1
+    )
+
+    # Create a dynamic combo option string using the first word and sorted FromBus-ToBus
     df_reduced_copy["combo"] = df_reduced_copy.apply(
-        lambda row: f"{row['CircuitTypeCode_FirstWord']} {row['FromBus']}-{row['ToBus']}-{row['ElementIdentifierName']}",
+        lambda row: f"{row['CircuitTypeCode_FirstWord']} {row['SortedBus']} {row['ElementIdentifierName']}",
         axis=1,
     )
 
-    df_reduced_copy.pop("CircuitTypeCode_FirstWord") # no longer needed
+    df_reduced_copy.pop("CircuitTypeCode_FirstWord")  # No longer needed
+    df_reduced_copy.pop("SortedBus")  # No longer needed
+
+    # Sort the DataFrame by FromBus and ToBus
+    df_reduced_copy = df_reduced_copy.sort_values(by=["FromBus", "ToBus"])
 
     # Make 'combo' the first column
-    col = df_reduced_copy.pop("combo")  # Remove 'combo' column and store it
-    df_reduced_copy.insert(
-        loc=0, column="combo", value=col
-    )  # Insert 'combo' as the first column
+    col = df_reduced_copy.pop("combo")
+    df_reduced_copy.insert(loc=0, column="combo", value=col)
 
     return df_reduced_copy
+
 
 def filter_tlines_by_latest_reported_year(df):
     """
@@ -208,5 +220,23 @@ def get_matched_entries(dfVeloSorted, dfTadsLatest):
 
     dfTadsMatched = pd.DataFrame(matched_rows)
 
+
     return dfTadsMatched
+
+def rearrange_buses(df):
+    """
+    This function takes a DataFrame (df) and returns a new DataFrame with 'FromBus'
+    lexicographically smaller than 'ToBus'.
+
+    Args:
+        df: The input DataFrame.
+
+    Returns:
+        A new DataFrame with 'FromBus' always preceding 'ToBus'.
+    """
+
+    # Sort the DataFrame by FromBus and ToBus
+    df_rearranged = df.sort_values(by=["FromBus", "ToBus"])
+    return df_rearranged
+
 # %%

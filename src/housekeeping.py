@@ -51,6 +51,7 @@ def get_reduced_df(dfMatch):
 
     df_reduced = dfMatch[desired_cols]
 
+    df_reduced = rearrangeColumns(df_reduced)
     # Create a copy of the DataFrame to avoid modifying the original
     df_reduced_copy = df_reduced.copy()
 
@@ -220,23 +221,23 @@ def get_matched_entries(dfVeloSorted, dfTadsLatest):
 
     dfTadsMatched = pd.DataFrame(matched_rows)
 
-
     return dfTadsMatched
 
-def rearrange_buses(df):
-    """
-    This function takes a DataFrame (df) and returns a new DataFrame with 'FromBus'
-    lexicographically smaller than 'ToBus'.
 
-    Args:
-        df: The input DataFrame.
+def rearrangeColumns(df, col1="FromBus", col2="ToBus"):
+    # Make a copy of the DataFrame to avoid modifying the original
+    df = df.copy()
 
-    Returns:
-        A new DataFrame with 'FromBus' always preceding 'ToBus'.
-    """
+    # Iterate through each row and swap col1 and col2 if necessary
+    for index, row in df.iterrows():
+        value1 = str(row[col1])
+        value2 = str(row[col2])
 
-    # Sort the DataFrame by FromBus and ToBus
-    df_rearranged = df.sort_values(by=["FromBus", "ToBus"])
-    return df_rearranged
+        if value1 > value2:
+            df.at[index, col1] = value2
+            df.at[index, col2] = value1
+
+    return df
+
 
 # %%

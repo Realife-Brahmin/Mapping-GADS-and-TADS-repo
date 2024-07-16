@@ -2,6 +2,7 @@
 import pandas as pd
 import os
 
+# pylint: disable=undefined-variable line-too-long invalid-name missing-function-docstring f-string-without-interpolation
 
 def get_reduced_df(dfMatch):
     """

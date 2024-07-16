@@ -14,8 +14,9 @@ from src.housekeeping import (
 )
 
 # %%
+# pylint: disable=undefined-variable line-too-long invalid-name missing-function-docstring f-string-without-interpolation
+
 try:
-    # pylint: disable=undefined-variable line-too-long invalid-name
     fileAddr = __vsc_ipynb_file__
     wd = os.path.dirname(fileAddr)
     print("We seem to be working in a JuPyteR Notebook")

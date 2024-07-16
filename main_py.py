@@ -5,9 +5,10 @@ import re
 import pandas as pd
 
 from src.housekeeping import (
-    filter_tlines_by_latest_reported_year,  # Forward Declaration
+    # filter_tlines_by_latest_reported_year,  # Forward Declaration
     get_latest_entries, # Forward Declaration
     get_matched_entries, # Forward Declaration
+    get_reduced_df, # Forward Declaration
     sort_and_shift_columns, # Forward Declaration
     sort_and_shift_columns_dfVelo, # Forward Declaration
 )
@@ -123,4 +124,8 @@ dfMatch = get_matched_entries(dfVeloSorted, dfTadsLatest)
 matchAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Matched.xlsx")
 dfMatch.to_excel(matchAddr)
 
+# %%
+dfMatchReduced = get_reduced_df(dfMatch)
+matchReducedAddr = os.path.join(processedDataFolder, "chicago-ohare-lines.xlsx")
+dfMatchReduced.to_excel(matchReducedAddr)
 # %%

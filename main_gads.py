@@ -22,10 +22,6 @@ from src.housekeeping_gads import (
     filter_by_eia_code,  # Forward Declaration
 )
 
-# %% Go into the correct directory if not already there
-
-# pylint: disable=undefined-variable line-too-long invalid-name missing-function-docstring f-string-without-interpolation
-
 try:
     fileAddr = __vsc_ipynb_file__
     wd = os.path.dirname(fileAddr)
@@ -50,9 +46,10 @@ print(f"There are {numCompaniesGads0} unique companies owning tlines in the enti
 
 # %% Input Velocity Suite Data for the specific configuration and get some preliminary information about it
 location = "chicago-ohare"
-components = "genUnits"
+components1 = "genUnits"
+components2 = "genPlants"
 ext = ".xlsx"
-filenameVeloGads = components + "-near-" + location + ext
+filenameVeloGads = components1 + "-near-" + location + ext
 veloFileAddr = os.path.join(rawDataFolder, filenameVeloGads) # gen units which are <= 50miles from `Chicago/Ohare` weather station
 print(veloFileAddr)
 dfVelo0 = pd.read_excel(veloFileAddr, engine='openpyxl')
@@ -65,11 +62,11 @@ dfVelo = dfVelo0.copy()
 sizeVelo = dfVelo.shape
 
 dfVeloSorted = dfVelo.sort_values(by=['Plant Name', 'Plant Operator Name'])
-veloSortedAddr = os.path.join(processedDataFolder, "dfVelo-"+components+"-"+location+"-Sorted"+ext)
+veloSortedAddr = os.path.join(processedDataFolder, "dfVelo-"+components1+"-"+location+"-Sorted"+ext)
 dfVeloSorted.to_excel(veloSortedAddr, index=False)
 
 dfVeloEIA = filter_non_empty_eia_id(dfVeloSorted)
-veloValidEIAAddr = os.path.join(processedDataFolder, "dfVelo-"+components+"-"+location+"-validEIA"+ext)
+veloValidEIAAddr = os.path.join(processedDataFolder, "dfVelo-"+components1+"-"+location+"-validEIA"+ext)
 dfVeloEIA.to_excel(veloValidEIAAddr, index=False)
 
 veloStates = set(dfVeloEIA['State'])
@@ -81,7 +78,7 @@ sizeGadsFilt = dfGadsFilt.shape
 print(f"Size of GADS db after filtering: {sizeGadsFilt[0]}, {sizeGadsFilt[1]}")
 
 gadsFiltStatesAddr = os.path.join(
-    processedDataFolder, "dfGads-" + components + "-" + location + "-filteredStates" + ext
+    processedDataFolder, "dfGads-" + components1 + "-" + location + "-filteredStates" + ext
 )
 dfGadsFilt.to_excel(gadsFiltStatesAddr, index=False)
 
@@ -89,7 +86,7 @@ dfGadsFilt.to_excel(gadsFiltStatesAddr, index=False)
 # dfMatch = filter_by_eia_code(dfVelo, dfGads)
 
 matchAddr = os.path.join(
-    processedDataFolder, "dfGads-" + components + "-" + location + "-Matched" + ext
+    processedDataFolder, "dfGads-" + components1 + "-" + location + "-Matched" + ext
 )
 dfMatch.to_excel(matchAddr, index=False)
 # %%

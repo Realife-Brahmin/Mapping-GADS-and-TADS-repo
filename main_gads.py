@@ -5,6 +5,7 @@ import os
 from collections import defaultdict
 import re
 import pandas as pd
+import us
 
 from src.housekeeping import (
     # filter_tlines_by_latest_reported_year,  # Forward Declaration
@@ -58,7 +59,6 @@ dfVelo0 = pd.read_excel(veloFileAddr, engine='openpyxl')
 sizeVelo0 = dfVelo0.shape
 print(f"Size of velocity suite db before any filtering: {sizeVelo0[0]}, {sizeVelo0[1]}")
 # dfVelo0
-
 # %% Housekeeping on dfVelo (remove empty EIA_ID rows)
 dfVelo = dfVelo0.copy()
 
@@ -71,15 +71,22 @@ dfVeloSorted.to_excel(veloSortedAddr, index=False)
 dfVeloEIA = filter_non_empty_eia_id(dfVeloSorted)
 veloValidEIAAddr = os.path.join(processedDataFolder, "dfVelo-"+components+"-"+location+"-validEIA"+ext)
 dfVeloEIA.to_excel(veloValidEIAAddr, index=False)
+
+veloStates = set(dfVeloEIA['State'])
 # %% Housekeeping on dfGads
 dfGads = dfGads0.copy()
 
-dfGads = filter_states(dfGads0)
-sizeGads = dfGads.shape
-print(f"Size of GADS db after filtering: {sizeGads[0]}, {sizeGads[1]}")
+dfGadsFilt = filter_states(dfGads0, veloStates)
+sizeGadsFilt = dfGadsFilt.shape
+print(f"Size of GADS db after filtering: {sizeGadsFilt[0]}, {sizeGadsFilt[1]}")
+
+gadsFiltStatesAddr = os.path.join(
+    processedDataFolder, "dfGads-" + components + "-" + location + "-filteredStates" + ext
+)
+dfGadsFilt.to_excel(gadsFiltStatesAddr, index=False)
 
 # %% Match
-dfMatch = filter_by_eia_code(dfVelo, dfGads)
+# dfMatch = filter_by_eia_code(dfVelo, dfGads)
 
 matchAddr = os.path.join(
     processedDataFolder, "dfGads-" + components + "-" + location + "-Matched" + ext

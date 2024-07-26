@@ -1,4 +1,5 @@
 # %%
+# pylint: disable=undefined-variable line-too-long invalid-name missing-function-docstring f-string-without-interpolation
 import pandas as pd
 
 def filter_states(dfGads, states_to_keep=["Illinois", "Indiana", "Wisconsin"]):
@@ -10,7 +11,7 @@ def filter_states(dfGads, states_to_keep=["Illinois", "Indiana", "Wisconsin"]):
 
     return dfFiltered
 
-def filter_by_eia_code0(dfVelo, dfGads):
+def filter_by_eia_code(dfVelo, dfGads):
     # Get the unique 'EIA ID' values from dfVelo
     eia_ids = dfVelo["EIA ID"].unique()
 
@@ -19,21 +20,10 @@ def filter_by_eia_code0(dfVelo, dfGads):
 
     return dfFiltered
 
+def filter_non_empty_eia_id(dfVeloSorted):
+    # Drop rows where 'EIA ID' is NaN
+    dfVeloEIA = dfVeloSorted.dropna(subset=["EIA ID"]).copy()
 
-def filter_by_eia_code(dfVelo, dfGads):
-    import pandas as pd
-    # Merge the two DataFrames on 'EIA ID' and 'EIACode' columns
-    dfMerged = pd.merge(
-        dfGads,
-        dfVelo[["EIA ID", "Rec_ID"]],
-        left_on="EIACode",
-        right_on="EIA ID",
-        how="inner",
-    )
-
-    # Drop the duplicate 'EIA ID' column from the merge
-    dfFiltered = dfMerged.drop(columns=["EIA ID"])
-
-    return dfFiltered
+    return dfVeloEIA
 
 # %%

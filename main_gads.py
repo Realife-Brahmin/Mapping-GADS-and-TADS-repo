@@ -7,14 +7,14 @@ import re
 import pandas as pd
 import us
 
-from src.housekeeping import (
-    # filter_tlines_by_latest_reported_year,  # Forward Declaration
-    get_latest_entries, # Forward Declaration
-    get_matched_entries, # Forward Declaration
-    get_reduced_df, # Forward Declaration
-    sort_and_shift_columns, # Forward Declaration
-    sort_and_shift_columns_dfVelo, # Forward Declaration
-)
+# from src.housekeeping import (
+#     # filter_tlines_by_latest_reported_year,  # Forward Declaration
+#     get_latest_entries, # Forward Declaration
+#     get_matched_entries, # Forward Declaration
+#     get_reduced_df, # Forward Declaration
+#     sort_and_shift_columns, # Forward Declaration
+#     sort_and_shift_columns_dfVelo, # Forward Declaration
+# )
 
 from src.housekeeping_gads import (
     filter_states,  # Forward Declaration
@@ -49,33 +49,33 @@ location = "chicago-ohare"
 components1 = "genUnits"
 components2 = "genPlants"
 ext = ".xlsx"
-filenameVeloGads = components1 + "-near-" + location + ext
-veloFileAddr = os.path.join(rawDataFolder, filenameVeloGads) # gen units which are <= 50miles from `Chicago/Ohare` weather station
-print(veloFileAddr)
-dfVelo0 = pd.read_excel(veloFileAddr, engine='openpyxl')
-sizeVelo0 = dfVelo0.shape
-print(f"Size of velocity suite db before any filtering: {sizeVelo0[0]}, {sizeVelo0[1]}")
-# dfVelo0
+filenameVeloGenPlants = components2 + "-near-" + location + "-raw" + ext
+veloFileGenPlantsAddr = os.path.join(rawDataFolder, filenameVeloGenPlants) # gen units which are <= 50miles from `Chicago/Ohare` weather station
+print(veloFileGenPlantsAddr)
+dfVeloPlants0 = pd.read_excel(veloFileGenPlantsAddr, engine='openpyxl')
+sizeVeloPlants0 = dfVeloPlants0.shape
+print(f"Size of velocity suite Gen Plants db before any filtering: {sizeVeloPlants0[0]}, {sizeVeloPlants0[1]}")
 # %% Housekeeping on dfVelo (remove empty EIA_ID rows)
-dfVelo = dfVelo0.copy()
+dfVeloP = dfVeloPlants0.copy()
 
-sizeVelo = dfVelo.shape
+# dfVeloP = filter_non_empty_eia_id(dfVeloP)
+sizeVeloP = dfVeloP.shape
 
-dfVeloSorted = dfVelo.sort_values(by=['Plant Name', 'Plant Operator Name'])
-veloSortedAddr = os.path.join(processedDataFolder, "dfVelo-"+components1+"-"+location+"-Sorted"+ext)
-dfVeloSorted.to_excel(veloSortedAddr, index=False)
+dfVeloPSorted = dfVeloP.sort_values(by=['Plant Name', 'Plant Operator Name'])
+veloPSortedAddr = os.path.join(processedDataFolder, "dfVelo-"+components2+"-"+location+"-Sorted"+ext)
+dfVeloPSorted.to_excel(veloPSortedAddr, index=False)
 
-dfVeloEIA = filter_non_empty_eia_id(dfVeloSorted)
-veloValidEIAAddr = os.path.join(processedDataFolder, "dfVelo-"+components1+"-"+location+"-validEIA"+ext)
-dfVeloEIA.to_excel(veloValidEIAAddr, index=False)
+dfVeloPEIA = filter_non_empty_eia_id(dfVeloPSorted)
+veloPValidEIAAddr = os.path.join(processedDataFolder, "dfVelo-"+components2+"-"+location+"-validEIA"+ext)
+dfVeloPEIA.to_excel(veloPValidEIAAddr, index=False)
 
-veloStates = set(dfVeloEIA['State'])
+veloPStates = set(dfVeloPEIA['State'])
 # %% Housekeeping on dfGads
 dfGads = dfGads0.copy()
 
-dfGadsFilt = filter_states(dfGads0, veloStates)
+dfGadsFilt = filter_states(dfGads0, veloPStates)
 sizeGadsFilt = dfGadsFilt.shape
-print(f"Size of GADS db after filtering: {sizeGadsFilt[0]}, {sizeGadsFilt[1]}")
+print(f"Size of GADS db after filtering for States Related to our Region: {sizeGadsFilt[0]}, {sizeGadsFilt[1]}")
 
 gadsFiltStatesAddr = os.path.join(
     processedDataFolder, "dfGads-" + components1 + "-" + location + "-filteredStates" + ext
@@ -83,10 +83,10 @@ gadsFiltStatesAddr = os.path.join(
 dfGadsFilt.to_excel(gadsFiltStatesAddr, index=False)
 
 # %% Match
-# dfMatch = filter_by_eia_code(dfVelo, dfGads)
+dfMatchGads = filter_by_eia_code(dfVeloPEIA, dfGadsFilt)
 
-matchAddr = os.path.join(
+gadsMatchAddr = os.path.join(
     processedDataFolder, "dfGads-" + components1 + "-" + location + "-Matched" + ext
 )
-dfMatch.to_excel(matchAddr, index=False)
+dfMatchGads.to_excel(gadsMatchAddr, index=False)
 # %%

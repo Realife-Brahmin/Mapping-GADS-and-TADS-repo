@@ -3,14 +3,14 @@
 import pandas as pd
 import us
 
-def filter_by_eia_code(dfVelo, dfGads):
-    # Get the unique 'EIA ID' values from dfVelo
-    eia_ids = dfVelo["EIA ID"].unique()
+def match_by_eia_code(dfVeloP, dfGads):
+    # Get the unique 'EIA ID' values from dfVeloP
+    eia_ids = dfVeloP["EIA ID"].unique()
 
     # Filter dfGads to include only rows where 'EIACode' is in the list of 'EIA ID' values
-    dfFiltered = dfGads[dfGads["EIACode"].isin(eia_ids)]
+    dfGadsFiltered = dfGads[dfGads["EIACode"].isin(eia_ids)]
 
-    return dfFiltered
+    return dfGadsFiltered
 
 def filter_non_empty_eia_id(dfVeloSorted):
     # Drop rows where 'EIA ID' is NaN

@@ -5,21 +5,13 @@ import os
 from collections import defaultdict
 import re
 import pandas as pd
-import us
-
-# from src.housekeeping import (
-#     # filter_tlines_by_latest_reported_year,  # Forward Declaration
-#     get_latest_entries, # Forward Declaration
-#     get_matched_entries, # Forward Declaration
-#     get_reduced_df, # Forward Declaration
-#     sort_and_shift_columns, # Forward Declaration
-#     sort_and_shift_columns_dfVelo, # Forward Declaration
-# )
+import us # for mapping US state names and their acronyms
 
 from src.housekeeping_gads import (
     filter_states,  # Forward Declaration
     filter_non_empty_eia_id,  # Forward Declaration
     filter_by_eia_code,  # Forward Declaration
+    sort_and_reorder_columns,  # Forward Declaration
 )
 
 try:
@@ -67,6 +59,8 @@ dfVeloPSorted.to_excel(veloPSortedAddr, index=False)
 
 dfVeloPEIA = filter_non_empty_eia_id(dfVeloPSorted)
 veloPValidEIAAddr = os.path.join(processedDataFolder, "dfVelo-"+components2+"-"+location+"-validEIA"+ext)
+
+# Table 1: All Gen Plants from Velocity Suite which are 50 mi from location, have valid EIA, sorted by 'Plant Name' and then 'Plant Operator Name'.
 dfVeloPEIA.to_excel(veloPValidEIAAddr, index=False)
 
 veloPStates = set(dfVeloPEIA['State'])
@@ -80,13 +74,19 @@ print(f"Size of GADS db after filtering for States Related to our Region: {sizeG
 gadsFiltStatesAddr = os.path.join(
     processedDataFolder, "dfGads-" + components1 + "-" + location + "-filteredStates" + ext
 )
+
+dfGadsFilt = sort_and_reorder_columns(dfGadsFilt, sort_columns=["UnitName", "UtilityName"])
+# dfGadsFilt = dfGadsFilt.sort_values(by=["UnitName", "UtilityName"])
+
 dfGadsFilt.to_excel(gadsFiltStatesAddr, index=False)
 
-# %% Match
+# %% Match all Gen Units from GADS to Gen Plants from Velocity Suite based on EIA
 dfMatchGads = filter_by_eia_code(dfVeloPEIA, dfGadsFilt)
 
 gadsMatchAddr = os.path.join(
     processedDataFolder, "dfGads-" + components1 + "-" + location + "-Matched" + ext
 )
+
+# Table 2: All Gen Units from GADS which were matched with Gen Plants from Velocity Suite on the basis of EIA
 dfMatchGads.to_excel(gadsMatchAddr, index=False)
 # %%

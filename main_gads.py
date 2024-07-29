@@ -10,7 +10,8 @@ import us # for mapping US state names and their acronyms
 from src.housekeeping_gads import (
     filter_states,  # Forward Declaration
     filter_non_empty_eia_id,  # Forward Declaration
-    filter_by_eia_code,  # Forward Declaration
+    match_by_eia_code,  # Forward Declaration
+    match_by_plant_name_and_add_eia, # Forward Declaration
     sort_and_reorder_columns,  # Forward Declaration
 )
 
@@ -81,7 +82,7 @@ dfGadsFilt = sort_and_reorder_columns(dfGadsFilt, sort_columns=["UnitName", "Uti
 dfGadsFilt.to_excel(gadsFiltStatesAddr, index=False)
 
 # %% Match all Gen Units from GADS to Gen Plants from Velocity Suite based on EIA
-dfMatchGads = filter_by_eia_code(dfVeloPEIA, dfGadsFilt)
+dfMatchGads = match_by_eia_code(dfVeloPEIA, dfGadsFilt)
 
 gadsMatchAddr = os.path.join(
     processedDataFolder, "dfGads-" + components1 + "-" + location + "-Matched" + ext
@@ -113,4 +114,24 @@ veloPSortedAddr = os.path.join(
     processedDataFolder, "dfVelo-" + components1 + "-" + location + "-Sorted" + ext
 )
 dfVeloUSorted.to_excel(veloPSortedAddr, index=False)
+# %% Match all Gen Units from Velocity Suite to Gen Plants from Velocity Suite based on Plant Name (Gen Units from VS don't have an EIA Code)
+
+dfMatchVeloUAllEIA = match_by_plant_name_and_add_eia(dfVeloP, dfVeloUSorted)
+
+veloUMatchAllEIAAddr = os.path.join(
+    processedDataFolder, "dfVelo-" + components1 + "-" + location + "-Matched-allEIA" + ext
+)
+
+dfMatchVeloUAllEIA.to_excel(veloUMatchAllEIAAddr, index=False)
+
+dfMatchVeloUEIA = filter_non_empty_eia_id(dfMatchVeloUAllEIA)
+
+veloUMatchEIAAddr = os.path.join(
+    processedDataFolder,
+    "dfVelo-" + components1 + "-" + location + "-Matched-validEIA" + ext,
+)
+
+# Table 3: All Gen Units from Velocity Suite which were matched with Gen Plants from Velocity Suite on the basis of Plant Name. Addtionally the rows are sorted by 'Plant Name' and 'Unit' and those columns are brought to the front. Lastly, EIA ID's from Gen Plants have been added to the corresponding rows in Gen Units and for this table rows with empty EIA values have been dropped.
+dfMatchVeloUEIA.to_excel(veloUMatchEIAAddr, index=False)
+
 # %%

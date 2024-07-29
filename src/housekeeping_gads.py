@@ -3,15 +3,6 @@
 import pandas as pd
 import us
 
-# def filter_states(dfGads, states_to_keep=["Illinois", "Indiana", "Wisconsin"]):
-#     # Define the list of state names to filter
-#     # states_to_keep = ["IL", "IN", "WI"]
-
-#     # Filter the DataFrame
-#     dfFiltered = dfGads[dfGads["StateName"].isin(states_to_keep)]
-
-#     return dfFiltered
-
 def filter_by_eia_code(dfVelo, dfGads):
     # Get the unique 'EIA ID' values from dfVelo
     eia_ids = dfVelo["EIA ID"].unique()

@@ -12,6 +12,16 @@ def match_by_eia_code(dfVeloP, dfGads):
 
     return dfGadsFiltered
 
+
+def match_by_plant_name_and_add_eia(dfVeloP, dfVeloU):
+    # Merge dfVeloP and dfVeloU on 'Plant Name' to add 'EIA ID' from dfVeloP to dfVeloU
+    dfMerged = pd.merge(
+        dfVeloU, dfVeloP[["Plant Name", "EIA ID"]], on="Plant Name", how="left"
+    )
+
+    return dfMerged
+
+
 def filter_non_empty_eia_id(dfVeloSorted):
     # Drop rows where 'EIA ID' is NaN
     dfVeloEIA = dfVeloSorted.dropna(subset=["EIA ID"]).copy()

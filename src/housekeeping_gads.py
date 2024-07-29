@@ -12,7 +12,6 @@ def match_by_eia_code(dfVeloP, dfGads):
 
     return dfGadsFiltered
 
-
 def match_by_plant_name_and_add_eia(dfVeloP, dfVeloU):
     # Merge dfVeloP and dfVeloU on 'Plant Name' to add 'EIA ID' from dfVeloP to dfVeloU
     dfMerged = pd.merge(
@@ -21,13 +20,11 @@ def match_by_plant_name_and_add_eia(dfVeloP, dfVeloU):
 
     return dfMerged
 
+def filter_non_empty_column(df, column_name="EIA ID"):
+    # Drop rows where the specified column is NaN
+    df_filtered = df.dropna(subset=[column_name]).copy()
 
-def filter_non_empty_eia_id(dfVeloSorted):
-    # Drop rows where 'EIA ID' is NaN
-    dfVeloEIA = dfVeloSorted.dropna(subset=["EIA ID"]).copy()
-
-    return dfVeloEIA
-
+    return df_filtered
 
 def filter_states(dfGads, veloStates):
     # Create a mapping of full state names to their abbreviations using the us package
@@ -51,7 +48,6 @@ def filter_states(dfGads, veloStates):
     dfGadsFilt = dfGadsFilt.drop(columns=["StateAbbreviation"])
 
     return dfGadsFilt
-
 
 def sort_and_reorder_columns(df, sort_columns=None):
     if sort_columns is None:

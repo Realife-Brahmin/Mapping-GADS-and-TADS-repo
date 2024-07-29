@@ -9,9 +9,9 @@ import us # for mapping US state names and their acronyms
 
 from src.housekeeping_gads import (
     filter_states,  # Forward Declaration
-    filter_non_empty_eia_id,  # Forward Declaration
+    filter_non_empty_column,  # Forward Declaration
     match_by_eia_code,  # Forward Declaration
-    match_by_plant_name_and_add_eia, # Forward Declaration
+    match_by_plant_name_and_add_eia,  # Forward Declaration
     sort_and_reorder_columns,  # Forward Declaration
 )
 
@@ -58,7 +58,7 @@ dfVeloPSorted = dfVeloP.sort_values(by=['Plant Name', 'Plant Operator Name'])
 veloPSortedAddr = os.path.join(processedDataFolder, "dfVelo-"+components2+"-"+location+"-Sorted"+ext)
 dfVeloPSorted.to_excel(veloPSortedAddr, index=False)
 
-dfVeloPEIA = filter_non_empty_eia_id(dfVeloPSorted)
+dfVeloPEIA = filter_non_empty_column(dfVeloPSorted, column_name="EIA ID")
 veloPValidEIAAddr = os.path.join(processedDataFolder, "dfVelo-"+components2+"-"+location+"-validEIA"+ext)
 
 # Table 1: All Gen Plants from Velocity Suite which are 50 mi from location, have valid EIA, sorted by 'Plant Name' and then 'Plant Operator Name'.
@@ -81,15 +81,23 @@ dfGadsFilt = sort_and_reorder_columns(dfGadsFilt, sort_columns=["UnitName", "Uti
 
 dfGadsFilt.to_excel(gadsFiltStatesAddr, index=False)
 
-# %% Match all Gen Units from GADS to Gen Plants from Velocity Suite based on EIA
-dfMatchGads = match_by_eia_code(dfVeloPEIA, dfGadsFilt)
+dfGadsFiltEIA = filter_non_empty_column(dfGadsFilt, column_name="EIACode")
 
-gadsMatchAddr = os.path.join(
-    processedDataFolder, "dfGads-" + components1 + "-" + location + "-Matched" + ext
+gadsFiltEIAAddr = os.path.join(
+    processedDataFolder,
+    "dfGads-" + components1 + "-" + location + "-filteredStates-validEIA" + ext,
+)
+
+dfGadsFiltEIA.to_excel(gadsFiltEIAAddr, index=False)
+# %% Match all Gen Units from GADS to Gen Plants from Velocity Suite based on EIA
+dfMatchGads_with_VSPlants = match_by_eia_code(dfVeloPEIA, dfGadsFilt)
+
+gadsMatch_with_VSPlants_Addr = os.path.join(
+    processedDataFolder, "dfGads-" + components1 + "-" + location + "-Matched-with-VSPlants" + ext
 )
 
 # Table 2: All Gen Units from GADS which were matched with Gen Plants from Velocity Suite on the basis of EIA. Addtionally the rows are sorted by Unit Name and Utility Name and those columns are brought to the front.
-dfMatchGads.to_excel(gadsMatchAddr, index=False)
+dfMatchGads_with_VSPlants.to_excel(gadsMatch_with_VSPlants_Addr, index=False)
 # %% Importing Gen Units from Velocity Suite and Housekeeping
 filenameVeloGenUnits = components1 + "-near-" + location + "-raw" + ext
 veloFileGenUnitsAddr = os.path.join(

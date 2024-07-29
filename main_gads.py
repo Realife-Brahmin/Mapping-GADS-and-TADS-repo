@@ -100,5 +100,26 @@ sizeVeloUnits0 = dfVeloUnits0.shape
 print(
     f"Size of velocity suite Gen Units db before any filtering: {sizeVeloUnits0[0]}, {sizeVeloUnits0[1]}"
 )
+# %% Housekeeping on dfVelo (remove empty EIA_ID rows)
 
+dfVeloU = dfVeloUnits0.copy()
+
+# dfVeloP = filter_non_empty_eia_id(dfVeloP)
+sizeVeloU = dfVeloU.shape
+
+dfVeloUSorted = dfVeloU.sort_values(by=["Plant Name", "Plant Operator Name"])
+veloPSortedAddr = os.path.join(
+    processedDataFolder, "dfVelo-" + components1 + "-" + location + "-Sorted" + ext
+)
+dfVeloUSorted.to_excel(veloPSortedAddr, index=False)
+
+dfVeloUEIA = filter_non_empty_eia_id(dfVeloUSorted)
+veloPValidEIAAddr = os.path.join(
+    processedDataFolder, "dfVelo-" + components1 + "-" + location + "-validEIA" + ext
+)
+
+# Table 1: All Gen Plants from Velocity Suite which are 50 mi from location, have valid EIA, sorted by 'Plant Name' and then 'Plant Operator Name'.
+dfVeloUEIA.to_excel(veloPValidEIAAddr, index=False)
+
+veloPStates = set(dfVeloUEIA["State"])
 # %%

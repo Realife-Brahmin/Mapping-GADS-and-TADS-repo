@@ -48,8 +48,22 @@ def filter_states(dfGads, veloStates):
 
     # Drop the temporary 'StateAbbreviation' column
     dfGadsFilt = dfGadsFilt.drop(columns=["StateAbbreviation"])
-    
+
     return dfGadsFilt
+
+
+def sort_and_reorder_columns(df, sort_columns=None):
+    if sort_columns is None:
+        sort_columns = ["UnitName", "UtilityName"]
+
+    # Sort the DataFrame by the specified columns
+    df_sorted = df.sort_values(by=sort_columns)
+
+    # Move the sort columns to the front
+    cols = sort_columns + [col for col in df.columns if col not in sort_columns]
+    df_reordered = df_sorted[cols]
+
+    return df_reordered
 
 
 # %%

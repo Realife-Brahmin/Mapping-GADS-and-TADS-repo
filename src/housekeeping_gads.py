@@ -23,8 +23,11 @@ def match_by_eia_code_and_add_recid(dfVeloP, dfGads):
         how="left",
     )
 
+    # Drop rows where 'EIA ID' or 'Rec_ID' is NaN
+    dfGadsFiltered = dfMerged.dropna(subset=["EIA ID", "Rec_ID"])
+
     # Drop the duplicate 'EIA ID' column from the merge
-    dfGadsFiltered = dfMerged.drop(columns=["EIA ID"])
+    dfGadsFiltered = dfGadsFiltered.drop(columns=["EIA ID"])
 
     return dfGadsFiltered
 

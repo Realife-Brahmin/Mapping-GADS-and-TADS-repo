@@ -7,11 +7,16 @@ import re
 import pandas as pd
 import us # for mapping US state names and their acronyms
 
+# import importlib
+
+# importlib.reload(src.housekeeping_gads)
+
 from src.housekeeping_gads import (
     filter_states,  # Forward Declaration
     filter_non_empty_column,  # Forward Declaration
     match_by_eia_code,  # Forward Declaration
-    match_by_plant_name_and_add_eia,  # Forward Declaration
+    match_by_eia_code_and_add_recid, # Forward Declaration
+    match_by_plant_name_and_add_eia_recid,  # Forward Declaration
     sort_and_reorder_columns,  # Forward Declaration
 )
 
@@ -104,6 +109,8 @@ veloFileGenUnitsAddr = os.path.join(
     rawDataFolder, filenameVeloGenUnits
 )  # gen units which are <= 50miles from `Chicago/Ohare` weather station
 print(veloFileGenUnitsAddr)
+
+# Note that dfVeloUnits have neither EIA Codes nor Rec_ID
 dfVeloUnits0 = pd.read_excel(veloFileGenUnitsAddr, engine="openpyxl")
 sizeVeloUnits0 = dfVeloUnits0.shape
 print(
@@ -124,7 +131,7 @@ veloPSortedAddr = os.path.join(
 dfVeloUSorted.to_excel(veloPSortedAddr, index=False)
 # %% Match all Gen Units from Velocity Suite to Gen Plants from Velocity Suite based on Plant Name (Gen Units from VS don't have an EIA Code)
 
-dfMatchVeloUAllEIA = match_by_plant_name_and_add_eia(dfVeloP, dfVeloUSorted)
+dfMatchVeloUAllEIA = match_by_plant_name_and_add_eia_recid(dfVeloP, dfVeloUSorted)
 
 veloUMatchAllEIAAddr = os.path.join(
     processedDataFolder, "dfVelo-" + components1 + "-" + location + "-Matched-with-VSPlants-allEIA" + ext

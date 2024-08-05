@@ -12,10 +12,27 @@ def match_by_eia_code(dfVeloP, dfGads):
 
     return dfGadsFiltered
 
-def match_by_plant_name_and_add_eia(dfVeloP, dfVeloU):
+
+def match_by_eia_code_and_add_recid(dfVeloP, dfGads):
+    # Merge dfVeloP and dfGads on 'EIA ID' and 'EIACode' columns to add 'Rec_ID' from dfVeloP to dfGads
+    dfMerged = pd.merge(
+        dfGads,
+        dfVeloP[["EIA ID", "Rec_ID"]],
+        left_on="EIACode",
+        right_on="EIA ID",
+        how="left",
+    )
+
+    # Drop the duplicate 'EIA ID' column from the merge
+    dfGadsFiltered = dfMerged.drop(columns=["EIA ID"])
+
+    return dfGadsFiltered
+
+
+def match_by_plant_name_and_add_eia_recid(dfVeloP, dfVeloU):
     # Merge dfVeloP and dfVeloU on 'Plant Name' to add 'EIA ID' from dfVeloP to dfVeloU
     dfMerged = pd.merge(
-        dfVeloU, dfVeloP[["Plant Name", "EIA ID"]], on="Plant Name", how="left"
+        dfVeloU, dfVeloP[["Plant Name", "EIA ID", "Rec_ID"]], on="Plant Name", how="left"
     )
 
     return dfMerged

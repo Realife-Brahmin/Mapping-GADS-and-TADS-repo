@@ -11,6 +11,15 @@ import us # for mapping US state names and their acronyms
 
 # importlib.reload(src.housekeeping_gads)
 
+try:
+    fileAddr = __vsc_ipynb_file__ #pylint: disable=reportUndefinedVariable
+    wd = os.path.dirname(fileAddr)
+    print("We seem to be working in a JuPyteR Notebook")
+except ImportError:
+    # wd = os.getcwd()
+    wd = os.path.dirname(__file__)
+    print("We seem to be working in a regular .py file")
+
 from src.housekeeping_gads import (
     filter_states,  # Forward Declaration
     filter_non_empty_column,  # Forward Declaration

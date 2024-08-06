@@ -93,7 +93,8 @@ veloPValidEIAAddr = os.path.join(processedDataFolder, "dfVelo-"+components2+"-"+
 dfVeloPEIA.to_excel(veloPValidEIAAddr, index=False)
 
 veloPStates = set(dfVeloPEIA['State'])
-# %% Housekeeping on dfGads
+
+# Housekeeping on dfGads
 dfGads = dfGads0.copy()
 
 # Filter GADS data to contain only the US States present in the Velocity Suite Data
@@ -137,7 +138,7 @@ gadsMatch_with_VSPlants_Addr = os.path.join(
     processedDataFolder, "dfGads-" + components1 + "-" + location + "-Matched-with-VSPlants" + ext
 )
 
-# Table 2: All Gen Units from GADS which were matched with Gen Plants from Velocity Suite on the basis of EIA. Addtionally the rows are sorted by Unit Name and Utility Name and those columns are brought to the front.
+# Table 2: All Gen Units from GADS which were matched with Gen Plants from Velocity Suite on the basis of EIA, and attach Rec IDs too. Addtionally the rows are sorted by Unit Name and Utility Name and those columns are brought to the front.
 dfMatchGads_with_VSPlants.to_excel(gadsMatch_with_VSPlants_Addr, index=False)
 # %% Importing Gen Units from Velocity Suite and Housekeeping
 filenameVeloGenUnits = components1 + "-near-" + location + "-raw" + ext
@@ -152,11 +153,9 @@ sizeVeloUnits0 = dfVeloUnits0.shape
 print(
     f"Size of velocity suite Gen Units db before any filtering: {sizeVeloUnits0[0]}, {sizeVeloUnits0[1]}"
 )
-# %% Housekeeping on dfVelo (remove empty EIA_ID rows)
 
 dfVeloU = dfVeloUnits0.copy()
 
-# dfVeloP = filter_non_empty_eia_id(dfVeloP)
 sizeVeloU = dfVeloU.shape
 
 dfVeloUSorted = sort_and_reorder_columns(dfVeloU, sort_columns=["Plant Name", "Unit"])
@@ -169,6 +168,11 @@ dfVeloUSorted.to_excel(veloPSortedAddr, index=False)
 
 dfMatchVeloUAllEIA = match_by_plant_name_and_add_eia_recid(dfVeloP, dfVeloUSorted)
 
+sizeMatchVSUnits_with_VSPlants = dfMatchVeloUAllEIA.shape
+print(
+    f"Size of Velocity Suite Units db after matching Plant Names with Velocity Suite Plants: {sizeMatchVSUnits_with_VSPlants[0]}, {sizeMatchVSUnits_with_VSPlants[1]}"
+)
+
 veloUMatchAllEIAAddr = os.path.join(
     processedDataFolder, "dfVelo-" + components1 + "-" + location + "-Matched-with-VSPlants-allEIA" + ext
 )
@@ -177,12 +181,17 @@ dfMatchVeloUAllEIA.to_excel(veloUMatchAllEIAAddr, index=False)
 
 dfMatchVeloUEIA = filter_non_empty_column(dfMatchVeloUAllEIA, column_name="EIA ID")
 
+sizeMatchVSUnits_with_VSPlants_EIA = dfMatchVeloUEIA.shape
+print(
+    f"Size of Velocity Suite Units db after matching Plant Names with Velocity Suite Plants after removing rows with empty EIAs: {sizeMatchVSUnits_with_VSPlants_EIA[0]}, {sizeMatchVSUnits_with_VSPlants_EIA[1]}"
+)
+
 veloUMatchEIAAddr = os.path.join(
     processedDataFolder,
     "dfVelo-" + components1 + "-" + location + "-Matched-with-VSPlants-validEIA" + ext,
 )
 
-# Table 3: All Gen Units from Velocity Suite which were matched with Gen Plants from Velocity Suite on the basis of Plant Name. Addtionally the rows are sorted by 'Plant Name' and 'Unit' and those columns are brought to the front. Lastly, EIA ID's from Gen Plants have been added to the corresponding rows in Gen Units and for this table rows with empty EIA values have been dropped.
+# Table 3: All Gen Units from Velocity Suite which were matched with Gen Plants from Velocity Suite on the basis of Plant Name. Addtionally the rows are sorted by 'Plant Name' and 'Unit' and those columns are brought to the front. Lastly, EIA ID's as well as Rec IDs from Gen Plants have been added to the corresponding rows in Gen Units and for this table rows with empty EIA values have been dropped.
 dfMatchVeloUEIA.to_excel(veloUMatchEIAAddr, index=False)
 
 # %% Now let's match rows from Table 2 (GADS Gen Units) and Table 3 (Velocity Suite Gen Units) based on EIA Codes
@@ -193,18 +202,18 @@ print(
     f"Size of GADS db after matching EIA Codes with Velocity Suite Units: {sizeMatchGads_with_VSUnits[0]}, {sizeMatchGads_with_VSUnits[1]}"
 )
 
-
 numUniqueMatchedPlants_via_VSUnits = len(set(dfMatchGads_with_VSUnits["Rec_ID"]))
 
 print(
     f"These matched rows between GADS and Velocity Suite Units represent {numUniqueMatchedPlants_via_VSUnits} unique plants (EIA Codes as well as Rec IDs)"
 )
+
 gadsMatch_with_VSUnits_Addr = os.path.join(
     processedDataFolder,
     "dfGads-" + components1 + "-" + location + "-Matched-with-VSUnits" + ext,
 )
 
-# Table 4: All Gen Units from GADS which were matched with Gen Units from Velocity Suite on the basis of EIA (note that VS Gen Units didn't originally have EIA, they were mapped from VS Gen Plants). Addtionally the rows are sorted by Unit Name and Utility Name and those columns are brought to the front.
+# Table 4: All Gen Units from GADS which were matched with Gen Units from Velocity Suite on the basis of EIA and attach Rec IDs too (note that VS Gen Units didn't originally have EIA, they were mapped from VS Gen Plants). Addtionally the rows are sorted by Unit Name and Utility Name and those columns are brought to the front.
 dfMatchGads_with_VSUnits.to_excel(gadsMatch_with_VSUnits_Addr, index=False)
 
 # %%

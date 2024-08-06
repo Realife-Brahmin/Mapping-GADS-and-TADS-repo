@@ -15,6 +15,7 @@ except ImportError:
 
 # Forward declarations
 from src.housekeeping_gads import (
+    eia_filtering,  # Forward Declaration
     filter_states,  # Forward Declaration
     filter_non_empty_column,  # Forward Declaration
     match_by_eia_code_and_add_recid,  # Forward Declaration
@@ -41,7 +42,8 @@ print(f"There are {numCompaniesGads0} unique companies owning tlines in the enti
 # display(dfgads)
 
 # %% Input Velocity Suite Data for the specific configuration and get some preliminary information about it
-location = "chicago-ohare"
+# location = "chicago-ohare"
+location = "newYork-jfk"
 components1 = "genUnits"
 components2 = "genPlants"
 ext = ".xlsx"
@@ -61,7 +63,9 @@ dfVeloPSorted = dfVeloP.sort_values(by=['Plant Name', 'Plant Operator Name'])
 veloPSortedAddr = os.path.join(processedDataFolder, "dfVelo-"+components2+"-"+location+"-Sorted"+ext)
 dfVeloPSorted.to_excel(veloPSortedAddr, index=False)
 
-dfVeloPEIA = filter_non_empty_column(dfVeloPSorted, column_name="EIA ID")
+# dfVeloPEIA = filter_non_empty_column(dfVeloPSorted, column_name="EIA ID")
+dfVeloPEIA = eia_filtering(dfVeloPSorted, column_name="EIA ID")
+
 veloPValidEIAAddr = os.path.join(processedDataFolder, "dfVelo-"+components2+"-"+location+"-validEIA"+ext)
 
 # Table 1: All Gen Plants from Velocity Suite which are 50 mi from location, have valid EIA, sorted by 'Plant Name' and then 'Plant Operator Name'.
@@ -86,7 +90,8 @@ dfGadsFilt = sort_and_reorder_columns(dfGadsFilt, sort_columns=["UnitName", "Uti
 
 dfGadsFilt.to_excel(gadsFiltStatesAddr, index=False)
 
-dfGadsFiltEIA = filter_non_empty_column(dfGadsFilt, column_name="EIACode")
+# dfGadsFiltEIA = filter_non_empty_column(dfGadsFilt, column_name="EIACode")
+dfGadsFiltEIA = eia_filtering(dfGadsFilt, column_name="EIACode")
 
 gadsFiltEIAAddr = os.path.join(
     processedDataFolder,
@@ -154,7 +159,7 @@ veloUMatchAllEIAAddr = os.path.join(
 
 dfMatchVeloUAllEIA.to_excel(veloUMatchAllEIAAddr, index=False)
 
-dfMatchVeloUEIA = filter_non_empty_column(dfMatchVeloUAllEIA, column_name="EIA ID")
+dfMatchVeloUEIA = eia_filtering(dfMatchVeloUAllEIA, column_name="EIA ID")
 
 sizeMatchVSUnits_with_VSPlants_EIA = dfMatchVeloUEIA.shape
 print(

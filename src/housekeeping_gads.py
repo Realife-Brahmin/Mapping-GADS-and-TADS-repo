@@ -62,6 +62,28 @@ def match_by_plant_name_and_add_eia_recid(dfVeloP, dfVeloU):
 
     return dfMerged
 
+
+def eia_filtering(df, column_name="EIA ID"):
+    # Drop rows where the specified column is NaN or 0
+    df_filtered = df.dropna(subset=[column_name]).copy()
+    df_filtered = df_filtered[df_filtered[column_name] != 0]
+
+    # Function to clean up the EIA ID
+    def clean_eia_id(value):
+        if isinstance(value, str):
+            # Handle weird numbers separated by ':' or ','
+            if ":" in value or "," in value:
+                value = value.split(":")[0].split(",")[0]
+            # Remove leading zeros
+            value = value.lstrip("0")
+        return value
+
+    # Apply the cleaning function to the specified column
+    df_filtered[column_name] = df_filtered[column_name].apply(clean_eia_id)
+
+    return df_filtered
+
+
 def filter_non_empty_column(df, column_name="EIA ID"):
     # Drop rows where the specified column is NaN
     df_filtered = df.dropna(subset=[column_name]).copy()

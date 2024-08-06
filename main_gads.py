@@ -96,6 +96,7 @@ veloPStates = set(dfVeloPEIA['State'])
 # %% Housekeeping on dfGads
 dfGads = dfGads0.copy()
 
+# Filter GADS data to contain only the US States present in the Velocity Suite Data
 dfGadsFilt = filter_states(dfGads0, veloPStates)
 sizeGadsFilt = dfGadsFilt.shape
 print(f"Size of GADS db after filtering for States Related to our Region: {sizeGadsFilt[0]}, {sizeGadsFilt[1]}")

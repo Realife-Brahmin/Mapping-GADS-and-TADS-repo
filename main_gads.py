@@ -51,6 +51,9 @@ def reload_housekeeping():
 #     sort_and_reorder_columns,  # Forward Declaration
 # )
 
+analysisCategory = "generator_data"
+rawDataFolder = os.path.join(wd, "rawData", analysisCategory)
+processedDataFolder = os.path.join(wd, "processedData", analysisCategory)
 # %% Input the entire GADS Data and get some preliminary information about it
 
 gadsFileAddr = os.path.join(rawDataFolder, "GADS inventory 2024.csv")

@@ -2,12 +2,10 @@
 # pylint: disable=undefined-variable line-too-long invalid-name missing-function-docstring f-string-without-interpolation
 
 import os
-from collections import defaultdict
-import re
+import importlib
 import pandas as pd
 import us # for mapping US state names and their acronyms
 
-# import importlib
 
 # importlib.reload(src.housekeeping_gads)
 
@@ -20,6 +18,13 @@ except ImportError:
     wd = os.path.dirname(__file__)
     print("We seem to be working in a regular .py file")
 
+# Add the path to your module
+# sys.path.append("./src")
+
+# Import the module
+# import housekeeping_gads
+
+# Forward declarations
 from src.housekeeping_gads import (
     filter_states,  # Forward Declaration
     filter_non_empty_column,  # Forward Declaration
@@ -29,17 +34,20 @@ from src.housekeeping_gads import (
     sort_and_reorder_columns,  # Forward Declaration
 )
 
-try:
-    fileAddr = __vsc_ipynb_file__
-    wd = os.path.dirname(fileAddr)
-    print("We seem to be working in a JuPyteR Notebook")
-except ImportError:
-    wd = os.getcwd()
-    print("We seem to be working in a regular .py file")
+# Function to reload the module
+def reload_housekeeping():
+    importlib.reload(src.housekeeping_gads)
 
 
-rawDataFolder = os.path.join(wd, "rawData")
-processedDataFolder = os.path.join(wd, "processedData/")
+# from src.housekeeping_gads import (
+#     filter_states,  # Forward Declaration
+#     filter_non_empty_column,  # Forward Declaration
+#     match_by_eia_code,  # Forward Declaration
+#     match_by_eia_code_and_add_recid,  # Forward Declaration
+#     match_by_plant_name_and_add_eia_recid,  # Forward Declaration
+#     sort_and_reorder_columns,  # Forward Declaration
+# )
+
 # %% Input the entire GADS Data and get some preliminary information about it
 
 gadsFileAddr = os.path.join(rawDataFolder, "GADS inventory 2024.csv")

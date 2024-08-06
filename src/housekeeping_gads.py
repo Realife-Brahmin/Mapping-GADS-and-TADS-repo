@@ -13,18 +13,40 @@ def match_by_eia_code(dfVeloP, dfGads):
     return dfGadsFiltered
 
 
+# def match_by_eia_code_and_add_recid(dfVeloP, dfGads):
+#     # Merge dfVeloP and dfGads on 'EIA ID' and 'EIACode' columns to add 'Rec_ID' from dfVeloP to dfGads
+#     dfMerged = pd.merge(
+#         dfGads,
+#         dfVeloP[["EIA ID", "Rec_ID"]],
+#         left_on="EIACode",
+#         right_on="EIA ID",
+#         how="left",
+#     )
+
+#     # Drop rows where 'EIA ID' or 'Rec_ID' is NaN
+#     dfGadsFiltered = dfMerged.dropna(subset=["EIA ID", "Rec_ID"])
+
+#     # Drop the duplicate 'EIA ID' column from the merge
+#     dfGadsFiltered = dfGadsFiltered.drop(columns=["EIA ID"])
+
+#     return dfGadsFiltered
+
+
 def match_by_eia_code_and_add_recid(dfVeloP, dfGads):
+    # Drop duplicates in dfVeloP to avoid creating extra rows in the merge
+    dfVeloP_unique = dfVeloP[["EIA ID", "Rec_ID"]].drop_duplicates(subset=["EIA ID"])
+
     # Merge dfVeloP and dfGads on 'EIA ID' and 'EIACode' columns to add 'Rec_ID' from dfVeloP to dfGads
     dfMerged = pd.merge(
         dfGads,
-        dfVeloP[["EIA ID", "Rec_ID"]],
+        dfVeloP_unique,
         left_on="EIACode",
         right_on="EIA ID",
         how="left",
     )
 
-    # Drop rows where 'EIA ID' or 'Rec_ID' is NaN
-    dfGadsFiltered = dfMerged.dropna(subset=["EIA ID", "Rec_ID"])
+    # Drop rows where 'Rec_ID' is NaN (implying no matching EIA ID)
+    dfGadsFiltered = dfMerged.dropna(subset=["Rec_ID"])
 
     # Drop the duplicate 'EIA ID' column from the merge
     dfGadsFiltered = dfGadsFiltered.drop(columns=["EIA ID"])

@@ -2,36 +2,21 @@
 # pylint: disable=undefined-variable line-too-long invalid-name missing-function-docstring f-string-without-interpolation wrong-import-position
 
 import os
-# from collections import defaultdict
-# import re
-# import sys
 import importlib
 import pandas as pd
-# import us # for mapping US state names and their acronyms
-
-
-# importlib.reload(src.housekeeping_gads)
 
 try:
     fileAddr = __vsc_ipynb_file__ #pylint: disable=reportUndefinedVariable
     wd = os.path.dirname(fileAddr)
     print("We seem to be working in a JuPyteR Notebook")
 except ImportError:
-    # wd = os.getcwd()
     wd = os.path.dirname(__file__)
     print("We seem to be working in a regular .py file")
-
-# Add the path to your module
-# sys.path.append("./src")
-
-# Import the module
-# import housekeeping_gads
 
 # Forward declarations
 from src.housekeeping_gads import (
     filter_states,  # Forward Declaration
     filter_non_empty_column,  # Forward Declaration
-    # match_by_eia_code,  # Forward Declaration
     match_by_eia_code_and_add_recid,  # Forward Declaration
     match_by_plant_name_and_add_eia_recid,  # Forward Declaration
     sort_and_reorder_columns,  # Forward Declaration
@@ -40,16 +25,6 @@ from src.housekeeping_gads import (
 # Function to reload the module
 def reload_housekeeping():
     importlib.reload(src.housekeeping_gads)
-
-
-# from src.housekeeping_gads import (
-#     filter_states,  # Forward Declaration
-#     filter_non_empty_column,  # Forward Declaration
-#     match_by_eia_code,  # Forward Declaration
-#     match_by_eia_code_and_add_recid,  # Forward Declaration
-#     match_by_plant_name_and_add_eia_recid,  # Forward Declaration
-#     sort_and_reorder_columns,  # Forward Declaration
-# )
 
 analysisCategory = "generator_data"
 rawDataFolder = os.path.join(wd, "rawData", analysisCategory)

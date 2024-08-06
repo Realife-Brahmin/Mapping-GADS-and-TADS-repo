@@ -1,5 +1,5 @@
 # %%
-# pylint: disable=undefined-variable line-too-long invalid-name missing-function-docstring f-string-without-interpolation
+# pylint: disable=undefined-variable line-too-long invalid-name missing-function-docstring f-string-without-interpolation wrong-import-position
 
 import os
 import importlib

@@ -121,6 +121,17 @@ dfGadsFiltEIA.to_excel(gadsFiltEIAAddr, index=False)
 # %% Match all Gen Units from GADS to Gen Plants from Velocity Suite based on EIA
 dfMatchGads_with_VSPlants = match_by_eia_code_and_add_recid(dfVeloPEIA, dfGadsFilt)
 
+sizeMatchGads_with_VSPlants = dfMatchGads_with_VSPlants.shape
+print(
+    f"Size of GADS db after matching EIA Codes with Velocity Suite Plants: {sizeMatchGads_with_VSPlants[0]}, {sizeMatchGads_with_VSPlants[1]}"
+)
+
+
+numUniqueMatchedPlants = len(set(dfMatchGads_with_VSPlants['Rec_ID']))
+
+print(
+    f"These matched rows between GADS and Velocity Suite Plants represent {numUniqueMatchedPlants} unique plants (EIA Codes as well as Rec IDs)"
+)
 
 gadsMatch_with_VSPlants_Addr = os.path.join(
     processedDataFolder, "dfGads-" + components1 + "-" + location + "-Matched-with-VSPlants" + ext
@@ -177,6 +188,17 @@ dfMatchVeloUEIA.to_excel(veloUMatchEIAAddr, index=False)
 # %% Now let's match rows from Table 2 (GADS Gen Units) and Table 3 (Velocity Suite Gen Units) based on EIA Codes
 dfMatchGads_with_VSUnits = match_by_eia_code_and_add_recid(dfMatchVeloUEIA, dfGadsFilt)
 
+sizeMatchGads_with_VSUnits = dfMatchGads_with_VSUnits.shape
+print(
+    f"Size of GADS db after matching EIA Codes with Velocity Suite Units: {sizeMatchGads_with_VSUnits[0]}, {sizeMatchGads_with_VSUnits[1]}"
+)
+
+
+numUniqueMatchedPlants_via_VSUnits = len(set(dfMatchGads_with_VSUnits["Rec_ID"]))
+
+print(
+    f"These matched rows between GADS and Velocity Suite Units represent {numUniqueMatchedPlants_via_VSUnits} unique plants (EIA Codes as well as Rec IDs)"
+)
 gadsMatch_with_VSUnits_Addr = os.path.join(
     processedDataFolder,
     "dfGads-" + components1 + "-" + location + "-Matched-with-VSUnits" + ext,

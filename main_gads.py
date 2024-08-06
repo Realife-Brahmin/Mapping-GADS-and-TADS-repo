@@ -2,9 +2,12 @@
 # pylint: disable=undefined-variable line-too-long invalid-name missing-function-docstring f-string-without-interpolation wrong-import-position
 
 import os
+# from collections import defaultdict
+# import re
+# import sys
 import importlib
 import pandas as pd
-import us # for mapping US state names and their acronyms
+# import us # for mapping US state names and their acronyms
 
 
 # importlib.reload(src.housekeeping_gads)
@@ -28,8 +31,8 @@ except ImportError:
 from src.housekeeping_gads import (
     filter_states,  # Forward Declaration
     filter_non_empty_column,  # Forward Declaration
-    match_by_eia_code,  # Forward Declaration
-    match_by_eia_code_and_add_recid, # Forward Declaration
+    # match_by_eia_code,  # Forward Declaration
+    match_by_eia_code_and_add_recid,  # Forward Declaration
     match_by_plant_name_and_add_eia_recid,  # Forward Declaration
     sort_and_reorder_columns,  # Forward Declaration
 )
@@ -112,7 +115,8 @@ gadsFiltEIAAddr = os.path.join(
 
 dfGadsFiltEIA.to_excel(gadsFiltEIAAddr, index=False)
 # %% Match all Gen Units from GADS to Gen Plants from Velocity Suite based on EIA
-dfMatchGads_with_VSPlants = match_by_eia_code(dfVeloPEIA, dfGadsFilt)
+dfMatchGads_with_VSPlants = match_by_eia_code_and_add_recid(dfVeloPEIA, dfGadsFilt)
+
 
 gadsMatch_with_VSPlants_Addr = os.path.join(
     processedDataFolder, "dfGads-" + components1 + "-" + location + "-Matched-with-VSPlants" + ext
@@ -167,7 +171,7 @@ veloUMatchEIAAddr = os.path.join(
 dfMatchVeloUEIA.to_excel(veloUMatchEIAAddr, index=False)
 
 # %% Now let's match rows from Table 2 (GADS Gen Units) and Table 3 (Velocity Suite Gen Units) based on EIA Codes
-dfMatchGads_with_VSUnits = match_by_eia_code(dfMatchVeloUEIA, dfGadsFilt)
+dfMatchGads_with_VSUnits = match_by_eia_code_and_add_recid(dfMatchVeloUEIA, dfGadsFilt)
 
 gadsMatch_with_VSUnits_Addr = os.path.join(
     processedDataFolder,

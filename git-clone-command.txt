@@ -1,0 +1,2 @@
+// Running this command in Git Bash or a similar command line terminal will pull latest changes (if any) from the 'bare' (empty-looking) repo `extreme-weather-repo` into end-user friendly folder `extreme-weather-repo-FOR-END-USERS`.
+git reset --hard && git clean -fd && git pull origin master

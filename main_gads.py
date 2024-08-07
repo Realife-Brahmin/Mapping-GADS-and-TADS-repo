@@ -66,6 +66,11 @@ dfVeloPSorted.to_excel(veloPSortedAddr, index=False)
 # dfVeloPEIA = filter_non_empty_column(dfVeloPSorted, column_name="EIA ID")
 dfVeloPEIA = eia_filtering(dfVeloPSorted, column_name="EIA ID")
 
+sizeVeloPEIA = dfVeloPEIA.shape
+print(
+    f"Size of velocity suite Gen Plants db after filtering for EIA Codes: {sizeVeloPEIA[0]}, {sizeVeloPEIA[1]}"
+)
+
 veloPValidEIAAddr = os.path.join(processedDataFolder, "dfVelo-"+components2+"-"+location+"-validEIA"+ext)
 
 # Table 1: All Gen Plants from Velocity Suite which are 50 mi from location, have valid EIA, sorted by 'Plant Name' and then 'Plant Operator Name'.

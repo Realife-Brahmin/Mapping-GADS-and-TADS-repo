@@ -13,25 +13,6 @@ def match_by_eia_code(dfVeloP, dfGads):
     return dfGadsFiltered
 
 
-# def match_by_eia_code_and_add_recid(dfVeloP, dfGads):
-#     # Merge dfVeloP and dfGads on 'EIA ID' and 'EIACode' columns to add 'Rec_ID' from dfVeloP to dfGads
-#     dfMerged = pd.merge(
-#         dfGads,
-#         dfVeloP[["EIA ID", "Rec_ID"]],
-#         left_on="EIACode",
-#         right_on="EIA ID",
-#         how="left",
-#     )
-
-#     # Drop rows where 'EIA ID' or 'Rec_ID' is NaN
-#     dfGadsFiltered = dfMerged.dropna(subset=["EIA ID", "Rec_ID"])
-
-#     # Drop the duplicate 'EIA ID' column from the merge
-#     dfGadsFiltered = dfGadsFiltered.drop(columns=["EIA ID"])
-
-#     return dfGadsFiltered
-
-
 def match_by_eia_code_and_add_recid(dfVeloP, dfGads):
     # Drop duplicates in dfVeloP to avoid creating extra rows in the merge
     dfVeloP_unique = dfVeloP[["EIA ID", "Rec_ID"]].drop_duplicates(subset=["EIA ID"])
@@ -127,15 +108,15 @@ def filter_states(dfGads, veloStates):
     state_abbreviations = {state.name: state.abbr for state in us.states.STATES}
 
     # Print the state abbreviations mapping for debugging
-    print("State Abbreviations Mapping:")
-    print(state_abbreviations)
+    # print("State Abbreviations Mapping:")
+    # print(state_abbreviations)
 
     # Map StateName to state abbreviations
     dfGads["StateAbbreviation"] = dfGads["StateName"].map(state_abbreviations)
 
     # Print a sample of the DataFrame to debug the mapping
-    print("Sample of dfGads with StateAbbreviation:")
-    print(dfGads[["StateName", "StateAbbreviation"]].head(10))
+    # print("Sample of dfGads with StateAbbreviation:")
+    # print(dfGads[["StateName", "StateAbbreviation"]].head(10))
 
     # Filter dfGads based on the StateAbbreviation being in veloStates
     dfGadsFilt = dfGads[dfGads["StateAbbreviation"].isin(veloStates)]

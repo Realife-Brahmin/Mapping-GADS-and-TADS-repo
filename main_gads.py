@@ -17,6 +17,8 @@ except ImportError:
 from src.housekeeping_gads import (
     eia_filtering,  # Forward Declaration
     filter_states,  # Forward Declaration
+    filterRetiredPlants, # Forward Declaration
+    computeCombinedMWRating, #Forward Declaration
     # filter_non_empty_column,  # Forward Declaration
     match_by_eia_code_and_add_recid,  # Forward Declaration
     match_by_plant_name_and_add_eia_recid,  # Forward Declaration

@@ -90,6 +90,38 @@ def filter_non_empty_column(df, column_name="EIA ID"):
 
     return df_filtered
 
+
+def filterRetiredPlants(dfVeloP):
+    # Columns to check for non-zero values
+    capacity_columns = [
+        "Operating Cap MW",
+        "Planned Cap MW",
+        "Canceled Cap MW",
+        "Mothballed Cap MW",
+    ]
+
+    # Filter out plants with no non-zero values in the specified columns
+    dfVeloP_filtered = dfVeloP[(dfVeloP[capacity_columns] != 0).any(axis=1)]
+
+    return dfVeloP_filtered
+
+
+def computeCombinedMWRating(dfVeloP):
+    # Columns to sum up
+    capacity_columns = [
+        "Operating Cap MW",
+        "Planned Cap MW",
+        # "Canceled Cap MW",
+        "Mothballed Cap MW",
+        # "Retired Cap MW",
+    ]
+
+    # Compute the sum of the specified columns
+    dfVeloP["Combined Cap MW"] = dfVeloP[capacity_columns].sum(axis=1)
+
+    return dfVeloP
+
+
 def filter_states(dfGads, veloStates):
     # Create a mapping of full state names to their abbreviations using the us package
     state_abbreviations = {state.name: state.abbr for state in us.states.STATES}

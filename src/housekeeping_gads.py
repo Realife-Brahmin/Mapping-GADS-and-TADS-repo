@@ -92,9 +92,9 @@ def computeCombinedMWRating(dfVeloP):
     capacity_columns = [
         "Operating Cap MW",
         "Planned Cap MW",
-        # "Canceled Cap MW",
+        "Canceled Cap MW",
         "Mothballed Cap MW",
-        # "Retired Cap MW",
+        "Retired Cap MW",
     ]
 
     # Compute the sum of the specified columns

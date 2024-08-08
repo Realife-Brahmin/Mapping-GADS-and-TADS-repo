@@ -88,8 +88,8 @@ veloTlinesSortedAddr = os.path.join(
 )
 dfVeloTlinesSorted.to_excel(veloTlinesSortedAddr, index=False)
 
-veloSortedAddr = os.path.join(processedDataFolder, "dfVeloTlines-Chicago-Ohare-Sorted.xlsx")
-dfVeloTlinesSorted.to_excel(veloSortedAddr, index=False)
+# veloSortedAddr = os.path.join(processedDataFolder, "dfVeloTlines-Chicago-Ohare-Sorted.xlsx")
+# dfVeloTlinesSorted.to_excel(veloSortedAddr, index=False)
 
 print(""f"But first I'll need to rename some companies in vs db to match with the exact strings of the TADS db.")
 

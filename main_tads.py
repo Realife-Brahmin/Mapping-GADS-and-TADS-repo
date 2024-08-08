@@ -1,8 +1,17 @@
 # %%
+# pylint: disable=undefined-variable line-too-long invalid-name missing-function-docstring f-string-without-interpolation wrong-import-position
+
 import os
-from collections import defaultdict
-import re
+import importlib
 import pandas as pd
+
+try:
+    fileAddr = __vsc_ipynb_file__  # pylint: disable=reportUndefinedVariable
+    wd = os.path.dirname(fileAddr)
+    print("We seem to be working in a JuPyteR Notebook")
+except ImportError:
+    wd = os.path.dirname(__file__)
+    print("We seem to be working in a regular .py file")
 
 from src.housekeeping_tads import (
     # filter_tlines_by_latest_reported_year,  # Forward Declaration
@@ -13,20 +22,16 @@ from src.housekeeping_tads import (
     sort_and_shift_columns_dfVelo, # Forward Declaration
 )
 
-# %%
-# pylint: disable=undefined-variable line-too-long invalid-name missing-function-docstring f-string-without-interpolation
+# Function to reload the module
+def reload_housekeeping():
+    importlib.reload(src.housekeeping_tads)
 
-try:
-    fileAddr = __vsc_ipynb_file__
-    wd = os.path.dirname(fileAddr)
-    print("We seem to be working in a JuPyteR Notebook")
-except ImportError:
-    wd = os.getcwd()
-    print("We seem to be working in a regular .py file")
+analysisCategory = "transmission_data"
+rawDataFolder = os.path.join(wd, "rawData", analysisCategory)
+processedDataFolder = os.path.join(wd, "processedData", analysisCategory)
 
-
-rawDataFolder = os.path.join(wd, "rawData")
-processedDataFolder = os.path.join(wd, "processedData/")
+# rawDataFolder = os.path.join(wd, "rawData")
+# processedDataFolder = os.path.join(wd, "processedData/")
 # %%
 tadsFileAddr = os.path.join(rawDataFolder, "TADS 2024 AC Inventory.csv")
 dfTads0 = pd.read_csv(tadsFileAddr)
@@ -39,9 +44,18 @@ print(f"There are {numCompaniesTads0} unique companies owning tlines in the enti
 
 # %%
 location = "chicago-ohare"
-veloFileAddr = os.path.join(rawDataFolder, "tlines-near-chicago-ohare-raw.xlsx") # tlines which are <= 50miles from `Chicago/Ohare` weather station
-print(veloFileAddr)
-dfVelo0 = pd.read_excel(veloFileAddr, engine='openpyxl')
+# location = "newYork-jfk"
+components1 = "tlines"
+ext = ".xlsx"
+# location = "chicago-ohare"
+filenameVeloTlines = components1 + "-near-" + location + "-raw" + ext
+veloFileTlinesAddr = os.path.join(
+    rawDataFolder, filenameVeloTlines
+)  # tlines units which are <= 50miles from `Chicago/Ohare` weather station
+print(veloFileTlinesAddr)
+# veloFileTlinesAddr = os.path.join(rawDataFolder, "tlines-near-chicago-ohare-raw.xlsx") # tlines which are <= 50miles from `Chicago/Ohare` weather station
+print(veloFileTlinesAddr)
+dfVelo0 = pd.read_excel(veloFileTlinesAddr, engine='openpyxl')
 sizeVelo0 = dfVelo0.shape
 print(f"Size of velocity suite db before any filtering: {sizeVelo0[0]}, {sizeVelo0[1]}")
 # dfVelo0
@@ -66,6 +80,11 @@ print(companyNamesVelo)
 
 # %%
 print(f"Now let's see how many tlines are owned by these {numCompaniesVelo} "       "companies in the entire TADS database:")
+
+dfVeloSorted = sort_and_shift_columns_dfVelo(dfVelo)
+
+veloSortedAddr = os.path.join(processedDataFolder, "dfVelo-Chicago-Ohare-Sorted.xlsx")
+dfVeloSorted.to_excel(veloSortedAddr)
 
 print(""f"But first I'll need to rename some companies in vs db to match with the exact strings of the TADS db.")
 

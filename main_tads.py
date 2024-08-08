@@ -71,25 +71,22 @@ print(""f"But first I'll need to rename some companies in vs db to match with th
 
 companyNamesVelo2Tads = companyNamesVelo.copy()  # Create a copy to avoid modifying the original
 
-# Replace the element using the 'discard' method (more efficient for sets)
-companyNamesVelo2Tads.discard("Commonwealth Edison Co")
-companyNamesVelo2Tads.add("Commonwealth Edison Company")
-companyNamesVelo2Tads.discard("AmerenIP")
-companyNamesVelo2Tads.add("Ameren Services Company")
-companyNamesVelo2Tads.discard("American Transmission Co LLC")
-companyNamesVelo2Tads.add("American Transmission Company")
-companyNamesVelo2Tads.discard("Northern Indiana Public Service Co LLC")
-companyNamesVelo2Tads.add("Northern Indiana Public Service Company [BA")
-companyNamesVelo2Tads.discard("Northern Municipal Power Agency")
-companyNamesVelo2Tads.add("Northern Indiana Public Service Company [BA")
-companyNamesVelo2Tads.discard("Undetermined Company")
-companyNamesVelo2Tads.add("Commonwealth Edison Company")
-print(companyNamesVelo2Tads)
+if location == "chicago-ohare" :
+    # Replace the element using the 'discard' method (more efficient for sets)
+    companyNamesVelo2Tads.discard("Commonwealth Edison Co")
+    companyNamesVelo2Tads.add("Commonwealth Edison Company")
+    companyNamesVelo2Tads.discard("AmerenIP")
+    companyNamesVelo2Tads.add("Ameren Services Company")
+    companyNamesVelo2Tads.discard("American Transmission Co LLC")
+    companyNamesVelo2Tads.add("American Transmission Company")
+    companyNamesVelo2Tads.discard("Northern Indiana Public Service Co LLC")
+    companyNamesVelo2Tads.add("Northern Indiana Public Service Company [BA")
+    companyNamesVelo2Tads.discard("Northern Municipal Power Agency")
+    companyNamesVelo2Tads.add("Northern Indiana Public Service Company [BA")
+    companyNamesVelo2Tads.discard("Undetermined Company")
+    companyNamesVelo2Tads.add("Commonwealth Edison Company")
+    print(companyNamesVelo2Tads)
 
-dfVeloSorted = sort_and_shift_columns_dfVelo(dfVelo)
-
-veloSortedAddr = os.path.join(processedDataFolder, "dfVelo-Chicago-Ohare-Sorted.xlsx")
-dfVeloSorted.to_excel(veloSortedAddr)
 
 # %%
 dfTads = dfTads0.copy()

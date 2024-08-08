@@ -54,37 +54,42 @@ veloFileTlinesAddr = os.path.join(
 )  # tlines units which are <= 50miles from `Chicago/Ohare` weather station
 print(veloFileTlinesAddr)
 # veloFileTlinesAddr = os.path.join(rawDataFolder, "tlines-near-chicago-ohare-raw.xlsx") # tlines which are <= 50miles from `Chicago/Ohare` weather station
-print(veloFileTlinesAddr)
-dfVelo0 = pd.read_excel(veloFileTlinesAddr, engine='openpyxl')
-sizeVelo0 = dfVelo0.shape
+# print(veloFileTlinesAddr)
+dfVeloTlines0 = pd.read_excel(veloFileTlinesAddr, engine='openpyxl')
+sizeVelo0 = dfVeloTlines0.shape
 print(f"Size of velocity suite db before any filtering: {sizeVelo0[0]}, {sizeVelo0[1]}")
-# dfVelo0
+# dfVeloTlines0
 
 # %%
 # Filter rows with 'Undetermined Company`
-# dfVelo = dfVelo0[ dfVelo0['Company Name'] != 'Undetermined Company' ]
+# dfVeloTlines = dfVeloTlines0[ dfVeloTlines0['Company Name'] != 'Undetermined Company' ]
 # Filter tlines with less than 100kV voltage
-dfVelo = dfVelo0.copy()
-dfVelo = dfVelo[ dfVelo['Voltage kV'] >= 100 ]
+dfVeloTlines = dfVeloTlines0.copy()
+dfVeloTlines = dfVeloTlines[ dfVeloTlines['Voltage kV'] >= 100 ]
 # Filter tlines not currently in service
-dfVelo = dfVelo[ dfVelo['Proposed'] == 'In Service']
+dfVeloTlines = dfVeloTlines[ dfVeloTlines['Proposed'] == 'In Service']
 
-sizeVelo = dfVelo.shape
+sizeVelo = dfVeloTlines.shape
 print(f"Size of velocity suite db after filtering for Company Names, Voltage [kV] and 'Proposed': {sizeVelo[0]}, {sizeVelo[1]}")
-companyNamesVelo = set(dfVelo['Company Name'])
+companyNamesVelo = set(dfVeloTlines['Company Name'])
 numCompaniesVelo = len(companyNamesVelo)
 print(f"There are {numCompaniesVelo} named companies owning the tlines near {location}")
 print(f"Their names are:")
 print(companyNamesVelo)
-# dfVelo
+# dfVeloTlines
 
 # %%
 print(f"Now let's see how many tlines are owned by these {numCompaniesVelo} "       "companies in the entire TADS database:")
 
-dfVeloSorted = sort_and_shift_columns_dfVelo(dfVelo)
+dfVeloTlinesSorted = sort_and_shift_columns_dfVelo(dfVeloTlines)
 
-veloSortedAddr = os.path.join(processedDataFolder, "dfVelo-Chicago-Ohare-Sorted.xlsx")
-dfVeloSorted.to_excel(veloSortedAddr)
+veloTlinesSortedAddr = os.path.join(
+    processedDataFolder, "dfVelo-" + components1 + "-" + location + "-Sorted" + ext
+)
+dfVeloTlinesSorted.to_excel(veloTlinesSortedAddr, index=False)
+
+veloSortedAddr = os.path.join(processedDataFolder, "dfVeloTlines-Chicago-Ohare-Sorted.xlsx")
+dfVeloTlinesSorted.to_excel(veloSortedAddr, index=False)
 
 print(""f"But first I'll need to rename some companies in vs db to match with the exact strings of the TADS db.")
 
@@ -122,7 +127,12 @@ print(f"Size of TADS db after filtering: {sizeTads[0]}, {sizeTads[1]}")
 
 dfTadsSorted = sort_and_shift_columns(dfTads)
 
-tadsSortedAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Sorted.xlsx")
+# tadsSortedAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Sorted.xlsx")
+
+tadsSortedAddr = os.path.join(
+    processedDataFolder,
+    "dfTads-" + components1 + "-" + location + "-Sorted" + ext,
+)
 
 dfTadsSorted.to_excel(tadsSortedAddr, index=False)
 
@@ -133,16 +143,43 @@ sizeTadsLatest = dfTadsLatest.shape
 
 print(f"Size of TADS db after filtering for only latest reported year: {sizeTadsLatest[0]}, {sizeTadsLatest[1]}")
 
-tadsLatestAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Latest.xlsx")
+# tadsLatestAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Latest.xlsx")
 
-dfTadsLatest.to_excel(tadsLatestAddr)
+tadsLatestAddr = os.path.join(
+    processedDataFolder,
+    "dfTads-" + components1 + "-" + location + "-Latest" + ext,
+)
+
+dfTadsLatest.to_excel(tadsLatestAddr, index=False)
 # %%
-dfMatch = get_matched_entries(dfVeloSorted, dfTadsLatest)
-matchAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Matched.xlsx")
-dfMatch.to_excel(matchAddr)
+dfMatchTads_with_VSTlines = get_matched_entries(dfVeloTlinesSorted, dfTadsLatest)
+
+size = dfMatchTads_with_VSTlines.shape
+print(
+    f"Size of TADS db after matching (from bus, to bus) with Velocity Suite Tlines: {size[0]}, {size[1]}"
+)
+
+tadsMatch_with_VSTlines_Addr = os.path.join(
+    processedDataFolder,
+    "dfTads-" + components1 + "-" + location + "-Matched-with-VSTlines" + ext,
+)
+
+# matchAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Matched.xlsx")
+dfMatchTads_with_VSTlines.to_excel(tadsMatch_with_VSTlines_Addr, index=False)
 
 # %%
-dfMatchReduced = get_reduced_df(dfMatch)
-matchReducedAddr = os.path.join(processedDataFolder, "chicago-ohare-lines.xlsx")
-dfMatchReduced.to_excel(matchReducedAddr, index=False)
+dfMatchTads_with_VSTlines_Reduced = get_reduced_df(dfMatchTads_with_VSTlines)
+# matchReducedAddr = os.path.join(processedDataFolder, "chicago-ohare-lines.xlsx")
+tadsMatch_with_VSTlines_Reduced_Addr = os.path.join(
+    processedDataFolder,
+    "dfTads-" + components1 + "-" + location + "-Matched-with-VSTlines-Reduced" + ext,
+)
+dfMatchTads_with_VSTlines_Reduced.to_excel(
+    tadsMatch_with_VSTlines_Reduced_Addr, index=False
+)
+
+size = dfMatchTads_with_VSTlines.shape
+print(
+    f"Size of matched TADS db entries after formatting them based on desired final format: {size[0]}, {size[1]}"
+)
 # %%

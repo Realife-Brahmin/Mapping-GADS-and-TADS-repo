@@ -30,8 +30,6 @@ analysisCategory = "transmission_data"
 rawDataFolder = os.path.join(wd, "rawData", analysisCategory)
 processedDataFolder = os.path.join(wd, "processedData", analysisCategory)
 
-# rawDataFolder = os.path.join(wd, "rawData")
-# processedDataFolder = os.path.join(wd, "processedData/")
 # %%
 tadsFileAddr = os.path.join(rawDataFolder, "TADS 2024 AC Inventory.csv")
 dfTads0 = pd.read_csv(tadsFileAddr)
@@ -53,16 +51,13 @@ veloFileTlinesAddr = os.path.join(
     rawDataFolder, filenameVeloTlines
 )  # tlines units which are <= 50miles from `Chicago/Ohare` weather station
 print(veloFileTlinesAddr)
-# veloFileTlinesAddr = os.path.join(rawDataFolder, "tlines-near-chicago-ohare-raw.xlsx") # tlines which are <= 50miles from `Chicago/Ohare` weather station
-# print(veloFileTlinesAddr)
+
 dfVeloTlines0 = pd.read_excel(veloFileTlinesAddr, engine='openpyxl')
 sizeVelo0 = dfVeloTlines0.shape
 print(f"Size of velocity suite db before any filtering: {sizeVelo0[0]}, {sizeVelo0[1]}")
 # dfVeloTlines0
 
 # %%
-# Filter rows with 'Undetermined Company`
-# dfVeloTlines = dfVeloTlines0[ dfVeloTlines0['Company Name'] != 'Undetermined Company' ]
 # Filter tlines with less than 100kV voltage
 dfVeloTlines = dfVeloTlines0.copy()
 dfVeloTlines = dfVeloTlines[ dfVeloTlines['Voltage kV'] >= 100 ]
@@ -76,7 +71,6 @@ numCompaniesVelo = len(companyNamesVelo)
 print(f"There are {numCompaniesVelo} named companies owning the tlines near {location}")
 print(f"Their names are:")
 print(companyNamesVelo)
-# dfVeloTlines
 
 # %%
 print(f"Now let's see how many tlines are owned by these {numCompaniesVelo} "       "companies in the entire TADS database:")
@@ -87,9 +81,6 @@ veloTlinesSortedAddr = os.path.join(
     processedDataFolder, "dfVelo-" + components1 + "-" + location + "-Sorted" + ext
 )
 dfVeloTlinesSorted.to_excel(veloTlinesSortedAddr, index=False)
-
-# veloSortedAddr = os.path.join(processedDataFolder, "dfVeloTlines-Chicago-Ohare-Sorted.xlsx")
-# dfVeloTlinesSorted.to_excel(veloSortedAddr, index=False)
 
 print(""f"But first I'll need to rename some companies in vs db to match with the exact strings of the TADS db.")
 
@@ -127,8 +118,6 @@ print(f"Size of TADS db after filtering: {sizeTads[0]}, {sizeTads[1]}")
 
 dfTadsSorted = sort_and_shift_columns(dfTads)
 
-# tadsSortedAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Sorted.xlsx")
-
 tadsSortedAddr = os.path.join(
     processedDataFolder,
     "dfTads-" + components1 + "-" + location + "-Sorted" + ext,
@@ -136,14 +125,11 @@ tadsSortedAddr = os.path.join(
 
 dfTadsSorted.to_excel(tadsSortedAddr, index=False)
 
-# dfTadsLatest = filter_tlines_by_latest_reported_year(dfTadsSorted)
 dfTadsLatest = get_latest_entries(dfTadsSorted)
 
 sizeTadsLatest = dfTadsLatest.shape
 
 print(f"Size of TADS db after filtering for only latest reported year: {sizeTadsLatest[0]}, {sizeTadsLatest[1]}")
-
-# tadsLatestAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Latest.xlsx")
 
 tadsLatestAddr = os.path.join(
     processedDataFolder,
@@ -164,12 +150,11 @@ tadsMatch_with_VSTlines_Addr = os.path.join(
     "dfTads-" + components1 + "-" + location + "-Matched-with-VSTlines" + ext,
 )
 
-# matchAddr = os.path.join(processedDataFolder, "dfTads-Chicago-Ohare-Matched.xlsx")
 dfMatchTads_with_VSTlines.to_excel(tadsMatch_with_VSTlines_Addr, index=False)
 
 # %%
 dfMatchTads_with_VSTlines_Reduced = get_reduced_df(dfMatchTads_with_VSTlines)
-# matchReducedAddr = os.path.join(processedDataFolder, "chicago-ohare-lines.xlsx")
+
 tadsMatch_with_VSTlines_Reduced_Addr = os.path.join(
     processedDataFolder,
     "dfTads-" + components1 + "-" + location + "-Matched-with-VSTlines-Reduced" + ext,

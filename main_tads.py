@@ -178,7 +178,7 @@ dfMatchTads_with_VSTlines_Reduced.to_excel(
     tadsMatch_with_VSTlines_Reduced_Addr, index=False
 )
 
-size = dfMatchTads_with_VSTlines.shape
+size = dfMatchTads_with_VSTlines_Reduced.shape
 print(
     f"Size of matched TADS db entries after formatting them based on desired final format: {size[0]}, {size[1]}"
 )

@@ -78,6 +78,16 @@ veloPValidEIAAddr = os.path.join(processedDataFolder, "dfVelo-"+components2+"-"+
 # Table 1: All Gen Plants from Velocity Suite which are 50 mi from location, have valid EIA, sorted by 'Plant Name' and then 'Plant Operator Name'.
 dfVeloPEIA.to_excel(veloPValidEIAAddr, index=False)
 
+# For reference (but not actually used for making matches), computing how many plants from VS are eligible to be in GADS (GADS has a cutoff rating of 75MW for its Plants)
+dfVeloPEIA_comb = computeCombinedMWRating(dfVeloPEIA)
+
+dfVeloPEIA_75 = dfVeloPEIA_comb[dfVeloPEIA_comb['Combined Cap MW'] >= 75]
+
+size = dfVeloPEIA_75.shape
+print(
+    f"Size of velocity suite Gen Plants db after filtering for plants having rating less than 75MW: {size[0]}, {size[1]}"
+)
+
 veloPStates = set(dfVeloPEIA['State'])
 
 # Housekeeping on dfGads

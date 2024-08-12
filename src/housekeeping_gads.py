@@ -5,24 +5,29 @@ import us
 
 def match_by_eia_code(dfVeloP, dfGads):
     """
-    Filters the dfGads DataFrame to include only rows where the 'EIACode' matches any 'EIA ID' found in the dfVeloP DataFrame.
+    Filters `dfGads` at places with matching `EIACode` in `dfVeloP`
+    
+    Filters the `dfGads` DataFrame to include only rows where the `'EIACode'` matches
+    any `'EIA ID'` found in the `dfVeloP` DataFrame.
+    
+    Parameters
     ----------
-    Parameters:
-    ----------
-    dfVeloP : pandas.DataFrame
-        A DataFrame from Velocity Suite containing at least the 'EIA ID' column, which represents
+    - `dfVeloP` : pandas.DataFrame
+        A DataFrame from Velocity Suite containing at least the `'EIA ID'` column, which represents
         unique identifiers for plants in the Velocity suite dataset.
-    dfGads : pandas.DataFrame
-        A DataFrame from GADS containing at least the 'EIACode' column, which represents
+    - `dfGads` : pandas.DataFrame
+        A DataFrame from GADS containing at least the `'EIACode'` column, which represents
         unique identifiers for units in the GADS dataset.
-    Returns:
-    -------
+
+    Returns
+    ----------
     dfGadsFiltered : pandas.DataFrame
         A filtered GADS DataFrame that includes only the rows from dfGads where
-        'EIACode' matches any 'EIA ID' from dfVeloP.
+        `'EIACode'` matches any `'EIA ID'` from `dfVeloP`.
 
-    Example:
-    -------
+    Example
+    ----------
+    ```
     >>> dfVeloP = pd.DataFrame({'EIA ID': [10474, 10521, 10552]})
     >>> dfGads = pd.DataFrame({'EIACode': [10474, 12345, 10552, 67890]})
     >>> dfGadsFiltered = match_by_eia_code(dfVeloP, dfGads)
@@ -30,6 +35,7 @@ def match_by_eia_code(dfVeloP, dfGads):
         EIACode
     0    10474
     2    10552
+    ```
     """
     # Get the unique 'EIA ID' values from dfVeloP
     eia_ids = dfVeloP["EIA ID"].unique()
@@ -42,27 +48,30 @@ def match_by_eia_code(dfVeloP, dfGads):
 
 def match_by_eia_code_and_add_recid(dfVeloP, dfGads):
     """
-    Filters the dfGads DataFrame to include only rows where the 'EIACode'
-    matches any 'EIA ID' found in the dfVeloP DataFrame, and appends the
-    corresponding 'Rec_ID' from dfVeloP to the filtered dfGads.
+    Filters dfGads at places where it has a matching EIA Code with `dfVeloP`
+    
+    Filters the `dfGads` DataFrame to include only rows where the `'EIACode'` matches any `'EIA ID'` found in the `dfVeloP` DataFrame, and appends the corresponding `'Rec_ID'` from `dfVeloP` to the filtered `dfGads`.
+
+    Parameters
     ----------
-    ### Parameters:
-    - dfVeloP : pandas.DataFrame
-        A DataFrame from the Velocity Suite containing at least the 'EIA ID'
-        and 'Rec_ID' columns. 'EIA ID' represents unique identifiers for
-        plants, and 'Rec_ID' is the corresponding record identifier unique to Velocity Suite.
-    - dfGads : pandas.DataFrame
+    - `dfVeloP` : pandas.DataFrame
+        A DataFrame from the Velocity Suite containing at least the `'EIA ID'`
+        and `'Rec_ID'` columns. `'EIA ID'` represents unique identifiers for
+        plants, and `'Rec_ID'` is the corresponding record identifier unique to Velocity Suite.
+    - `dfGads` : pandas.DataFrame
         A DataFrame from the Generation Availability Data System (GADS)
-        containing at least the 'EIACode' column, which represents unique
+        containing at least the `'EIACode'` column, which represents unique
         identifiers for units.
+
+    Returns
     ----------
-    ### Returns:
-    dfGadsFiltered : pandas.DataFrame
-        A filtered DataFrame that includes only the rows from dfGads where
-        'EIACode' matches any 'EIA ID' from dfVeloP, with an additional
-        'Rec_ID' column from dfVeloP.
+    `dfGadsFiltered` : pandas.DataFrame
+        A filtered DataFrame that includes only the rows from `dfGads` where
+        `'EIACode'` matches any `'EIA ID'` from `dfVeloP`, with an additional
+        `'Rec_ID'` column from `dfVeloP`.
+
+    Example
     ----------
-    ### Example:
     ```
     >>> dfVeloP = pd.DataFrame({
     ...     'EIA ID': [10474, 10521, 10552],

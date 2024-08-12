@@ -109,6 +109,49 @@ def match_by_eia_code_and_add_recid(dfVeloP, dfGads):
 
 
 def match_by_plant_name_and_add_eia_recid(dfVeloP, dfVeloU):
+    """
+    Merge dfVeloP and dfVeloU on 'Plant Name' to add 'EIA ID' and 'Rec_ID'.
+
+    This function merges dfVeloP and dfVeloU DataFrames based on the 'Plant Name'
+    column, appending the corresponding 'EIA ID' and 'Rec_ID' from dfVeloP
+    to the matched rows in dfVeloU.
+
+    Parameters
+    ----------
+    - `dfVeloP` : pandas.DataFrame
+        A DataFrame from the Velocity Suite containing at least the `'Plant Name'`,
+        `'EIA ID'`, and `'Rec_ID'` columns. `'Plant Name'` represents the name
+        of the plant, `'EIA ID'` represents the unique identifier for plants,
+        and `'Rec_ID'` is the corresponding record identifier unique to the Velocity Suite.
+
+    - `dfVeloU` : pandas.DataFrame
+        A DataFrame from the Velocity Suite or another related dataset containing
+        at least the `'Plant Name'` column. This DataFrame will be enriched with
+        the `'EIA ID'` and `'Rec_ID'` columns from `dfVeloP`.
+
+    Returns
+    ----------
+    `dfMerged` : pandas.DataFrame
+        A DataFrame that includes all rows from `dfVeloU` with additional columns
+        `'EIA ID'` and `'Rec_ID'` from `dfVeloP` where the `'Plant Name'` matches.
+
+    Example
+    ----------
+    >>> dfVeloP = pd.DataFrame({
+    ...     'Plant Name': ['Plant A', 'Plant B', 'Plant C'],
+    ...     'EIA ID': [101, 102, 103],
+    ...     'Rec_ID': ['R1', 'R2', 'R3']
+    ... })
+    >>> dfVeloU = pd.DataFrame({
+    ...     'Plant Name': ['Plant A', 'Plant D', 'Plant C']
+    ... })
+    >>> dfMerged = match_by_plant_name_and_add_eia_recid(dfVeloP, dfVeloU)
+    >>> print(dfMerged)
+        Plant Name  EIA ID Rec_ID
+    0    Plant A     101     R1
+    1    Plant D     NaN    NaN
+    2    Plant C     103     R3
+    """
     # Merge dfVeloP and dfVeloU on 'Plant Name' to add 'EIA ID' from dfVeloP to dfVeloU
     dfMerged = pd.merge(
         dfVeloU, dfVeloP[["Plant Name", "EIA ID", "Rec_ID"]], on="Plant Name", how="left"
@@ -118,6 +161,43 @@ def match_by_plant_name_and_add_eia_recid(dfVeloP, dfVeloU):
 
 
 def eia_filtering(df, column_name="EIA ID"):
+    """
+    Filter and clean EIA ID values in the specified column of a DataFrame.
+
+    This function filters out rows where the specified column (`column_name`)
+    contains NaN or 0 values. It also cleans up the values in the column by
+    removing leading zeros and handling cases where the values are formatted
+    as lists or ranges (e.g., "12345:67890" or "12345,67890") by keeping only
+    the first number.
+
+    Parameters
+    ----------
+    - `df` : pandas.DataFrame
+        The DataFrame containing the column to be filtered and cleaned.
+
+    - `column_name` : str, optional (default="EIA ID")
+        The name of the column in `df` that contains the EIA IDs to be filtered
+        and cleaned.
+
+    Returns
+    ----------
+    `df_filtered` : pandas.DataFrame
+        A DataFrame where the specified column has been filtered for NaN or 0
+        values and cleaned of leading zeros and unwanted characters.
+
+    Example
+    ----------
+    >>> df = pd.DataFrame({
+    ...     'EIA ID': ['00235', '02341', '0', None, '12345:67890', '12345,67890']
+    ... })
+    >>> df_filtered = eia_filtering(df, column_name="EIA ID")
+    >>> print(df_filtered)
+        EIA ID
+    0    235
+    1   2341
+    4  12345
+    5  12345
+    """
     # Drop rows where the specified column is NaN or 0
     df_filtered = df.dropna(subset=[column_name]).copy()
     df_filtered = df_filtered[df_filtered[column_name] != 0]

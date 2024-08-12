@@ -257,6 +257,45 @@ def computeCombinedMWRating(dfVeloP):
 
 
 def filter_states(dfGads, veloStates):
+    """
+    Filter rows in dfGads based on state abbreviations in veloStates.
+
+    This function filters the `dfGads` DataFrame to include only rows where
+    the state name in `StateName` matches any state abbreviation in the
+    `veloStates` set. The function temporarily maps full state names to their
+    abbreviations using the `us` package and then filters based on those
+    abbreviations.
+
+    Parameters
+    ----------
+    - `dfGads` : pandas.DataFrame
+        A DataFrame from the Generation Availability Data System (GADS) containing
+        at least the `StateName` column, which holds the full names of U.S. states.
+
+    - `veloStates` : set
+        A set of state abbreviations (e.g., `{"IL", "IN", "WI"}`) against which
+        the DataFrame will be filtered.
+
+    Returns
+    ----------
+    `dfGadsFilt` : pandas.DataFrame
+        A filtered DataFrame that includes only the rows from `dfGads` where
+        the `StateName` corresponds to a state abbreviation in `veloStates`.
+
+    Example
+    ----------
+    >>> import us
+    >>> dfGads = pd.DataFrame({
+    ...     'StateName': ['Illinois', 'Indiana', 'Wisconsin', 'Ohio', 'Michigan']
+    ... })
+    >>> veloStates = {'IL', 'IN', 'WI'}
+    >>> dfGadsFilt = filter_states(dfGads, veloStates)
+    >>> print(dfGadsFilt)
+        StateName
+    0  Illinois
+    1   Indiana
+    2 Wisconsin
+    """
     # Create a mapping of full state names to their abbreviations using the us package
     state_abbreviations = {state.name: state.abbr for state in us.states.STATES}
 
@@ -272,6 +311,41 @@ def filter_states(dfGads, veloStates):
     return dfGadsFilt
 
 def sort_and_reorder_columns(df, sort_columns=None):
+    """
+    Sort and reorder columns in a DataFrame.
+
+    This function sorts the DataFrame by the specified columns and then reorders
+    the columns so that the sorted columns appear at the front of the DataFrame.
+
+    Parameters
+    ----------
+    - `df` : pandas.DataFrame
+        The DataFrame to be sorted and reordered.
+
+    - `sort_columns` : list, optional (default=["UnitName", "UtilityName"])
+        A list of columns by which to sort the DataFrame. If not provided,
+        the DataFrame is sorted by "UnitName" and "UtilityName" by default.
+
+    Returns
+    ----------
+    `df_reordered` : pandas.DataFrame
+        A DataFrame that has been sorted by the specified columns and reordered
+        so that the sorted columns appear at the front.
+
+    Example
+    ----------
+    >>> df = pd.DataFrame({
+    ...     'UtilityName': ['Utility A', 'Utility B', 'Utility C'],
+    ...     'UnitName': ['Unit 2', 'Unit 1', 'Unit 3'],
+    ...     'Capacity': [100, 200, 150]
+    ... })
+    >>> df_reordered = sort_and_reorder_columns(df)
+    >>> print(df_reordered)
+        UnitName UtilityName  Capacity
+    1   Unit 1   Utility B       200
+    0   Unit 2   Utility A       100
+    2   Unit 3   Utility C       150
+    """
     if sort_columns is None:
         sort_columns = ["UnitName", "UtilityName"]
 

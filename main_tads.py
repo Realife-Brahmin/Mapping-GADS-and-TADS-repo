@@ -41,8 +41,8 @@ print(f"There are {numCompaniesTads0} unique companies owning tlines in the enti
 # display(dftads)
 
 # %%
-location = "chicago-ohare"
-# location = "newYork-jfk"
+# location = "chicago-ohare"
+location = "newYork-jfk"
 components1 = "tlines"
 ext = ".xlsx"
 # location = "chicago-ohare"
@@ -102,10 +102,14 @@ if location == "chicago-ohare" :
     companyNamesVelo2Tads.add("Commonwealth Edison Company")
     print(companyNamesVelo2Tads)
 
+elif location == "newYork-jfk" :
+    companyNamesVelo2Tads.discard("Commonwealth Edison Co")
+    companyNamesVelo2Tads.add("Commonwealth Edison Company")
+    
 
 # %%
 dfTads = dfTads0.copy()
-dfTads = dfTads[dfTads['CompanyName'].isin(companyNamesVelo2Tads)]
+# dfTads = dfTads[dfTads['CompanyName'].isin(companyNamesVelo2Tads)]
 voltageClassesTads0 = set(dfTads['VoltageClassCodeName'])
 print(voltageClassesTads0)
 voltageClassesAllowedTads = voltageClassesTads0.copy()

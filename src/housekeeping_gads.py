@@ -240,7 +240,42 @@ def filterRetiredPlants(dfVeloP):
     return dfVeloP_filtered
 
 
-def computeCombinedMWRating(dfVeloP):
+def computeCombinedMWRating(dfVeloP):   
+    """
+    Compute and add a 'Combined Cap MW' column by summing capacity columns.
+
+    This function computes the sum of specified capacity columns in the `dfVeloP`
+    DataFrame and adds the result as a new column named 'Combined Cap MW'.
+
+    Parameters
+    ----------
+    - `dfVeloP` : pandas.DataFrame
+        A DataFrame from the Velocity Suite containing columns for various
+        capacity measures, such as "Operating Cap MW", "Planned Cap MW",
+        "Canceled Cap MW", "Mothballed Cap MW", and "Retired Cap MW".
+
+    Returns
+    ----------
+    `dfVeloP` : pandas.DataFrame
+        The input DataFrame with an additional column 'Combined Cap MW' that
+        represents the sum of the specified capacity columns for each row.
+
+    Example
+    ----------
+    >>> dfVeloP = pd.DataFrame({
+    ...     'Operating Cap MW': [100, 200, 150],
+    ...     'Planned Cap MW': [50, 30, 20],
+    ...     'Canceled Cap MW': [10, 5, 0],
+    ...     'Mothballed Cap MW': [0, 0, 0],
+    ...     'Retired Cap MW': [0, 50, 100]
+    ... })
+    >>> dfVeloP = computeCombinedMWRating(dfVeloP)
+    >>> print(dfVeloP)
+        Operating Cap MW  Planned Cap MW  Canceled Cap MW  Mothballed Cap MW  Retired Cap MW  Combined Cap MW
+    0               100              50               10                  0               0              160
+    1               200              30                5                  0              50              285
+    2               150              20                0                  0             100              270
+    """
     # Columns to sum up
     capacity_columns = [
         "Operating Cap MW",

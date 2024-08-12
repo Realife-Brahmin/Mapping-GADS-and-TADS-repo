@@ -2,7 +2,7 @@
 # pylint: disable=undefined-variable line-too-long invalid-name missing-function-docstring f-string-without-interpolation wrong-import-position
 
 import os
-import importlib
+import importlib # supposed to keep any function definitions updated whenever a new function call is made
 import pandas as pd
 
 try:

@@ -219,6 +219,38 @@ def eia_filtering(df, column_name="EIA ID"):
 
 
 def filter_non_empty_column(df, column_name="EIA ID"):
+    """
+    Filter out rows with NaN values in the specified column.
+
+    This function filters the `df` DataFrame to exclude rows where the specified
+    column (`column_name`) contains NaN values.
+
+    Parameters
+    ----------
+    - `df` : pandas.DataFrame
+        The DataFrame to be filtered.
+
+    - `column_name` : str, optional (default="EIA ID")
+        The name of the column in `df` to check for NaN values. Rows with NaN
+        values in this column will be dropped.
+
+    Returns
+    ----------
+    `df_filtered` : pandas.DataFrame
+        A DataFrame that excludes rows where the specified column contains NaN values.
+
+    Example
+    ----------
+    >>> df = pd.DataFrame({
+    ...     'EIA ID': [12345, None, 67890, None],
+    ...     'Plant Name': ['Plant A', 'Plant B', 'Plant C', 'Plant D']
+    ... })
+    >>> df_filtered = filter_non_empty_column(df, column_name="EIA ID")
+    >>> print(df_filtered)
+        EIA ID Plant Name
+    0  12345    Plant A
+    2  67890    Plant C
+    """
     # Drop rows where the specified column is NaN
     df_filtered = df.dropna(subset=[column_name]).copy()
 
@@ -226,6 +258,41 @@ def filter_non_empty_column(df, column_name="EIA ID"):
 
 
 def filterRetiredPlants(dfVeloP):
+    """
+    Filter out plants that have no non-zero values in specified capacity columns.
+
+    This function filters the `dfVeloP` DataFrame to exclude rows (plants) that
+    have zero values in all of the specified capacity columns: "Operating Cap MW",
+    "Planned Cap MW", "Canceled Cap MW", and "Mothballed Cap MW".
+
+    Parameters
+    ----------
+    - `dfVeloP` : pandas.DataFrame
+        A DataFrame from the Velocity Suite containing columns that represent
+        various capacity measures such as "Operating Cap MW", "Planned Cap MW",
+        "Canceled Cap MW", and "Mothballed Cap MW".
+
+    Returns
+    ----------
+    `dfVeloP_filtered` : pandas.DataFrame
+        A DataFrame that includes only the plants from `dfVeloP` that have
+        non-zero values in at least one of the specified capacity columns.
+
+    Example
+    ----------
+    >>> dfVeloP = pd.DataFrame({
+    ...     'Operating Cap MW': [100, 0, 0],
+    ...     'Planned Cap MW': [0, 0, 0],
+    ...     'Canceled Cap MW': [0, 0, 10],
+    ...     'Mothballed Cap MW': [0, 0, 0],
+    ...     'Retired Cap MW': [50, 100, 200]
+    ... })
+    >>> dfVeloP_filtered = filterRetiredPlants(dfVeloP)
+    >>> print(dfVeloP_filtered)
+        Operating Cap MW  Planned Cap MW  Canceled Cap MW  Mothballed Cap MW  Retired Cap MW
+    0               100               0                0                  0              50
+    2                 0               0               10                  0             200
+    """
     # Columns to check for non-zero values
     capacity_columns = [
         "Operating Cap MW",

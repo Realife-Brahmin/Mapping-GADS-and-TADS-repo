@@ -260,16 +260,8 @@ def filter_states(dfGads, veloStates):
     # Create a mapping of full state names to their abbreviations using the us package
     state_abbreviations = {state.name: state.abbr for state in us.states.STATES}
 
-    # Print the state abbreviations mapping for debugging
-    # print("State Abbreviations Mapping:")
-    # print(state_abbreviations)
-
     # Map StateName to state abbreviations
     dfGads["StateAbbreviation"] = dfGads["StateName"].map(state_abbreviations)
-
-    # Print a sample of the DataFrame to debug the mapping
-    # print("Sample of dfGads with StateAbbreviation:")
-    # print(dfGads[["StateName", "StateAbbreviation"]].head(10))
 
     # Filter dfGads based on the StateAbbreviation being in veloStates
     dfGadsFilt = dfGads[dfGads["StateAbbreviation"].isin(veloStates)]

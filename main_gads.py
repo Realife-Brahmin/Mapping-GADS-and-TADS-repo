@@ -21,6 +21,7 @@ from src.housekeeping_gads import (
     computeCombinedMWRating, #Forward Declaration
     # filter_non_empty_column,  # Forward Declaration
     match_by_eia_code_and_add_recid,  # Forward Declaration
+    match_by_eia_code_and_add_recid1, # Forward Declaration
     match_by_plant_name_and_add_eia_recid,  # Forward Declaration
     sort_and_reorder_columns,  # Forward Declaration
 )
@@ -117,13 +118,19 @@ gadsFiltEIAAddr = os.path.join(
 
 dfGadsFiltEIA.to_excel(gadsFiltEIAAddr, index=False)
 # %% Match all Gen Units from GADS to Gen Plants from Velocity Suite based on EIA
-dfMatchGads_with_VSPlants = match_by_eia_code_and_add_recid(dfVeloPEIA, dfGadsFilt)
+# dfMatchGads_with_VSPlants = match_by_eia_code_and_add_recid(dfVeloPEIA, dfGadsFilt)
+dfMatchGads_with_VSPlants, dfMatchVSPlants_with_Gads = match_by_eia_code_and_add_recid1(dfVeloPEIA, dfGadsFilt, getMatchVeloP=True)
 
 sizeMatchGads_with_VSPlants = dfMatchGads_with_VSPlants.shape
+sizeMatchVSPlants_with_Gads = dfMatchVSPlants_with_Gads.shape
+
 print(
     f"Size of GADS db after matching EIA Codes with Velocity Suite Plants: {sizeMatchGads_with_VSPlants[0]}, {sizeMatchGads_with_VSPlants[1]}"
 )
 
+print(
+    f"Number of Velocity Suite Units matched into GADS db: {sizeMatchVSPlants_with_Gads[0]}, {sizeMatchVSPlants_with_Gads[1]}"
+)
 
 numUniqueMatchedPlants = len(set(dfMatchGads_with_VSPlants['Rec_ID']))
 
@@ -135,8 +142,14 @@ gadsMatch_with_VSPlants_Addr = os.path.join(
     processedDataFolder, "dfGads-" + components1 + "-" + location + "-Matched-with-VSPlants" + ext
 )
 
+gadsMatchVSPlants_with_Gads_Addr = os.path.join(
+    processedDataFolder,
+    "dfVeloP-" + components1 + "-" + location + "-Matched-with-Gads" + ext,
+)
 # Table 2: All Gen Units from GADS which were matched with Gen Plants from Velocity Suite on the basis of EIA, and attach Rec IDs too. Addtionally the rows are sorted by Unit Name and Utility Name and those columns are brought to the front.
 dfMatchGads_with_VSPlants.to_excel(gadsMatch_with_VSPlants_Addr, index=False)
+
+dfMatchVSPlants_with_Gads.to_excel(gadsMatchVSPlants_with_Gads_Addr, index=False)
 # %% Importing Gen Units from Velocity Suite and Housekeeping
 filenameVeloGenUnits = components1 + "-near-" + location + "-raw" + ext
 veloFileGenUnitsAddr = os.path.join(
@@ -192,11 +205,21 @@ veloUMatchEIAAddr = os.path.join(
 dfMatchVeloUEIA.to_excel(veloUMatchEIAAddr, index=False)
 
 # %% Now let's match rows from Table 2 (GADS Gen Units) and Table 3 (Velocity Suite Gen Units) based on EIA Codes
-dfMatchGads_with_VSUnits = match_by_eia_code_and_add_recid(dfMatchVeloUEIA, dfGadsFilt)
+# dfMatchGads_with_VSUnits = match_by_eia_code_and_add_recid(dfMatchVeloUEIA, dfGadsFilt)
+dfMatchGads_with_VSUnits, dfMatchVSUnits_with_Gads = match_by_eia_code_and_add_recid1(
+    dfMatchVeloUEIA, dfGadsFilt, getMatchVeloP=True
+)
+
 
 sizeMatchGads_with_VSUnits = dfMatchGads_with_VSUnits.shape
+sizeMatchVSUNits_withGads = dfMatchVSUnits_with_Gads.shape
+
 print(
     f"Size of GADS db after matching EIA Codes with Velocity Suite Units: {sizeMatchGads_with_VSUnits[0]}, {sizeMatchGads_with_VSUnits[1]}"
+)
+
+print(
+    f"Number of Velocity Suite Units matched into GADS db: {sizeMatchVSUNits_withGads[0]}, {sizeMatchVSUNits_withGads[1]}"
 )
 
 numUniqueMatchedPlants_via_VSUnits = len(set(dfMatchGads_with_VSUnits["Rec_ID"]))

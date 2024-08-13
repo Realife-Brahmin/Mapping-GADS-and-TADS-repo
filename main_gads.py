@@ -142,14 +142,14 @@ gadsMatch_with_VSPlants_Addr = os.path.join(
     processedDataFolder, "dfGads-" + components1 + "-" + location + "-Matched-with-VSPlants" + ext
 )
 
-gadsMatchVSPlants_with_Gads_Addr = os.path.join(
+VSPlantsMatch_with_Gads_Addr = os.path.join(
     processedDataFolder,
-    "dfVeloP-" + components1 + "-" + location + "-Matched-with-Gads" + ext,
+    "dfVelo-" + components2 + "-" + location + "-Matched-with-Gads" + ext,
 )
 # Table 2: All Gen Units from GADS which were matched with Gen Plants from Velocity Suite on the basis of EIA, and attach Rec IDs too. Addtionally the rows are sorted by Unit Name and Utility Name and those columns are brought to the front.
 dfMatchGads_with_VSPlants.to_excel(gadsMatch_with_VSPlants_Addr, index=False)
 
-dfMatchVSPlants_with_Gads.to_excel(gadsMatchVSPlants_with_Gads_Addr, index=False)
+dfMatchVSPlants_with_Gads.to_excel(VSPlantsMatch_with_Gads_Addr, index=False)
 # %% Importing Gen Units from Velocity Suite and Housekeeping
 filenameVeloGenUnits = components1 + "-near-" + location + "-raw" + ext
 veloFileGenUnitsAddr = os.path.join(
@@ -232,12 +232,12 @@ gadsMatch_with_VSUnits_Addr = os.path.join(
     "dfGads-" + components1 + "-" + location + "-Matched-with-VSUnits" + ext,
 )
 
-gadsMatchVSUnits_with_Gads_Addr = os.path.join(
+VSUnitsMatch_with_Gads_Addr = os.path.join(
     processedDataFolder,
-    "dfVeloU-" + components1 + "-" + location + "-Matched-with-Gads" + ext,
+    "dfVelo-" + components1 + "-" + location + "-Matched-with-Gads" + ext,
 )
 # Table 4: All Gen Units from GADS which were matched with Gen Units from Velocity Suite on the basis of EIA and attach Rec IDs too (note that VS Gen Units didn't originally have EIA, they were mapped from VS Gen Plants). Addtionally the rows are sorted by Unit Name and Utility Name and those columns are brought to the front.
 dfMatchGads_with_VSUnits.to_excel(gadsMatch_with_VSUnits_Addr, index=False)
 
-dfMatchVSUnits_with_Gads.to_excel(gadsMatchVSUnits_with_Gads_Addr, index=False)
+dfMatchVSUnits_with_Gads.to_excel(VSUnitsMatch_with_Gads_Addr, index=False)
 # %%

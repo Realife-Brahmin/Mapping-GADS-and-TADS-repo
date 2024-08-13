@@ -131,69 +131,6 @@ def match_by_eia_code_and_add_recid(dfVeloP, dfGads, getMatchVeloP=False):
 
     return dfGadsFiltered
 
-
-# def match_by_eia_code_and_add_recid(dfVeloP, dfGads):
-    """
-    Filters dfGads at places where it has a matching EIA Code with `dfVeloP`
-    
-    Filters the `dfGads` DataFrame to include only rows where the `'EIACode'` matches any `'EIA ID'` found in the `dfVeloP` DataFrame, and appends the corresponding `'Rec_ID'` from `dfVeloP` to the filtered `dfGads`.
-
-    Parameters
-    ----------
-    - `dfVeloP` : pandas.DataFrame
-        A DataFrame from the Velocity Suite containing at least the `'EIA ID'`
-        and `'Rec_ID'` columns. `'EIA ID'` represents unique identifiers for
-        plants, and `'Rec_ID'` is the corresponding record identifier unique to Velocity Suite.
-    - `dfGads` : pandas.DataFrame
-        A DataFrame from the Generation Availability Data System (GADS)
-        containing at least the `'EIACode'` column, which represents unique
-        identifiers for units.
-
-    Returns
-    ----------
-    `dfGadsFiltered` : pandas.DataFrame
-        A filtered DataFrame that includes only the rows from `dfGads` where
-        `'EIACode'` matches any `'EIA ID'` from `dfVeloP`, with an additional
-        `'Rec_ID'` column from `dfVeloP`.
-
-    Example
-    ----------
-    ```
-    >>> dfVeloP = pd.DataFrame({
-    ...     'EIA ID': [10474, 10521, 10552],
-    ...     'Rec_ID': ['R1', 'R2', 'R3']
-    ... })
-    >>> dfGads = pd.DataFrame({
-    ...     'EIACode': [10474, 12345, 10552, 67890]
-    ... })
-    >>> dfGadsFiltered = match_by_eia_code_and_add_recid(dfVeloP, dfGads)
-    >>> print(dfGadsFiltered)
-        EIACode Rec_ID
-    0    10474     R1
-    2    10552     R3
-    ```
-    """
-    # Drop duplicates in dfVeloP to avoid creating extra rows in the merge
-    dfVeloP_unique = dfVeloP[["EIA ID", "Rec_ID"]].drop_duplicates(subset=["EIA ID"])
-
-    # Merge dfVeloP and dfGads on 'EIA ID' and 'EIACode' columns to add 'Rec_ID' from dfVeloP to dfGads
-    dfMerged = pd.merge(
-        dfGads,
-        dfVeloP_unique,
-        left_on="EIACode",
-        right_on="EIA ID",
-        how="left",
-    )
-
-    # Drop rows where 'Rec_ID' is NaN (implying no matching EIA ID)
-    dfGadsFiltered = dfMerged.dropna(subset=["Rec_ID"])
-
-    # Drop the duplicate 'EIA ID' column from the merge
-    dfGadsFiltered = dfGadsFiltered.drop(columns=["EIA ID"])
-
-    return dfGadsFiltered
-
-
 def match_by_plant_name_and_add_eia_recid(dfVeloP, dfVeloU):
     """
     Merge dfVeloP and dfVeloU on 'Plant Name' to add 'EIA ID' and 'Rec_ID'.

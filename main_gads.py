@@ -44,8 +44,8 @@ print(f"There are {numCompaniesGads0} unique companies owning tlines in the enti
 # display(dfgads)
 
 # %% Input Velocity Suite Data for the specific configuration and get some preliminary information about it
-# location = "chicago-ohare"
-location = "newYork-jfk"
+location = "chicago-ohare"
+# location = "newYork-jfk"
 components1 = "genUnits"
 components2 = "genPlants"
 ext = ".xlsx"

@@ -46,7 +46,7 @@ def match_by_eia_code(dfVeloP, dfGads):
     return dfGadsFiltered
 
 
-def match_by_eia_code_and_add_recid1(dfVeloP, dfGads, getMatchVeloP=False):
+def match_by_eia_code_and_add_recid(dfVeloP, dfGads, getMatchVeloP=False):
     """
     Filters dfGads at places where it has a matching EIA Code with `dfVeloP`
     and optionally returns the matching rows from dfVeloP.
@@ -132,7 +132,7 @@ def match_by_eia_code_and_add_recid1(dfVeloP, dfGads, getMatchVeloP=False):
     return dfGadsFiltered
 
 
-def match_by_eia_code_and_add_recid(dfVeloP, dfGads):
+# def match_by_eia_code_and_add_recid(dfVeloP, dfGads):
     """
     Filters dfGads at places where it has a matching EIA Code with `dfVeloP`
     

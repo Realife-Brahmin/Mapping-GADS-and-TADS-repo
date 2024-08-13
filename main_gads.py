@@ -21,7 +21,7 @@ from src.housekeeping_gads import (
     computeCombinedMWRating, #Forward Declaration
     # filter_non_empty_column,  # Forward Declaration
     match_by_eia_code_and_add_recid,  # Forward Declaration
-    match_by_eia_code_and_add_recid1, # Forward Declaration
+    # match_by_eia_code_and_add_recid1, # Forward Declaration
     match_by_plant_name_and_add_eia_recid,  # Forward Declaration
     sort_and_reorder_columns,  # Forward Declaration
 )
@@ -119,7 +119,7 @@ gadsFiltEIAAddr = os.path.join(
 dfGadsFiltEIA.to_excel(gadsFiltEIAAddr, index=False)
 # %% Match all Gen Units from GADS to Gen Plants from Velocity Suite based on EIA
 # dfMatchGads_with_VSPlants = match_by_eia_code_and_add_recid(dfVeloPEIA, dfGadsFilt)
-dfMatchGads_with_VSPlants, dfMatchVSPlants_with_Gads = match_by_eia_code_and_add_recid1(dfVeloPEIA, dfGadsFilt, getMatchVeloP=True)
+dfMatchGads_with_VSPlants, dfMatchVSPlants_with_Gads = match_by_eia_code_and_add_recid(dfVeloPEIA, dfGadsFilt, getMatchVeloP=True)
 
 sizeMatchGads_with_VSPlants = dfMatchGads_with_VSPlants.shape
 sizeMatchVSPlants_with_Gads = dfMatchVSPlants_with_Gads.shape
@@ -206,7 +206,7 @@ dfMatchVeloUEIA.to_excel(veloUMatchEIAAddr, index=False)
 
 # %% Now let's match rows from Table 2 (GADS Gen Units) and Table 3 (Velocity Suite Gen Units) based on EIA Codes
 # dfMatchGads_with_VSUnits = match_by_eia_code_and_add_recid(dfMatchVeloUEIA, dfGadsFilt)
-dfMatchGads_with_VSUnits, dfMatchVSUnits_with_Gads = match_by_eia_code_and_add_recid1(
+dfMatchGads_with_VSUnits, dfMatchVSUnits_with_Gads = match_by_eia_code_and_add_recid(
     dfMatchVeloUEIA, dfGadsFilt, getMatchVeloP=True
 )
 

@@ -199,8 +199,69 @@ def sort_and_shift_columns_dfVelo(df):
 
     return shifted_df
 
-def get_matched_entries(dfVeloSorted, dfTadsLatest):
+
+def get_matched_entries(dfVeloSorted, dfTadsLatest, getMatchVeloTlines=True):
+    """
+    Match entries between dfVeloSorted and dfTadsLatest based on 'From Sub'/'To Sub' and 'FromBus'/'ToBus' pairs.
+
+    This function iterates through `dfVeloSorted` and `dfTadsLatest`, matching rows where the
+    'From Sub'/'To Sub' pair from `dfVeloSorted` matches the 'FromBus'/'ToBus' pair from `dfTadsLatest`,
+    either in the same order or reversed. The matching rows from `dfTadsLatest` are returned in
+    `dfTadsMatched`, with the corresponding 'Rec_ID' from `dfVeloSorted` appended. Optionally,
+    it can also return `dfVeloMatched`, which contains the matched rows from `dfVeloSorted`.
+
+    Parameters
+    ----------
+    - `dfVeloSorted` : pandas.DataFrame
+        A DataFrame sorted by 'From Sub' and 'To Sub', containing transmission line data
+        from the Velocity Suite. It includes columns such as 'From Sub', 'To Sub', and 'Rec_ID'.
+
+    - `dfTadsLatest` : pandas.DataFrame
+        A DataFrame containing transmission line data from the Transmission Availability
+        Database System (TADS). It includes columns such as 'FromBus' and 'ToBus'.
+
+    - `getMatchVeloTlines` : bool, optional (default=True)
+        If set to True, the function will also return a DataFrame containing the rows
+        from `dfVeloSorted` that were matched with `dfTadsLatest`.
+
+    Returns
+    ----------
+    If `getMatchVeloTlines` is False:
+        `dfTadsMatched` : pandas.DataFrame
+            A DataFrame that contains the matched rows from `dfTadsLatest` with an added
+            'Rec_ID' column from `dfVeloSorted`.
+
+    If `getMatchVeloTlines` is True:
+        `dfTadsMatched`, `dfVeloMatched` : pandas.DataFrame, pandas.DataFrame
+            `dfTadsMatched` is as described above.
+            `dfVeloMatched` contains all rows from `dfVeloSorted` that were matched
+            with `dfTadsLatest`.
+
+    Example
+    ----------
+    >>> dfVeloSorted = pd.DataFrame({
+    ...     'From Sub': ['SubA', 'SubB', 'SubC'],
+    ...     'To Sub': ['SubD', 'SubE', 'SubF'],
+    ...     'Rec_ID': ['R1', 'R2', 'R3']
+    ... })
+    >>> dfTadsLatest = pd.DataFrame({
+    ...     'FromBus': ['SubA', 'SubE', 'SubF'],
+    ...     'ToBus': ['SubD', 'SubB', 'SubC']
+    ... })
+    >>> dfTadsMatched, dfVeloMatched = get_matched_entries(dfVeloSorted, dfTadsLatest, getMatchVeloTlines=True)
+    >>> print(dfTadsMatched)
+        FromBus  ToBus Rec_ID
+    0    SubA   SubD     R1
+    1    SubE   SubB     R2
+    2    SubF   SubC     R3
+    >>> print(dfVeloMatched)
+        From Sub  To Sub Rec_ID
+    0     SubA    SubD     R1
+    1     SubB    SubE     R2
+    2     SubC    SubF     R3
+    """
     matched_rows = []
+    matched_velo_rows = []
 
     # Iterate through both DataFrames
     for i in range(len(dfVeloSorted)):
@@ -208,6 +269,8 @@ def get_matched_entries(dfVeloSorted, dfTadsLatest):
             dfVeloSorted.iloc[i]["To Sub"]
         )
         rec_id = dfVeloSorted.iloc[i]["Rec_ID"]
+        matched = False
+
         for j in range(len(dfTadsLatest)):
             from_bus, to_bus = str(dfTadsLatest.iloc[j]["FromBus"]), str(
                 dfTadsLatest.iloc[j]["ToBus"]
@@ -219,10 +282,45 @@ def get_matched_entries(dfVeloSorted, dfTadsLatest):
                 matched_row = dfTadsLatest.iloc[j].copy()
                 matched_row["Rec_ID"] = rec_id
                 matched_rows.append(matched_row)
+                matched = True
+
+        if matched:
+            matched_velo_rows.append(dfVeloSorted.iloc[i])
 
     dfTadsMatched = pd.DataFrame(matched_rows)
 
+    if getMatchVeloTlines:
+        dfVeloMatched = pd.DataFrame(matched_velo_rows)
+        return dfTadsMatched, dfVeloMatched
+
     return dfTadsMatched
+
+
+
+# def get_matched_entries0(dfVeloSorted, dfTadsLatest):
+#     matched_rows = []
+
+#     # Iterate through both DataFrames
+#     for i in range(len(dfVeloSorted)):
+#         from_sub, to_sub = str(dfVeloSorted.iloc[i]["From Sub"]), str(
+#             dfVeloSorted.iloc[i]["To Sub"]
+#         )
+#         rec_id = dfVeloSorted.iloc[i]["Rec_ID"]
+#         for j in range(len(dfTadsLatest)):
+#             from_bus, to_bus = str(dfTadsLatest.iloc[j]["FromBus"]), str(
+#                 dfTadsLatest.iloc[j]["ToBus"]
+#             )
+
+#             if (from_sub == from_bus and to_sub == to_bus) or (
+#                 from_sub == to_bus and to_sub == from_bus
+#             ):
+#                 matched_row = dfTadsLatest.iloc[j].copy()
+#                 matched_row["Rec_ID"] = rec_id
+#                 matched_rows.append(matched_row)
+
+#     dfTadsMatched = pd.DataFrame(matched_rows)
+
+#     return dfTadsMatched
 
 
 def rearrangeColumns(df, col1="FromBus", col2="ToBus"):

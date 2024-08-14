@@ -41,8 +41,8 @@ print(f"There are {numCompaniesTads0} unique companies owning tlines in the enti
 # display(dftads)
 
 # %%
-# location = "chicago-ohare"
-location = "newYork-jfk"
+location = "chicago-ohare"
+# location = "newYork-jfk"
 components1 = "tlines"
 ext = ".xlsx"
 # location = "chicago-ohare"
@@ -86,6 +86,8 @@ print(""f"But first I'll need to rename some companies in vs db to match with th
 
 companyNamesVelo2Tads = companyNamesVelo.copy()  # Create a copy to avoid modifying the original
 
+dfTads = dfTads0.copy()
+
 if location == "chicago-ohare" :
     # Replace the element using the 'discard' method (more efficient for sets)
     companyNamesVelo2Tads.discard("Commonwealth Edison Co")
@@ -101,14 +103,15 @@ if location == "chicago-ohare" :
     companyNamesVelo2Tads.discard("Undetermined Company")
     companyNamesVelo2Tads.add("Commonwealth Edison Company")
     print(companyNamesVelo2Tads)
+    dfTads = dfTads[dfTads['CompanyName'].isin(companyNamesVelo2Tads)]
+
 
 elif location == "newYork-jfk" :
     companyNamesVelo2Tads.discard("Commonwealth Edison Co")
     companyNamesVelo2Tads.add("Commonwealth Edison Company")
-    
+
 
 # %%
-dfTads = dfTads0.copy()
 # dfTads = dfTads[dfTads['CompanyName'].isin(companyNamesVelo2Tads)]
 voltageClassesTads0 = set(dfTads['VoltageClassCodeName'])
 print(voltageClassesTads0)
@@ -127,6 +130,7 @@ tadsSortedAddr = os.path.join(
     "dfTads-" + components1 + "-" + location + "-Sorted" + ext,
 )
 
+# Table 1: All Tlines from TADS whose voltage rating is >100kV. If a user has specified 'remapping' of Velocity Suite Company Names as present in TADS, the database is additionally filtered to contain only Tlines owned by those companies. Lastly the columns FromBus, ToBus and ReportingYearNbr are brought to the front.
 dfTadsSorted.to_excel(tadsSortedAddr, index=False)
 
 dfTadsLatest = get_latest_entries(dfTadsSorted)
@@ -142,11 +146,17 @@ tadsLatestAddr = os.path.join(
 
 dfTadsLatest.to_excel(tadsLatestAddr, index=False)
 # %%
-dfMatchTads_with_VSTlines = get_matched_entries(dfVeloTlinesSorted, dfTadsLatest)
+dfMatchTads_with_VSTlines, dfMatchVSTlines_with_Tads = get_matched_entries(dfVeloTlinesSorted, dfTadsLatest, getMatchVeloTlines=True)
 
 size = dfMatchTads_with_VSTlines.shape
+sizeVeloTlines_Matched_with_Tads = dfMatchVSTlines_with_Tads.shape
+
 print(
     f"Size of TADS db after matching (from bus, to bus) with Velocity Suite Tlines: {size[0]}, {size[1]}"
+)
+
+print(
+    f"Size of Velocity Suite Tlines db after matching (from bus, to bus) with Tads Tlines: {sizeVeloTlines_Matched_with_Tads[0]}, {sizeVeloTlines_Matched_with_Tads[1]}"
 )
 
 tadsMatch_with_VSTlines_Addr = os.path.join(
@@ -154,9 +164,15 @@ tadsMatch_with_VSTlines_Addr = os.path.join(
     "dfTads-" + components1 + "-" + location + "-Matched-with-VSTlines" + ext,
 )
 
+VSTlinesMatch_with_Tads_Addr = os.path.join(
+    processedDataFolder,
+    "dfVelo-" + components1 + "-" + location + "-Matched-with-Tads" + ext,
+)
+
 dfMatchTads_with_VSTlines.to_excel(tadsMatch_with_VSTlines_Addr, index=False)
 
-# %%
+dfMatchVSTlines_with_Tads.to_excel(VSTlinesMatch_with_Tads_Addr, index=False)
+# %% Reducing the clutter of filtered TADS db to generate a dataframe usable for analysis. Based on the template provided by Christopher Claypool.
 dfMatchTads_with_VSTlines_Reduced = get_reduced_df(dfMatchTads_with_VSTlines)
 
 tadsMatch_with_VSTlines_Reduced_Addr = os.path.join(

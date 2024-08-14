@@ -296,7 +296,6 @@ def get_matched_entries(dfVeloSorted, dfTadsLatest, getMatchVeloTlines=True):
     return dfTadsMatched
 
 
-
 # def get_matched_entries0(dfVeloSorted, dfTadsLatest):
 #     matched_rows = []
 
@@ -324,6 +323,46 @@ def get_matched_entries(dfVeloSorted, dfTadsLatest, getMatchVeloTlines=True):
 
 
 def rearrangeColumns(df, col1="FromBus", col2="ToBus"):
+    """
+    Rearrange values between two columns based on lexicographic order.
+
+    This function iterates through each row of the DataFrame and swaps the
+    values of `col1` and `col2` if the value in `col1` is lexicographically
+    greater than the value in `col2`. The purpose is to ensure that the values
+    in `col1` are always lexicographically smaller or equal to the values
+    in `col2`.
+
+    Parameters
+    ----------
+    - `df` : pandas.DataFrame
+        The DataFrame containing the columns to be rearranged.
+
+    - `col1` : str, optional (default="FromBus")
+        The name of the first column to compare and potentially swap.
+
+    - `col2` : str, optional (default="ToBus")
+        The name of the second column to compare and potentially swap.
+
+    Returns
+    ----------
+    `df` : pandas.DataFrame
+        The DataFrame with `col1` and `col2` rearranged so that the values in
+        `col1` are lexicographically smaller or equal to the values in `col2`
+        for each row.
+
+    Example
+    ----------
+    >>> df = pd.DataFrame({
+    ...     'FromBus': ['BusC', 'BusA', 'BusB'],
+    ...     'ToBus': ['BusA', 'BusC', 'BusB']
+    ... })
+    >>> df_rearranged = rearrangeColumns(df, col1="FromBus", col2="ToBus")
+    >>> print(df_rearranged)
+        FromBus  ToBus
+    0    BusA   BusC
+    1    BusA   BusC
+    2    BusB   BusB
+    """
     # Make a copy of the DataFrame to avoid modifying the original
     df = df.copy()
 
